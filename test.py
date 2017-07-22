@@ -1,8 +1,12 @@
 from massalign.core import *
-from massalign.aligners import *
 
-file = '../newsela/corpora/truecased_corpus/orioles-alvarez.en.0.txt'
+file1 = '../newsela/corpora/truecased_corpus/orioles-alvarez.en.0.txt'
+file2 = '../newsela/corpora/truecased_corpus/orioles-alvarez.en.1.txt'
 
 m = MASSAligner()
-data = m.getParagraphsFromDocument(file)
-print data
+p1s = m.getParagraphsFromDocument(file1)
+p2s = m.getParagraphsFromDocument(file2)
+
+aligner = VicinityDrivenParagraphAligner()
+
+alignments = m.getParagraphAlignments(p1s, p2s, aligner) 

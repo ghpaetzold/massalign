@@ -1,6 +1,7 @@
 import os, gensim
 import numpy as np
 from nltk.util import ngrams
+from aligners import *
 
 class MASSAligner:
 	
@@ -33,3 +34,6 @@ class MASSAligner:
 		
 		#Return found paragraphs:
 		return paragraphs
+		
+	def getParagraphAlignments(self, paragraphs1=[], paragraphs2=[], paragraph_aligner=None):
+		return []
