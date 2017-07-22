@@ -37,4 +37,5 @@ class MASSAligner:
 		return paragraphs
 		
 	def getParagraphAlignments(self, paragraphs1=[], paragraphs2=[], paragraph_aligner=None):
+		#Employ the paragraph aligner provided to align paragraphs from documents:
 		return paragraph_aligner.alignParagraphsFromDocuments(paragraphs1, paragraphs2)
