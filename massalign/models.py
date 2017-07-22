@@ -1,6 +1,7 @@
 from abc import ABCMeta, abstractmethod
 import numpy as np
 import gensim
+import codecs
 
 class SimilarityModel:
 
@@ -16,15 +17,34 @@ class SimilarityModel:
 		
 class TFIDFModel(SimilarityModel):
 
-	def __init__(self, stoplistfile=None):
-		self.stoplist = set([line.strip() for line in open(stoplistfile)])
+	def __init__(self, input_files=[], stoplistfile=None):
+		self.tfidf = self.getTFIDFmodel(input_files)
+		self.stoplist = set([line.strip() for line in codecs.open(stoplistfile, encoding='utf8')])
+		
+	def getTFIDFmodel(self, input_files=[]):
+		#Create text sentence set for training:
+		sentences = []
+		for file in input_files:
+			f = codecs.open(file, encoding='utf8')
+			for line in f:
+				sentence = [word for word in line.strip().split(' ') if word not in self.stoplist]
+				sentences.append(sentence)
+			f.close()
+				
+		#Train TFIDF model:
+		dictionary = gensim.corpora.Dictionary(sentences)
+		corpus = [dictionary.doc2bow(sentence) for sentence in sentences]
+		tfidf = gensim.models.TfidfModel(corpus)
+		
+		#Return tfidf model:
+		return tfidf
 	
 	def getSimilarityMapBetweenSentencesOfSentences(self, p1, p2):
 		pass		
 		
 	def getSimilarityMapBetweenParagraphsOfDocuments(self, ps1=[], ps2=[]):
 		#Get TFIDF model controllers:
-		tfidf, index, sent_indexes, sent_similarities = self.getTFIDFControllers(ps1, ps2)
+		index, sent_indexes, sent_similarities = self.getTFIDFControllers(ps1, ps2)
 	
 		#Calculate paragraph similarities:
 		paragraph_similarities = list(np.zeros((len(ps1), len(ps2))))
@@ -48,31 +68,30 @@ class TFIDFModel(SimilarityModel):
 		p1map = self.getSentenceMap(ps1)
 		p2map = self.getSentenceMap(ps2)
 		
-		#Create data structure for TFIDF model:
-		documents = []
+		#Create data structures for similarity calculation:
+		sentences = []
 		sents1 = set(p1map.keys())
 		sents2 = set(p2map.keys())
 		allsents = list(sents1.union(sents2))
 		sent_indexes = {}
 		for i, s in enumerate(allsents):
-			documents.append(s.strip())
+			sentences.append(s.strip())
 			sent_indexes[s] = i
 			
-		#Get TFIDF model and similarity querying framework:
-		texts = [[word for word in document.split() if word not in self.stoplist] for document in documents]
+		#Get similarity querying framework:
+		texts = [[word for word in sentence.split(' ') if word not in self.stoplist] for sentence in sentences]
 		dictionary = gensim.corpora.Dictionary(texts)
 		corpus = [dictionary.doc2bow(text) for text in texts]
-		tfidf = gensim.models.TfidfModel(corpus)
-		index = gensim.similarities.MatrixSimilarity(tfidf[corpus])
+		index = gensim.similarities.MatrixSimilarity(self.tfidf[corpus])
 		
-		#Create TFIDF similarity matrix:
+		#Create similarity matrix:
 		sent_similarities = []
 		for j in range(0, len(allsents)):
-			sims = index[tfidf[corpus[j]]]
+			sims = index[self.tfidf[corpus[j]]]
 			sent_similarities.append(sims)
 				
 		#Return controllers:
-		return tfidf, index, sent_indexes, sent_similarities
+		return index, sent_indexes, sent_similarities
 
 	def getSentenceMap(self, paragraphs):
 		map = {}

@@ -1,6 +1,6 @@
 import os, gensim
 import numpy as np
-from nltk.util import ngrams
+import codecs
 from aligners import *
 from models import *
 
@@ -11,7 +11,7 @@ class MASSAligner:
 		
 	def getParagraphsFromDocument(self, document_path):
 		#Open file and initialize variables:
-		f = open(document_path)
+		f = codecs.open(document_path, encoding='utf8')
 		paragraphs = []
 		
 		#Begin search for paragraphs:

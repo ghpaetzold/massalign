@@ -184,9 +184,9 @@ class VicinityDrivenSentenceAligner(SentenceAligner):
 		self.acceptable_similarity = acceptable_similarity
 		self.similarity_model = similarity_model
 		
-	def alignParagraphsFromDocuments(self, p1s=[], p2s=[]):
+	def alignSentencesFromParagraphs(self, p1s=[], p2s=[]):
 		#Get similarity model:
-		paragraph_similarities = self.similarity_model.getSimilarityMapBetweenParagraphsOfDocuments(p1s, p2s)
+		sentence_similarities = self.similarity_model.getSimilarityMapBetweenParagraphsOfDocuments(p1s, p2s)
 		
 		#Calculate alignment path:
 		path = self.getParagraphAlignmentPath(p1s, p2s, paragraph_similarities)

@@ -3,7 +3,7 @@ from massalign.core import *
 file1 = '../newsela/corpora/truecased_corpus/orioles-alvarez.en.0.txt'
 file2 = '../newsela/corpora/truecased_corpus/orioles-alvarez.en.1.txt'
 
-model = TFIDFModel('../newsela/corpora/stop_words.txt')
+model = TFIDFModel(['../newsela/corpora/truecased_corpus/orioles-alvarez.en.0.txt', '../newsela/corpora/truecased_corpus/orioles-alvarez.en.1.txt'], '../newsela/corpora/stop_words.txt')
 
 aligner = VicinityDrivenParagraphAligner(similarity_model=model, acceptable_similarity=0.3)
 
