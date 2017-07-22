@@ -18,8 +18,8 @@ class SimilarityModel:
 class TFIDFModel(SimilarityModel):
 
 	def __init__(self, input_files=[], stoplistfile=None):
-		self.tfidf = self.getTFIDFmodel(input_files)
 		self.stoplist = set([line.strip() for line in codecs.open(stoplistfile, encoding='utf8')])
+		self.tfidf = self.getTFIDFmodel(input_files)
 		
 	def getTFIDFmodel(self, input_files=[]):
 		#Create text sentence set for training:
