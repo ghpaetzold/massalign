@@ -33,9 +33,3 @@ class MASSAligner:
 		
 		#Return found paragraphs:
 		return paragraphs
-		
-file = '../newsela/corpora/truecased_corpus/orioles-alvarez.en.0.txt'
-
-m = MASSAligner()
-data = m.getParagraphsFromDocument(file)
-print data
