@@ -5,10 +5,10 @@ class SimilarityModel:
 
     __metaclass__ = ABCMeta
 
-    @abstractmethod
+	@abstractmethod
     def getSimilarityMapBetweenParagraphsOfDocuments(self, ps1, ps2):
         pass
-		
+
 	@abstractmethod
     def getSimilarityMapBetweenSentencesOfSentences(self, p1, p2):
         pass
