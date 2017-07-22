@@ -167,11 +167,11 @@ class VicinityDrivenParagraphAligner(ParagraphAligner):
 				
 	def getOriginalParagraph(self, aligned_nodes, paragraphs):
 		#Concatenate all sentences from all paragraphs in an aligned node:
-		text = ''
+		text = []
 		for index in aligned_nodes:
 			for sentence in paragraphs[index]:
-				text += sentence + '\n'
-		return text.strip()
+				text.append(sentence.strip())
+		return text
 
 ####################################################################################################################################################
 			
