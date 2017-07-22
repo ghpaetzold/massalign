@@ -163,7 +163,7 @@ class VicinityDrivenParagraphAligner(ParagraphAligner):
 			aligned_paragraphs.append([c, s])
 		
 		#Return aligned paragraphs:
-		return aligned_paragraphs:
+		return aligned_paragraphs
 				
 	def getOriginalParagraph(self, aligned_nodes, paragraphs):
 		#Concatenate all sentences from all paragraphs in an aligned node:

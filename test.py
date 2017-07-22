@@ -10,6 +10,8 @@ aligner = VicinityDrivenParagraphAligner(similarity_model=model, acceptable_simi
 m = MASSAligner()
 p1s = m.getParagraphsFromDocument(file1)
 p2s = m.getParagraphsFromDocument(file2)
-alignments = m.getParagraphAlignments(p1s, p2s, aligner) 
+alignments, aligned_paragraphs = m.getParagraphAlignments(p1s, p2s, aligner) 
 
-print alignments
+for a in aligned_paragraphs:
+	print a
+	print ''
