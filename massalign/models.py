@@ -20,7 +20,7 @@ class TFIDFModel(SimilarityModel):
 		self.stoplist = set([line.strip() for line in open(stoplistfile)])
 	
 	def getSimilarityMapBetweenSentencesOfSentences(self, p1, p2):
-		
+		pass		
 		
 	def getSimilarityMapBetweenParagraphsOfDocuments(self, ps1=[], ps2=[]):
 		#Get TFIDF model controllers:
