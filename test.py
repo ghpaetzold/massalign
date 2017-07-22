@@ -11,3 +11,5 @@ m = MASSAligner()
 p1s = m.getParagraphsFromDocument(file1)
 p2s = m.getParagraphsFromDocument(file2)
 alignments = m.getParagraphAlignments(p1s, p2s, aligner) 
+
+print alignments

@@ -1,4 +1,5 @@
 from abc import ABCMeta, abstractmethod
+import numpy as np
 
 class ParagraphAligner:
 
@@ -22,7 +23,7 @@ class VicinityDrivenParagraphAligner(ParagraphAligner):
 		paragraph_similarities = self.similarity_model.getSimilarityMapBetweenParagraphsOfDocuments(p1s, p2s)
 		
 		#Calculate alignment path:
-		path = getParagraphAlignmentPath(p1s, p2s, paragraph_similarities)
+		path = self.getParagraphAlignmentPath(p1s, p2s, paragraph_similarities)
 		
 		#Return alignment path:
 		return path
