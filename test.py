@@ -9,11 +9,13 @@ paragraph_aligner = VicinityDrivenParagraphAligner(similarity_model=model, accep
 
 sentence_aligner = VicinityDrivenSentenceAligner(similarity_model=model, acceptable_similarity=0.2, similarity_slack=0.05)
 
+print 'Aligning paragraph...'
 m = MASSAligner()
 p1s = m.getParagraphsFromDocument(file1)
 p2s = m.getParagraphsFromDocument(file2)
 alignments, aligned_paragraphs = m.getParagraphAlignments(p1s, p2s, paragraph_aligner) 
 
+print 'Aligning sentences...'
 for a in aligned_paragraphs:
 	p1 = a[0]
 	p2 = a[1]

@@ -73,7 +73,6 @@ class TFIDFModel(SimilarityModel):
 		#Create data structures for similarity calculation:
 		sent_indexes = {}
 		for i, s in enumerate(sentences):
-			sentences.append(s.strip())
 			sent_indexes[s] = i
 			
 		#Get similarity querying framework:
@@ -83,7 +82,7 @@ class TFIDFModel(SimilarityModel):
 		
 		#Create similarity matrix:
 		sentence_similarities = []
-		for j in range(0, len(allsents)):
+		for j in range(0, len(sentences)):
 			sims = index[self.tfidf[corpus[j]]]
 			sentence_similarities.append(sims)
 				

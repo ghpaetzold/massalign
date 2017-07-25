@@ -14,7 +14,7 @@ class SentenceAligner:
     __metaclass__ = ABCMeta
 
     @abstractmethod
-    def alignSentencesFromDocuments(self):
+    def alignSentencesFromParagraphs(self):
         pass
 		
 class VicinityDrivenParagraphAligner(ParagraphAligner):
@@ -190,7 +190,7 @@ class VicinityDrivenSentenceAligner(SentenceAligner):
 		sentence_similarities, sentence_indexes = self.similarity_model.getSimilarityMapBetweenSentencesOfParagraphs(p1, p2)
 		
 		#Calculate alignment path:
-		path = self.getSentenceAlignmentPath(p1s, p2s, sentence_similarities, sentence_indexes)
+		path = self.getSentenceAlignments(p1, p2, sentence_similarities, sentence_indexes)
 		
 		#Return alignment path:
 		return path
@@ -209,13 +209,13 @@ class VicinityDrivenSentenceAligner(SentenceAligner):
 		#Return map:
 		return map
 		
-	def getSentenceAlignmentPath(self, p1, p2, sentence_similarities, sentence_indexes):
+	def getSentenceAlignments(self, p1, p2, sentence_similarities, sentence_indexes):
 		#Get paragraph sizes:
 		sizep1 = len(p1)
 		sizep2 = len(p2)
 		
 		#Start vicinity-driven path search:
-		matrix = self.getProbabilityMatrix(p1, p2, sent_similarities, sentence_indexes)
+		matrix = self.getProbabilityMatrix(p1, p2, sentence_similarities, sentence_indexes)
 		
 		#Get alignment path:
 		alignment_path = self.getSentenceAlignmentPath(matrix, p1, p2)
