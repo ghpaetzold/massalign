@@ -209,7 +209,7 @@ class VicinityDrivenSentenceAligner(SentenceAligner):
 		#Return map:
 		return map
 	
-	def getSentenceAlignmentPath(self, matrix, p1, p2, sentence_similarities, sentence_indexes):
+	def getSentenceAlignmentPath(self, p1, p2, sentence_similarities, sentence_indexes):
 		#Get paragraph sizes:
 		sizep1 = len(p1)
 		sizep2 = len(p2)
@@ -231,7 +231,7 @@ class VicinityDrivenSentenceAligner(SentenceAligner):
 		sbuffer = p2[currXY[1]]
 		final_sbuffer = [currXY[1]]
 		while currXY[0]<len(p1)-1 and currXY[1]<len(p2)-1:
-			bestNextXY, bestNextXYProb = self.getBestNextHypothesis(matrix, p1, p2, cbuffer, sbuffer, currXY, self.dictionary, self.tfidf, self.acceptable_similarity, self.similarity_slack)
+			bestNextXY, bestNextXYProb = self.getBestNextHypothesis(matrix, p1, p2, cbuffer, sbuffer, currXY)
 			#Check to see if best is diagonal:
 			if bestNextXY[0]==currXY[0]+1 and bestNextXY[1]==currXY[1]+1:
 				path.append((final_cbuffer, final_sbuffer))
