@@ -38,8 +38,14 @@ class MASSAligner:
 		
 	def getParagraphAlignments(self, paragraphs1=[], paragraphs2=[], paragraph_aligner=None):
 		#Employ the paragraph aligner provided to align paragraphs from documents:
-		return paragraph_aligner.alignParagraphsFromDocuments(paragraphs1, paragraphs2)
+		if len(paragraphs1)>0 and len(paragraphs2)>0:
+			return paragraph_aligner.alignParagraphsFromDocuments(paragraphs1, paragraphs2)
+		else:
+			return [], []
 		
 	def getSentenceAlignments(self, paragraph1=[], paragraph2=[], sentence_aligner=None):
 		#Employ the sentence aligner provided to align sentences from paragraphs:
-		return sentence_aligner.alignSentencesFromParagraphs(paragraph1, paragraph2)
+		if len(paragraph1)>0 and len(paragraph2)>0:
+			return sentence_aligner.alignSentencesFromParagraphs(paragraph1, paragraph2)
+		else:
+			return [], []

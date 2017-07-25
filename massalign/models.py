@@ -69,7 +69,7 @@ class TFIDFModel(SimilarityModel):
 		#Return similarity matrix:
 		return paragraph_similarities, sentence_indexes
 				
-	def getTFIDFControllers(self, sentences):		
+	def getTFIDFControllers(self, sentences):
 		#Create data structures for similarity calculation:
 		sent_indexes = {}
 		for i, s in enumerate(sentences):
@@ -85,7 +85,7 @@ class TFIDFModel(SimilarityModel):
 		for j in range(0, len(sentences)):
 			sims = index[self.tfidf[corpus[j]]]
 			sentence_similarities.append(sims)
-				
+		
 		#Return controllers:
 		return sent_indexes, sentence_similarities
 	

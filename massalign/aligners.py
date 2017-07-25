@@ -177,7 +177,7 @@ class VicinityDrivenSentenceAligner(SentenceAligner):
 		
 		#Calculate alignment path:
 		alignment_path = self.getSentenceAlignmentPath(p1, p2, sentence_similarities, sentence_indexes)
-		
+
 		#Produce actual alignments:
 		aligned_sentences = self.getActualAlignedSentences(p1, p2, alignment_path)
 		
@@ -190,9 +190,10 @@ class VicinityDrivenSentenceAligner(SentenceAligner):
 		
 		#For each alignment in the path, produce final aligned text of both sides:
 		for node in alignment_path:
-			s1 = self.getOriginalSentence(node[0], p1)
-			s2 = self.getOriginalSentence(node[1], p2)
-			aligned_sentences.append([s1, s2])
+			if len(node)>1:
+				s1 = self.getOriginalSentence(node[0], p1)
+				s2 = self.getOriginalSentence(node[1], p2)
+				aligned_sentences.append([s1, s2])
 		
 		#Return aligned sentences:
 		return aligned_sentences
@@ -325,7 +326,6 @@ class VicinityDrivenSentenceAligner(SentenceAligner):
 				path.append((final_cbuffer, final_sbuffer))
 			#In case last alignment is in the last line:
 			elif currXY[0]==len(p1)-1:
-				print 'Entered here! 1'
 				prevsim = -9999
 				anchor = currXY[1]
 				currsim = self.similarity_model.getTextSimilarity(cbuffer, sbuffer)
@@ -339,7 +339,6 @@ class VicinityDrivenSentenceAligner(SentenceAligner):
 					anchor += 1
 				path.append((final_cbuffer, final_sbuffer))
 			else:
-				print 'Entered here! 2'
 				prevsim = -9999
 				anchor = currXY[0]
 				currsim = self.similarity_model.getTextSimilarity(cbuffer, sbuffer)
