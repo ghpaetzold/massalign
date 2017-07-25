@@ -12,14 +12,14 @@ class SimilarityModel:
 		pass
 
 	@abstractmethod
-	def getSimilarityMapBetweenSentencesOfSentences(self, p1, p2):
+	def getSimilarityMapBetweenSentencesOfParagraphs(self, p1, p2):
 		pass
 		
 class TFIDFModel(SimilarityModel):
 
 	def __init__(self, input_files=[], stoplistfile=None):
 		self.stoplist = set([line.strip() for line in codecs.open(stoplistfile, encoding='utf8')])
-		self.tfidf = self.getTFIDFmodel(input_files)
+		self.tfidf, self.dictionary = self.getTFIDFmodel(input_files)
 		
 	def getTFIDFmodel(self, input_files=[]):
 		#Create text sentence set for training:
@@ -37,14 +37,24 @@ class TFIDFModel(SimilarityModel):
 		tfidf = gensim.models.TfidfModel(corpus)
 		
 		#Return tfidf model:
-		return tfidf
+		return tfidf, dictionary
 	
-	def getSimilarityMapBetweenSentencesOfSentences(self, p1, p2):
-		pass		
+	def getSimilarityMapBetweenSentencesOfParagraphs(self, p1, p2):
+		#Get distinct sentences from paragraphs:
+		sentences = list(self.getSentencesFromParagraph(p1).union(self.getSentencesFromParagraph(p2)))
+		
+		#Get TFIDF model controllers:
+		sentence_indexes, sentence_similarities = self.getTFIDFControllers(sentences)
+		
+		#Return similarity matrix:
+		return sentence_similarities, sentence_indexes
 		
 	def getSimilarityMapBetweenParagraphsOfDocuments(self, ps1=[], ps2=[]):
+		#Get distinct sentences from paragraph sets:
+		sentences = list(self.getSentencesFromParagraphs(ps1).union(self.getSentencesFromParagraphs(ps2)))
+
 		#Get TFIDF model controllers:
-		index, sent_indexes, sent_similarities = self.getTFIDFControllers(ps1, ps2)
+		sentence_indexes, sentence_similarities = self.getTFIDFControllers(sentences)
 	
 		#Calculate paragraph similarities:
 		paragraph_similarities = list(np.zeros((len(ps1), len(ps2))))
@@ -53,51 +63,45 @@ class TFIDFModel(SimilarityModel):
 				values = []
 				for sent1 in p1:
 					for sent2 in p2:
-						values.append(sent_similarities[sent_indexes[sent1]][sent_indexes[sent2]])
+						values.append(sentence_similarities[sentence_indexes[sent1]][sentence_indexes[sent2]])
 				paragraph_similarities[i][j] = np.max(values)
 				
 		#Return similarity matrix:
-		return paragraph_similarities
+		return paragraph_similarities, sentence_indexes
 				
-	def getTFIDFControllers(self, ps1, ps2):
-		#Get paragraph sizes:
-		sizep1 = len(ps1)
-		sizep2 = len(ps2)
-		
-		#Get paragraph sentence maps:
-		p1map = self.getSentenceMap(ps1)
-		p2map = self.getSentenceMap(ps2)
-		
+	def getTFIDFControllers(self, sentences):		
 		#Create data structures for similarity calculation:
-		sentences = []
-		sents1 = set(p1map.keys())
-		sents2 = set(p2map.keys())
-		allsents = list(sents1.union(sents2))
 		sent_indexes = {}
-		for i, s in enumerate(allsents):
+		for i, s in enumerate(sentences):
 			sentences.append(s.strip())
 			sent_indexes[s] = i
 			
 		#Get similarity querying framework:
 		texts = [[word for word in sentence.split(' ') if word not in self.stoplist] for sentence in sentences]
-		dictionary = gensim.corpora.Dictionary(texts)
-		corpus = [dictionary.doc2bow(text) for text in texts]
+		corpus = [self.dictionary.doc2bow(text) for text in texts]
 		index = gensim.similarities.MatrixSimilarity(self.tfidf[corpus])
 		
 		#Create similarity matrix:
-		sent_similarities = []
+		sentence_similarities = []
 		for j in range(0, len(allsents)):
 			sims = index[self.tfidf[corpus[j]]]
-			sent_similarities.append(sims)
+			sentence_similarities.append(sims)
 				
 		#Return controllers:
-		return index, sent_indexes, sent_similarities
-
-	def getSentenceMap(self, paragraphs):
-		map = {}
-		for i, p in enumerate(paragraphs):
-			for sentence in p:
-				if sentence not in map:
-					map[sentence] = set([])
-				map[sentence].add(i)
-		return map
+		return sent_indexes, sentence_similarities
+		
+	def getSentencesFromParagraphs(self, ps):
+		#Get all distinct sentences from a set of paragraphs:
+		sentences = set([])
+		for p in ps:
+			psents = self.getSentencesFromParagraph(p)
+			sentences.update(psents)
+		
+		#Return sentences found:
+		return sentences
+	
+	def getSentencesFromParagraph(self, p):
+		#Return all distinct sentences from a paragraph:
+		return set(p)
+			
+		
