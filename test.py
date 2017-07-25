@@ -1,4 +1,14 @@
 from massalign.core import *
+import os
+
+files = sorted(os.listdir('../newsela/corpora/truecased_corpus/'))
+
+for i in range(0, len(files)-1):
+	for j in range(i+1, len(files)):
+		file1 = files[i].split('.')
+		file2 = files[j].split('.')
+		print file1, file2
+		
 
 file1 = '../newsela/corpora/truecased_corpus/orioles-alvarez.en.0.txt'
 file2 = '../newsela/corpora/truecased_corpus/orioles-alvarez.en.1.txt'

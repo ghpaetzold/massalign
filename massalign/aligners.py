@@ -217,19 +217,22 @@ class VicinityDrivenSentenceAligner(SentenceAligner):
 		#Start vicinity-driven path search:
 		matrix = self.getProbabilityMatrix(p1, p2, sentence_similarities, sentence_indexes)
 		
-		#Build alignment path:
+		#Start search for alignment path:
 		path = []
 		cbuffer = ''
 		sbuffer = ''
 		starting_point = self.findStartingPoint(matrix, p1, p2, [-1,-1])
 		if starting_point[0]>=len(p1) or starting_point[1]>=len(p2):
 			return [], []
-		
 		currXY = starting_point
+		
+		#Instantiate buffers:
 		cbuffer = p1[currXY[0]]
 		final_cbuffer = [currXY[0]]
 		sbuffer = p2[currXY[1]]
 		final_sbuffer = [currXY[1]]
+		
+		#While the edge of the similarity matrix is not reached, do:
 		while currXY[0]<len(p1)-1 and currXY[1]<len(p2)-1:
 			bestNextXY, bestNextXYProb = self.getBestNextHypothesis(matrix, p1, p2, cbuffer, sbuffer, currXY)
 			#Check to see if best is diagonal:
@@ -242,6 +245,7 @@ class VicinityDrivenSentenceAligner(SentenceAligner):
 				final_sbuffer = [currXY[1]]
 			#Check to see if downards is best:
 			elif bestNextXY[0]==currXY[0]+1 and bestNextXY[1]==currXY[1]:
+				#Keep moving downards until the alignment stops improving:
 				anchor = bestNextXY[0]+1
 				prevsim = self.similarity_model.getTextSimilarity(cbuffer, sbuffer)
 				cbuffer += ' ' + p1[bestNextXY[0]]
@@ -259,6 +263,8 @@ class VicinityDrivenSentenceAligner(SentenceAligner):
 							anchor -= 1
 							currsim = 0.0
 				path.append((final_cbuffer, final_sbuffer))
+				
+				#If edge is not reached, find new starting point to continue the alignment search:
 				if anchor<len(p1):
 					currXY = self.findStartingPoint(matrix, p1, p2, [anchor-1, bestNextXY[1]])
 					if currXY[0]<len(p1) and currXY[1]<len(p2):
@@ -266,9 +272,13 @@ class VicinityDrivenSentenceAligner(SentenceAligner):
 						final_cbuffer = [currXY[0]]
 						sbuffer = p2[currXY[1]]
 						final_sbuffer = [currXY[1]]
+				#Otherwise, move along the edge in the opposite axis:
 				else:
 					currXY = (anchor, bestNextXY[1]+1)
+					
+			#Check to see if rightwards is best:
 			elif  bestNextXY[0]==currXY[0] and bestNextXY[1]==currXY[1]+1:
+				#Keep moving rightwards until the alignment stops improving:
 				anchor = bestNextXY[1]+1
 				prevsim = self.similarity_model.getTextSimilarity(cbuffer, sbuffer)
 				sbuffer += ' ' + p2[bestNextXY[1]]
@@ -286,6 +296,8 @@ class VicinityDrivenSentenceAligner(SentenceAligner):
 							anchor -= 1
 							currsim = 0.0
 				path.append((final_cbuffer, final_sbuffer))
+				
+				#If edge is not reached, find new starting point to continue the alignment search:
 				if anchor<len(p2):
 					currXY = self.findStartingPoint(matrix, p1, p2, [bestNextXY[0], anchor-1])
 					if currXY[0]<len(p1) and currXY[1]<len(p2):
@@ -293,8 +305,11 @@ class VicinityDrivenSentenceAligner(SentenceAligner):
 						final_cbuffer = [currXY[0]]
 						sbuffer = p2[currXY[1]]
 						final_sbuffer = [currXY[1]]
+				#Otherwise, move along the edge in the opposite axis:
 				else:
 					currXY = (bestNextXY[0]+1, anchor)
+			
+			#Check if moving diagonally is best:
 			else:
 				path.append((final_cbuffer, final_sbuffer))
 				currXY = bestNextXY
@@ -304,6 +319,7 @@ class VicinityDrivenSentenceAligner(SentenceAligner):
 					sbuffer = p2[currXY[1]]
 					final_sbuffer = [currXY[1]]
 
+		#Continue search from the very edge:
 		if currXY[0]<len(p1) and currXY[1]<len(p2) and self.similarity_model.getTextSimilarity(cbuffer, sbuffer)>self.acceptable_similarity:
 			#In case last alignment is in the very corner:			
 			if currXY[0]==len(p1)-1 and currXY[1]==len(p2)-1:
@@ -338,6 +354,7 @@ class VicinityDrivenSentenceAligner(SentenceAligner):
 		return path
 		
 	def findStartingPoint(self, matrix, p1, p2, startpos):
+		#Start search for starting point:
 		sizec = len(p1)
 		sizes = len(p2)
 		visited = set([])
@@ -347,6 +364,8 @@ class VicinityDrivenSentenceAligner(SentenceAligner):
 		currpos = [int(startpos[0]), int(startpos[1])]
 		found = False
 		reached_end = False
+		
+		#Do a search on a per-distance basis until a good enough pair is found:
 		while not found and not reached_end:
 			if currpos[0]==-1 and currpos[1]==-1:
 				currpos = [0, 0]
@@ -364,8 +383,11 @@ class VicinityDrivenSentenceAligner(SentenceAligner):
 					if currpos[0]>=startpos[0] and currpos[1]>=startpos[1]:
 						found = True
 			visited.add((currpos[0], currpos[1]))
+		
+		#If no pairs are similar enough, return last position in the matrix:
 		if reached_end:
 			return [sizec,sizes]
+		#Otherwise, return the position found:
 		else:
 			return currpos
 			
@@ -389,15 +411,18 @@ class VicinityDrivenSentenceAligner(SentenceAligner):
 		if rightsim<=prevsim-self.similarity_slack:
 			rightsim = 0.0
 
+		#Summarize simliarities:
 		coordinates = [diag, down, right]
 		sims = [diagsim, downsim, rightsim]
 
+		#If there is a good enough candidate, return it:
 		maxvalue = np.max(sims)
 		if maxvalue>=self.acceptable_similarity:
 			result = np.argmax(sims)
 			coordinate = coordinates[result]
 			prob = sims[result]
 			return coordinate, prob
+		#If not, find another one outside the vicinity:
 		else:
 			newc = self.findStartingPoint(matrix, p1, p2, currXY)
 			newp = matrix[newc[0]][newc[1]]
@@ -446,10 +471,9 @@ class VicinityDrivenSentenceAligner(SentenceAligner):
 			for aux in auxes:
 					winners.remove(aux)
 			return winners[0], cands[winners[0]]
-		#If not, check the second vicinity:
+		#If not, get a next synchronizer outside the reachable vicinity
 		else:
 			all = [cands[c] for c in cands]
-			#If not, get a next synchronizer outside the reachable vicinity
 			if np.max(all)<self.acceptable_similarity:
 				finalNextXY = self.getNextSynchronizer(currXY, paragraph_similarities)
 				return finalNextXY, paragraph_similarities[finalNextXY[0]][finalNextXY[1]]

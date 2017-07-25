@@ -90,11 +90,16 @@ class TFIDFModel(SimilarityModel):
 		return sent_indexes, sentence_similarities
 	
 	def getTextSimilarity(self, buffer1, buffer2):
-		cvec = self.dictionary.doc2bow(buffer1.split())
-		svec = self.dictionary.doc2bow(buffer2.split())
-		corpus = [cvec, svec]
+		#Get bag-of-words vectors:
+		vec1 = self.dictionary.doc2bow(buffer1.split())
+		vec2 = self.dictionary.doc2bow(buffer2.split())
+		corpus = [vec1, vec2]
+		
+		#Get similarity matrix from bag-of-words model:
 		index = gensim.similarities.MatrixSimilarity(self.tfidf[corpus])
-		sims = index[self.tfidf[cvec]]
+		
+		#Return the similarity between the vectors:
+		sims = index[self.tfidf[vec1]]
 		return sims[1]
 	
 	def getSentencesFromParagraphs(self, ps):
