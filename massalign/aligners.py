@@ -39,20 +39,6 @@ class VicinityDrivenParagraphAligner(ParagraphAligner):
 		#Return alignment path:
 		return alignment_path, aligned_paragraphs
 		
-	def getSentenceMap(self, paragraphs):
-		#Allocate map:
-		map = {}
-		
-		#Create a map from sentence to paragraph indexes:
-		for i, p in enumerate(paragraphs):
-			for sentence in p:
-				if sentence not in map:
-					map[sentence] = set([])
-				map[sentence].add(i)
-		
-		#Return map:
-		return map
-		
 	def getParagraphAlignmentPath(self, p1s, p2s, paragraph_similarities):
 		#Get paragraph set sizes:
 		sizep1 = len(p1s)
@@ -190,24 +176,37 @@ class VicinityDrivenSentenceAligner(SentenceAligner):
 		sentence_similarities, sentence_indexes = self.similarity_model.getSimilarityMapBetweenSentencesOfParagraphs(p1, p2)
 		
 		#Calculate alignment path:
-		path = self.getSentenceAlignmentPath(p1, p2, sentence_similarities, sentence_indexes)
+		alignment_path = self.getSentenceAlignmentPath(p1, p2, sentence_similarities, sentence_indexes)
+		
+		#Produce actual alignments:
+		aligned_sentences = self.getActualAlignedSentences(p1, p2, alignment_path)
 		
 		#Return alignment path:
-		return path
+		return alignment_path, aligned_sentences
 		
-	def getSentenceMap(self, paragraphs):
-		#Allocate map:
-		map = {}
+	def getActualAlignedSentences(self, p1, p2, alignment_path):
+		#Create structure to store aligned sentences:
+		aligned_sentences = []
 		
-		#Create a map from sentence to paragraph indexes:
-		for i, p in enumerate(paragraphs):
-			for sentence in p:
-				if sentence not in map:
-					map[sentence] = set([])
-				map[sentence].add(i)
+		#For each alignment in the path, produce final aligned text of both sides:
+		for node in alignment_path:
+			s1 = self.getOriginalSentence(node[0], p1)
+			s2 = self.getOriginalSentence(node[1], p2)
+			aligned_sentences.append([s1, s2])
 		
-		#Return map:
-		return map
+		#Return aligned sentences:
+		return aligned_sentences
+	
+	def getOriginalSentence(self, indexes, p):
+		#Allocate sentence:
+		sentence = ''
+		
+		#Add aligned sentences to resulting sentence:
+		for index in indexes:
+			sentence += p[index] + ' '
+			
+		#Return resulting sentence:
+		return sentence.strip()
 	
 	def getSentenceAlignmentPath(self, p1, p2, sentence_similarities, sentence_indexes):
 		#Get paragraph sizes:
@@ -326,6 +325,7 @@ class VicinityDrivenSentenceAligner(SentenceAligner):
 				path.append((final_cbuffer, final_sbuffer))
 			#In case last alignment is in the last line:
 			elif currXY[0]==len(p1)-1:
+				print 'Entered here! 1'
 				prevsim = -9999
 				anchor = currXY[1]
 				currsim = self.similarity_model.getTextSimilarity(cbuffer, sbuffer)
@@ -339,6 +339,7 @@ class VicinityDrivenSentenceAligner(SentenceAligner):
 					anchor += 1
 				path.append((final_cbuffer, final_sbuffer))
 			else:
+				print 'Entered here! 2'
 				prevsim = -9999
 				anchor = currXY[0]
 				currsim = self.similarity_model.getTextSimilarity(cbuffer, sbuffer)
