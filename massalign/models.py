@@ -88,7 +88,15 @@ class TFIDFModel(SimilarityModel):
 				
 		#Return controllers:
 		return sent_indexes, sentence_similarities
-		
+	
+	def getTextSimilarity(self, buffer1, buffer2):
+		cvec = self.dictionary.doc2bow(buffer1.split())
+		svec = self.dictionary.doc2bow(buffer2.split())
+		corpus = [cvec, svec]
+		index = gensim.similarities.MatrixSimilarity(self.tfidf[corpus])
+		sims = index[self.tfidf[cvec]]
+		return sims[1]
+	
 	def getSentencesFromParagraphs(self, ps):
 		#Get all distinct sentences from a set of paragraphs:
 		sentences = set([])

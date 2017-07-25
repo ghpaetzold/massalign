@@ -190,7 +190,7 @@ class VicinityDrivenSentenceAligner(SentenceAligner):
 		sentence_similarities, sentence_indexes = self.similarity_model.getSimilarityMapBetweenSentencesOfParagraphs(p1, p2)
 		
 		#Calculate alignment path:
-		path = self.getSentenceAlignments(p1, p2, sentence_similarities, sentence_indexes)
+		path = self.getSentenceAlignmentPath(p1, p2, sentence_similarities, sentence_indexes)
 		
 		#Return alignment path:
 		return path
@@ -208,8 +208,8 @@ class VicinityDrivenSentenceAligner(SentenceAligner):
 		
 		#Return map:
 		return map
-		
-	def getSentenceAlignments(self, p1, p2, sentence_similarities, sentence_indexes):
+	
+	def getSentenceAlignmentPath(self, matrix, p1, p2, sentence_similarities, sentence_indexes):
 		#Get paragraph sizes:
 		sizep1 = len(p1)
 		sizep2 = len(p2)
@@ -217,13 +217,7 @@ class VicinityDrivenSentenceAligner(SentenceAligner):
 		#Start vicinity-driven path search:
 		matrix = self.getProbabilityMatrix(p1, p2, sentence_similarities, sentence_indexes)
 		
-		#Get alignment path:
-		alignment_path = self.getSentenceAlignmentPath(matrix, p1, p2)
-		
-		#Return resulting path:
-		return compact_path
-	
-	def getSentenceAlignmentPath(self, matrix, p1, p2):
+		#Build alignment path:
 		path = []
 		cbuffer = ''
 		sbuffer = ''
@@ -249,7 +243,7 @@ class VicinityDrivenSentenceAligner(SentenceAligner):
 			#Check to see if downards is best:
 			elif bestNextXY[0]==currXY[0]+1 and bestNextXY[1]==currXY[1]:
 				anchor = bestNextXY[0]+1
-				prevsim = self.getSimilarity(cbuffer, sbuffer, self.dictionary, self.tfidf)
+				prevsim = self.similarity_model.getTextSimilarity(cbuffer, sbuffer)
 				cbuffer += ' ' + p1[bestNextXY[0]]
 				final_cbuffer.append(bestNextXY[0])
 				currsim = bestNextXYProb
@@ -257,7 +251,7 @@ class VicinityDrivenSentenceAligner(SentenceAligner):
 					anchor += 1
 					if anchor<len(p1):
 						prevsim = currsim
-						currsim = self.getSimilarity(cbuffer+' '+p1[anchor], sbuffer, self.dictionary, self.tfidf)
+						currsim = self.similarity_model.getTextSimilarity(cbuffer+' '+p1[anchor], sbuffer)
 						if currsim>prevsim-self.similarity_slack and currsim>matrix[anchor][bestNextXY[1]+1]:
 							cbuffer += ' ' + p1[anchor]
 							final_cbuffer.append(anchor)
@@ -276,7 +270,7 @@ class VicinityDrivenSentenceAligner(SentenceAligner):
 					currXY = (anchor, bestNextXY[1]+1)
 			elif  bestNextXY[0]==currXY[0] and bestNextXY[1]==currXY[1]+1:
 				anchor = bestNextXY[1]+1
-				prevsim = self.getSimilarity(cbuffer, sbuffer, self.dictionary, self.tfidf)
+				prevsim = self.similarity_model.getTextSimilarity(cbuffer, sbuffer)
 				sbuffer += ' ' + p2[bestNextXY[1]]
 				final_sbuffer.append(bestNextXY[1])
 				currsim = bestNextXYProb
@@ -284,7 +278,7 @@ class VicinityDrivenSentenceAligner(SentenceAligner):
 					anchor += 1
 					if anchor<len(p2):
 						prevsim = currsim
-						currsim = self.getSimilarity(cbuffer, sbuffer+' '+p2[anchor], self.dictionary, self.tfidf)
+						currsim = self.similarity_model.getTextSimilarity(cbuffer, sbuffer+' '+p2[anchor])
 						if currsim>prevsim-self.similarity_slack and currsim>matrix[bestNextXY[0]+1][anchor]:
 							sbuffer += ' ' + p2[anchor]
 							final_sbuffer.append(anchor)
@@ -310,7 +304,7 @@ class VicinityDrivenSentenceAligner(SentenceAligner):
 					sbuffer = p2[currXY[1]]
 					final_sbuffer = [currXY[1]]
 
-		if currXY[0]<len(p1) and currXY[1]<len(p2) and self.getSimilarity(cbuffer, sbuffer, self.dictionary, self.tfidf)>self.acceptable_similarity:
+		if currXY[0]<len(p1) and currXY[1]<len(p2) and self.similarity_model.getTextSimilarity(cbuffer, sbuffer)>self.acceptable_similarity:
 			#In case last alignment is in the very corner:			
 			if currXY[0]==len(p1)-1 and currXY[1]==len(p2)-1:
 				path.append((final_cbuffer, final_sbuffer))
@@ -318,11 +312,11 @@ class VicinityDrivenSentenceAligner(SentenceAligner):
 			elif currXY[0]==len(p1)-1:
 				prevsim = -9999
 				anchor = currXY[1]
-				currsim = self.getSimilarity(cbuffer, sbuffer, self.dictionary, self.tfidf)
+				currsim = self.similarity_model.getTextSimilarity(cbuffer, sbuffer)
 				while anchor<len(p2) and currsim>=prevsim-self.similarity_slack:
 					if anchor<len(p2)-1:
 						prevsim = currsim
-						currsim = self.getSimilarity(cbuffer, sbuffer+' '+p2[anchor+1], self.dictionary, self.tfidf)
+						currsim = self.similarity_model.getTextSimilarity(cbuffer, sbuffer+' '+p2[anchor+1])
 						if currsim>=prevsim-self.similarity_slack:
 							sbuffer += ' ' + p2[anchor+1]
 							final_sbuffer.append(anchor+1)
@@ -331,25 +325,17 @@ class VicinityDrivenSentenceAligner(SentenceAligner):
 			else:
 				prevsim = -9999
 				anchor = currXY[0]
-				currsim = self.getSimilarity(cbuffer, sbuffer, self.dictionary, self.tfidf)
+				currsim = self.similarity_model.getTextSimilarity(cbuffer, sbuffer)
 				while anchor<len(p1) and currsim>=prevsim-self.similarity_slack:
 					if anchor<len(p1)-1:
 						prevsim = currsim
-						currsim = self.getSimilarity(cbuffer+' '+p1[anchor+1], sbuffer, self.dictionary, self.tfidf)
+						currsim = self.similarity_model.getTextSimilarity(cbuffer+' '+p1[anchor+1], sbuffer)
 						if currsim>=prevsim-self.similarity_slack:
 							cbuffer += ' ' + p1[anchor+1]
 							final_cbuffer.append(anchor+1)
 					anchor += 1
 				path.append((final_cbuffer, final_sbuffer))
 		return path
-
-	def getSimilarity(self, cbuffer, sbuffer):
-		cvec = self.dictionary.doc2bow(cbuffer.split())
-		svec = self.dictionary.doc2bow(sbuffer.split())
-		corpus = [cvec, svec]
-		index = gensim.similarities.MatrixSimilarity(self.tfidf[corpus])
-		sims = index[self.tfidf[cvec]]
-		return sims[1]
 		
 	def findStartingPoint(self, matrix, p1, p2, startpos):
 		sizec = len(p1)
@@ -387,36 +373,18 @@ class VicinityDrivenSentenceAligner(SentenceAligner):
 		#Test diagonal:
 		diag = (currXY[0]+1, currXY[1]+1)
 		diagsim = matrix[currXY[0]+1][currXY[1]+1]
+		prevsim = matrix[currXY[0]][currXY[1]]
 
 		#Test downwards:
-		prevsim = matrix[currXY[0]][currXY[1]]
 		downText = cbuffer + ' ' + p1[currXY[0]+1]
-		cvec = self.dictionary.doc2bow(downText.split())
-		svec = self.dictionary.doc2bow(sbuffer.split())
-		corpus = [cvec, svec]
-		downsim = 0.0
-		try:
-			index = gensim.similarities.MatrixSimilarity(self.tfidf[corpus])
-			sims = index[self.tfidf[cvec]]
-			downsim = sims[1]
-		except Exception:
-			downsim = 0.0
+		downsim = self.similarity_model.getTextSimilarity(downText, sbuffer)
 		down = (currXY[0]+1, currXY[1])
 		if downsim<=prevsim-self.similarity_slack:
 			downsim = 0.0
 
 		#Test rightwards:
 		rightText = sbuffer + ' ' + p2[currXY[1]+1]
-		svec = self.dictionary.doc2bow(rightText.split())
-		cvec = self.dictionary.doc2bow(cbuffer.split())
-		corpus = [svec, cvec]
-		rightsim = 0.0
-		try:
-			index = gensim.similarities.MatrixSimilarity(self.tfidf[corpus])
-			sims = index[self.tfidf[svec]]
-			rightsim = sims[1]
-		except Exception:
-			rightsim = 0.0
+		rightsim = self.similarity_model.getTextSimilarity(cbuffer, rightText)
 		right = (currXY[0], currXY[1]+1)
 		if rightsim<=prevsim-self.similarity_slack:
 			rightsim = 0.0
