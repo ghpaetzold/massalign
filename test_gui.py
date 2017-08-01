@@ -20,14 +20,12 @@ m = MASSAligner()
 p1s = m.getParagraphsFromDocument(file1)
 p2s = m.getParagraphsFromDocument(file2)
 
-#Create a GUI:
-gui = BasicGUI()
-
 #Align paragraphs:
 alignments, aligned_paragraphs = m.getParagraphAlignments(p1s, p2s, paragraph_aligner)
 
 #Display paragraph alignments:
-gui.displayParagraphAlignment(p1s, p2s, alignments)
+m.visualizeParagraphAlignments(p1s, p2s, alignments)
+m.visualizeListOfParagraphAlignments([p1s, p1s], [p2s, p1s], [alignments, alignments])
 
 #Align sentences in each pair of aligned paragraphs:
 p1l = []
@@ -42,5 +40,5 @@ for a in aligned_paragraphs:
 	alignmentsl.append(alignments)
 
 #Display the list of sentence alignments produced:
-gui = BasicGUI()
-gui.displayListOfSentenceAlignments(p1l, p2l, alignmentsl)
+m.visualizeSentenceAlignments(p1l[0], p2l[0], alignmentsl[0])
+m.visualizeListOfSentenceAlignments(p1l, p2l, alignmentsl)
