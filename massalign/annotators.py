@@ -33,11 +33,14 @@ class SentenceAnnotator:
         self.name = "Sentence Annotator"
 
     # =============================================================================
-    # Main Functions
+    # Main Annotation Functions
     # =============================================================================
 
     def annotate_sentence(self, src, ref, aligns, src_parse, ref_parse):
         """Annotate all the simplification operations in the sentence pair src-ref."""
+
+        if isinstance(aligns, str):
+            aligns = self._format_word_alignments(aligns)
 
         # token-level delete, add and replace
         src_annots = self._label_delete_replace(src, ref, aligns)
@@ -89,12 +92,7 @@ class SentenceAnnotator:
             ref = ref_sent.strip().split(' ')
 
             # get the word alignments pairs
-            if aligns_pairs.strip() != '':
-                aligns = aligns_pairs.strip().split(' ')
-                # transform them into a list of lists: ['1-1', '2-2', '3-4'] -> [[1, 1], [2, 2], [3, 4]]
-                aligns_list = [list(map(int, p.split('-'))) for p in aligns]
-            else:
-                aligns_list = []
+            aligns_list = self._format_word_alignments(aligns_pairs)
 
             # get the parsed sentences
             src_parse = parse_file.readline()
@@ -110,12 +108,53 @@ class SentenceAnnotator:
         return file_annots
 
     # =============================================================================
-    # Internal Functions
+    # Output Functions
     # =============================================================================
+
+    def create_conll_files(self, annot_file_src, annot_file_ref, annotations, include_clauseop, labels_to_print=SIMOP_LABELS):
+        conll_src = ""
+        conll_ref = ""
+        for sent in annotations:
+            conll_src += self.dict2conll(sent['src'], include_clauseop, labels_to_print) + '\n'
+            conll_ref += self.dict2conll(sent['ref'], include_clauseop, labels_to_print) + '\n'
+
+        annot_file_src.write(conll_src)
+        annot_file_ref.write(conll_ref)
+
+    def dict2conll(self, sent_annots, include_clauseop=True, labels_to_print=SIMOP_LABELS):
+        conll = ""
+        for token in sent_annots:
+            label = token['label']
+            if label in labels_to_print:
+                if not include_clauseop:
+                    if label in ['B-AC', 'I-AC', 'B-DC', 'I-DC', 'B-MC', 'I-MC']:
+                        label = label[0:3]
+                if label in ['B-R', 'B-RW']:
+                    label += '\t' + ' '.join(token['replace'])
+                if label in ['B-M', 'B-MC', 'B-RM', 'B-RWM']:
+                    label += '\t' + str(token['move'])
+            else:
+                label = 'O'
+
+            conll += str(token['index']) + '\t' + token['word'] + '\t' + label + '\n'
+
+        return conll
+
+    # =============================================================================
+    # Internal Annotation Functions
+    # =============================================================================
+
+    def _format_word_alignments(self, aligns):
+        aligns_list = []
+        if aligns.strip() != '':
+            aligns = aligns.strip().split(' ')
+            # transform them into a list of lists: ['1-1', '2-2', '3-4'] -> [[1, 1], [2, 2], [3, 4]]
+            aligns_list = [list(map(int, p.split('-'))) for p in aligns]
+
+        return aligns_list
 
     def _label_delete_replace(self, src, ref, aligns):
         """Annotate deletions and replacements in the source sentence."""
-
         src_annots = []
         for token_index, token_word in enumerate(src, start=1):
             src_token = {'index': token_index, 'word': token_word, 'label': ''}
@@ -147,7 +186,6 @@ class SentenceAnnotator:
 
     def _label_add_replace(self, ref, aligns, src_annots):
         """Annotate additions in the reference sentence. Improve replacements annots_file in the source sentence."""
-
         ref_annots = []
         for token_index, token_word in enumerate(ref, start=1):
             ref_token = {'index': token_index, 'word': token_word, 'label': ''}
@@ -180,7 +218,6 @@ class SentenceAnnotator:
         Apply a simple heuristic based on simplification operations labels, sentence positions and part-of-speech tags
         to improve the annotation of replacements.
         """
-
         for ref_token in ref_annots:
             # check that the token has been labeled as 'add'
             if ref_token['label'] == 'B-A':
@@ -231,7 +268,6 @@ class SentenceAnnotator:
         Annotate 'move' checking if the relative index of a token in source changes in reference, considering
         preceding deletions, additions and multi-token replacements.
         """
-
         shift_left = 0
         for src_token in src_annots:
             # check if the token has been labeled to be deleted or as part of a replace or rewrite
@@ -272,7 +308,6 @@ class SentenceAnnotator:
         Annotate a sequence of tokens with the same operation label and which belong to the same syntactic group,
         with a given group operation label.
         """
-
         parse_tree = ParentedTree.fromstring(parse)
         num_tokens = len(annots)
 
@@ -337,7 +372,6 @@ class SentenceAnnotator:
 
     def _have_same_postag(self, src_index, ref_index, src_parse, ref_parse):
         """Check if two tokens in two parse trees have the same part-of-speech tag, given their indexes."""
-
         src_tree = ParentedTree.fromstring(src_parse)
         ref_tree = ParentedTree.fromstring(ref_parse)
 
