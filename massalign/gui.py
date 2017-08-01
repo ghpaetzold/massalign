@@ -1,5 +1,5 @@
 from Tkinter import *
-import tkFont
+import tkFont, os
 from abc import ABCMeta, abstractmethod
 
 #Base class for GUI:
@@ -20,6 +20,39 @@ class BasicGUI(GUI):
 
 	#Initializes object:
 	def __init__(self):
+		pass
+	
+	#Displays alignments between two sets of paragraphs:
+	def displayParagraphAlignment(self, p1s, p2s, alignments):
+		self.initializeRoot()
+		self.main_frame = AlignmentDisplayFrame(self.root, '#FFFFFF')
+		self.main_frame.drawAlignments(p1s, p2s, alignments)
+		self.root.mainloop()
+	
+	#Displays alignments between two paragraphs:
+	def displaySentenceAlignment(self, p1, p2, alignments):
+		p1f = [[s] for s in p1]
+		p2f = [[s] for s in p2]
+		self.displayParagraphAlignment(p1f, p2f, alignments)
+		
+	#Displays alignments between various sets of paragraphs:
+	def displayListOfParagraphAlignments(self, p1s_list, p2s_list, alignments_list):
+		self.initializeRoot()
+		self.main_frame = AlignmentDisplayFrame(self.root, '#FFFFFF')
+		self.control_frame = ControlFrame(self.root, p1s_list, p2s_list, alignments_list, self.main_frame)
+		self.root.mainloop()
+	
+	#Displays alignments between various sets of sentences:
+	def displayListOfSentenceAlignments(self, p1_list, p2_list, alignments_list):
+		p1f_list = [[[s] for s in p1] for p1 in p1_list]
+		p2f_list = [[[s] for s in p2] for p2 in p2_list]
+		self.initializeRoot()
+		self.main_frame = AlignmentDisplayFrame(self.root, '#FFFFFF')
+		self.control_frame = ControlFrame(self.root, p1f_list, p2f_list, alignments_list, self.main_frame)
+		self.root.mainloop()
+	
+	#Initializes root window of display:
+	def initializeRoot(self):
 		self.root = Tk()
 		self.root.grid_rowconfigure(0, weight=1)
 		self.root.grid_columnconfigure(0, weight=1)
@@ -27,19 +60,6 @@ class BasicGUI(GUI):
 		self.root.config(background='#FFFFFF')
 		self.root.geometry('1250x600')
 		self.root.resizable(False, True)
-	
-	#Displays alignments between two sets of paragraphs:
-	def displayParagraphAlignment(self, p1s, p2s, alignments):
-		self.frame = AlignmentDisplayFrame(self.root, '#FFFFFF', p1s, p2s, alignments)
-		self.frame.drawAlignments()
-		self.root.mainloop()
-	
-	#Displays alignments between two paragraphs:
-	def displaySentenceAlignment(self, p1, p2, alignments):
-		p1f = [[s] for s in p1]
-		p2f = [[s] for s in p2]
-		print p1f, '-', p2f
-		self.displayParagraphAlignment(p1f, p2f, alignments)
 
 #A canvas with dynamic size:
 class ResizingCanvas(Canvas):
@@ -63,51 +83,68 @@ class ResizingCanvas(Canvas):
 class ControlFrame(Frame):
 
 	#Initializes object:
-	def __init__(self, parentObject):
+	def __init__(self, parentObject, p1s_list, p2s_list, alignments_list, main_frame):
+		#Store parameters given:
+		self.p1s_list = p1s_list
+		self.p2s_list = p2s_list
+		self.alignments_list = alignments_list
+		self.main_frame = main_frame
+		
+		#Setup control variables:
 		self.curri = 1
-		self.maxi = 1
+		self.maxi = len(p1s_list)
 		
+		#Setup frame:
 		Frame.__init__(self, parentObject)
-		
 		self.grid(row=1, column=0, sticky='nsew')
 		self.columnconfigure(0, weight=1)
 		
+		#Setup control label:
 		self.l = Label(self, text=str(self.curri)+'/'+str(self.maxi))
 		self.l.grid(row=0, column=0, sticky='ns')
 		
-		self.bprev = Button(self, text='Previous', command=self.getPreviousDocument, width=10)
+		#Setup control buttons:
+		self.bprev = Button(self, text='Previous', command=self.getPreviousAlignment, width=10)
 		self.bprev.grid(row=0, column=0, sticky='nsw')
-		
-		self.bnext = Button(self, text='Next', command=self.getNextDocument, width=10)
+		self.bnext = Button(self, text='Next', command=self.getNextAlignment, width=10)
 		self.bnext.grid(row=0, column=0, sticky='nse')
+		
+		#If there are instances available and they all have the same size, print the first one:
+		if min(len(self.p1s_list),len(self.p2s_list),len(self.alignments_list))>0 and len(self.p1s_list)==len(self.p1s_list)==len(self.alignments_list):
+			self.main_frame.drawAlignments(self.p1s_list[self.curri-1], self.p2s_list[self.curri-1], self.alignments_list[self.curri-1])
 	
 	#Decrements index label indicator:
-	def getPreviousDocument(self):
-		if self.curri>1:
-			self.curri -= 1
-			self.l.configure(text=str(self.curri)+'/'+str(self.maxi))
+	def getPreviousAlignment(self):
+		#If there are instances available and they all have the same size, do:
+		if min(len(self.p1s_list),len(self.p2s_list),len(self.alignments_list))>0 and len(self.p1s_list)==len(self.p1s_list)==len(self.alignments_list):
+			#If there are any previous alignments, print them:
+			if self.curri>1:
+				self.main_frame.clearDrawingCanvas()
+				self.curri -= 1
+				self.l.configure(text=str(self.curri)+'/'+str(self.maxi))				
+				self.main_frame.drawAlignments(self.p1s_list[self.curri-1], self.p2s_list[self.curri-1], self.alignments_list[self.curri-1])
 	
 	#Increments index label indicator:
-	def getNextDocument(self):
-		if self.curri<self.maxi:
-			self.curri += 1
-			self.l.configure(text=str(self.curri)+'/'+str(self.maxi))
+	def getNextAlignment(self):
+		#If there are instances available and they all have the same size, do:
+		if min(len(self.p1s_list),len(self.p2s_list),len(self.alignments_list))>0 and len(self.p1s_list)==len(self.p1s_list)==len(self.alignments_list):
+			#If there are any next alignments, print them:
+			if self.curri<self.maxi:
+				self.main_frame.clearDrawingCanvas()
+				self.curri += 1
+				self.l.configure(text=str(self.curri)+'/'+str(self.maxi))
+				self.main_frame.drawAlignments(self.p1s_list[self.curri-1], self.p2s_list[self.curri-1], self.alignments_list[self.curri-1])
 
 #A frame that displays alignments:
 class AlignmentDisplayFrame(Frame):
 
 	#Initializes object:
-	def __init__(self, parentObject, background, p1s, p2s, alignments):
-		#Store input parameters:
-		self.p1s = p1s
-		self.p2s = p2s
-		self.alignments = alignments
-		
+	def __init__(self, parentObject, background):
 		#Setup visual environment variables:
 		self.permanent_width = 1200
 		self.global_x_offset = 500
 		self.global_y_offset = 50
-		self.max_chars_per_line = 30
+		self.max_chars_per_line = 70
 		self.offset_between_paragraphs = 25
 		self.separation_between_lines = 8
 		self.font_size = 10
@@ -142,6 +179,10 @@ class AlignmentDisplayFrame(Frame):
 		#Create overlying drawing canvas:
 		self.drawc = ResizingCanvas(self.frame, bg="#FFFFFF", highlightthickness=0)
 		self.drawc.pack(fill=BOTH, expand=YES)
+		
+	#Clears the drawing canvas:
+	def clearDrawingCanvas(self):
+		self.drawc.delete("all")
 
 	#Restructures underlying canvas upon update of main frame:
 	def onFrameConfigure(self, event):
@@ -171,7 +212,12 @@ class AlignmentDisplayFrame(Frame):
 		return offsets, sizes
 	
 	#Draws the alignments:
-	def drawAlignments(self):
+	def drawAlignments(self, p1s, p2s, alignments):
+		#Store input parameters:
+		self.p1s = p1s
+		self.p2s = p2s
+		self.alignments = alignments
+		
 		#Get offsets and sizes of each paragraph:
 		offsets1, sizes1 = self.getAccumulatedOffsetsAndSizes(self.p1s)
 		for i, p in enumerate(self.p1s):
@@ -243,24 +289,9 @@ class AlignmentDisplayFrame(Frame):
 					liney0 = self.global_y_offset+offsets1[i1]+((sizes1[i1]-self.separation_between_lines-self.offset_between_paragraphs)/2)
 					linex1 = self.permanent_width-self.global_x_offset-4
 					liney1 = self.global_y_offset+offsets2[i2]+((sizes2[i2]-self.separation_between_lines-self.offset_between_paragraphs)/2)
-					self.drawc.create_line(linex0, liney0, linex1, liney1, fill="red", width=self.alignment_line_width)
+					self.drawc.create_line(linex0+self.marker_radius, liney0, linex1-self.marker_radius, liney1, fill="red", width=self.alignment_line_width)
 					self.drawc.create_oval(linex0, liney0-self.marker_radius, linex0+2*self.marker_radius, liney0+self.marker_radius, fill='green')
 					self.drawc.create_oval(linex1-2*self.marker_radius-1, liney1-self.marker_radius, linex1-1, liney1+self.marker_radius, fill='green')
 		
 		#Set canvas to the appropriate size:
 		self.canvas.itemconfig(self.window, width=self.permanent_width, height=self.global_y_offset+max(offsets1[-1],offsets2[-1]))
-
-long = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbbbcccccccccccccccccccccccccccccccccc'
-p1s = [[long, 'b', 'c'], ['d'], ['4', long], ['6', '7'], [long, 'b', 'c'], ['d','e'], ['4', long], ['6', '7'], [long, 'b', 'c'], ['d','e'], ['4', long], ['6', '7']]
-p2s = [['a','b'], ['c'], ['d',long,'4','5']]
-alignments = [[[0],[0,1]], [[1,2],[2]]]
-
-bg = BasicGUI()
-bg.displayParagraphAlignment(p1s, p2s, alignments)
-
-p1 = p1s[0]
-p2 = p2s[2]
-alignments = [[[0],[3]], [[2],[1]]]
-
-bg = BasicGUI()
-bg.displaySentenceAlignment(p1, p2, alignments)

@@ -1,12 +1,11 @@
 from massalign.core import *
 
 #Get files to align:
-file1 = 'zuckerberg-internet.en.0.txt'
-file2 = 'zuckerberg-internet.en.1.txt'
+file1 = './sample_data/test_document_complex.txt'
+file2 = './sample_data/test_document_simple.txt'
 
 #Train model over them:
-#model = TFIDFModel([file1, file2], '/export/data/ghpaetzold/newsela/corpora/stop_words.txt')
-model = TFIDFModel([file1, file2], './stop_words.txt')
+model = TFIDFModel([file1, file2], './sample_data/stop_words.txt')
 
 #Get paragraph aligner:
 paragraph_aligner = VicinityDrivenParagraphAligner(similarity_model=model, acceptable_similarity=0.3)
@@ -31,7 +30,17 @@ alignments, aligned_paragraphs = m.getParagraphAlignments(p1s, p2s, paragraph_al
 gui.displayParagraphAlignment(p1s, p2s, alignments)
 
 #Align sentences in each pair of aligned paragraphs:
+p1l = []
+p2l = []
+alignmentsl = []
 for a in aligned_paragraphs:
 	p1 = a[0]
 	p2 = a[1]
-	path, aligned_sentences = m.getSentenceAlignments(p1, p2, sentence_aligner)
+	alignments, aligned_sentences = m.getSentenceAlignments(p1, p2, sentence_aligner)
+	p1l.append(p1)
+	p2l.append(p2)
+	alignmentsl.append(alignments)
+
+#Display the list of sentence alignments produced:
+gui = BasicGUI()
+gui.displayListOfSentenceAlignments(p1l, p2l, alignmentsl)
