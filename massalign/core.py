@@ -3,6 +3,7 @@ import numpy as np
 import codecs
 from aligners import *
 from models import *
+from gui import *
 
 class MASSAligner:
 	
@@ -49,3 +50,9 @@ class MASSAligner:
 			return sentence_aligner.alignSentencesFromParagraphs(paragraph1, paragraph2)
 		else:
 			return [], []
+			
+	def visualizeParagraphAlignments(self, paragraphs1=[], paragraphs2=[], alignments=[]):
+		pass
+			
+	def visualizeSentenceAlignments(self, paragraph1=[], paragraph2=[], alignments=[]):
+		pass
