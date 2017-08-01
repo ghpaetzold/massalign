@@ -8,11 +8,19 @@ class GUI:
 	__metaclass__ = ABCMeta
 
 	@abstractmethod
-	def displayParagraphAlignment(self):
+	def displayParagraphAlignments(self):
 		pass
 		
 	@abstractmethod
-	def displaySentenceAlignment(self):
+	def displaySentenceAlignments(self):
+		pass
+
+	@abstractmethod
+	def displayListOfParagraphAlignments(self):
+		pass
+		
+	@abstractmethod
+	def displayListOfSentenceAlignments(self):
 		pass
 
 #Implements a basic GUI that displays paragraph and sentence alignments:
@@ -23,17 +31,17 @@ class BasicGUI(GUI):
 		pass
 	
 	#Displays alignments between two sets of paragraphs:
-	def displayParagraphAlignment(self, p1s, p2s, alignments):
+	def displayParagraphAlignments(self, p1s, p2s, alignments):
 		self.initializeRoot()
 		self.main_frame = AlignmentDisplayFrame(self.root, '#FFFFFF')
 		self.main_frame.drawAlignments(p1s, p2s, alignments)
 		self.root.mainloop()
 	
 	#Displays alignments between two paragraphs:
-	def displaySentenceAlignment(self, p1, p2, alignments):
+	def displaySentenceAlignments(self, p1, p2, alignments):
 		p1f = [[s] for s in p1]
 		p2f = [[s] for s in p2]
-		self.displayParagraphAlignment(p1f, p2f, alignments)
+		self.displayParagraphAlignments(p1f, p2f, alignments)
 		
 	#Displays alignments between various sets of paragraphs:
 	def displayListOfParagraphAlignments(self, p1s_list, p2s_list, alignments_list):

@@ -51,8 +51,18 @@ class MASSAligner:
 		else:
 			return [], []
 			
-	def visualizeParagraphAlignments(self, paragraphs1=[], paragraphs2=[], alignments=[]):
-		pass
+	def visualizeParagraphAlignments(self, paragraph_set1=[], paragraph_set2=[], alignments=[]):
+		gui = BasicGUI()
+		gui.displayParagraphAlignments(paragraph_set1, paragraph_set2, alignments)
+		
+	def visualizeListOfParagraphAlignments(self, list_of_paragraph_sets1=[], list_of_paragraph_sets2=[], list_of_alignments=[]):
+		gui = BasicGUI()
+		gui.displayListOfParagraphAlignments(list_of_paragraph_sets1, list_of_paragraph_sets2, list_of_alignments)
 			
 	def visualizeSentenceAlignments(self, paragraph1=[], paragraph2=[], alignments=[]):
-		pass
+		gui = BasicGUI()
+		gui.displaySentenceAlignments(paragraph1, paragraph2, alignments)
+			
+	def visualizeListOfSentenceAlignments(self, list_of_paragraphs1=[], list_of_paragraphs2=[], alignments=[]):
+		gui = BasicGUI()
+		gui.displayListOfSentenceAlignments(list_of_paragraphs1, list_of_paragraphs2, alignments)
