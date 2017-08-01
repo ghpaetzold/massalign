@@ -26,9 +26,9 @@ print ref_conll
 # Annotation of a file with multiple sentences
 # =============================================================================
 
-sents_path = "./corpora/annotation_sample.parallel"
-aligns_path = "./corpora/annotation_sample.aligns"
-parse_path = "./corpora/annotation_sample.stp"
+sents_path = "./sample_data/annotation_sample.parallel"
+aligns_path = "./sample_data/annotation_sample.aligns"
+parse_path = "./sample_data/annotation_sample.stp"
 
 with open(sents_path) as sents_file, open(aligns_path) as aligns_file, open(parse_path) as parse_file:
     # get the annotations
@@ -38,4 +38,6 @@ with open(sents_path) as sents_file, open(aligns_path) as aligns_file, open(pars
     # create an output file with the annotations in conll format
     outfile_name = sents_path.split('/')[-1] + '.simops.conll'
     with open(outfile_name + '.src', 'w') as file_annots_src, open(outfile_name + '.ref', 'w') as file_annots_ref:
-        file_annotator.create_conll_files(file_annots_src, file_annots_ref, file_annots)
+        file_annotator.create_conll_files(file_annots_src, file_annots_ref, file_annots, True)
+
+    print 'Files created.'
