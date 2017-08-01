@@ -42,3 +42,17 @@ for a in aligned_paragraphs:
 #Display the list of sentence alignments produced:
 m.visualizeSentenceAlignments(p1l[0], p2l[0], alignmentsl[0])
 m.visualizeListOfSentenceAlignments(p1l, p2l, alignmentsl)
+
+#Create a sentence pair annotation example
+src = "Hershey left no heirs when he died in 1945 , giving most of his fortune to charity ."
+ref = "Hershey died in 1945 and gave most of his fortune to charity ."
+word_aligns = "18-13 12-7 13-8 14-9 15-10 16-11 17-12 7-2 8-3 9-4 1-1 11-6"
+src_parse = "(ROOT (S (NP (NNP Hershey)) (VP (VBD left) (NP (DT no) (NNS heirs)) (SBAR (WHADVP (WRB when)) (S (NP (PRP he)) (VP (VBD died) (PP (IN in) (NP (CD 1945))) (, ,) (S (VP (VBG giving) (NP (NP (JJS most)) (PP (IN of) (NP (PRP$ his) (NN fortune)))) (PP (TO to) (NP (NN charity))))))))) (. .)))"
+ref_parse = "(ROOT (S (NP (NNP Hershey)) (VP (VP (VBD died) (PP (IN in) (NP (CD 1945)))) (CC and) (VP (VBD gave) (NP (NP (JJS most)) (PP (IN of) (NP (PRP$ his) (NN fortune)))) (PP (TO to) (NP (NN charity))))) (. .)))"
+
+#Annotate the pair:
+annotator = SentenceAnnotator()
+annotations = m.getSentenceAnnotations(src.split(' '), ref.split(' '), annotator, aligns=word_aligns, src_parse=src_parse, ref_parse=ref_parse)
+
+#Display annotations:
+m.visualizeSentenceAnnotations(src, ref, word_aligns, annotations)

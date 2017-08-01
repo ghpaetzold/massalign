@@ -1,6 +1,7 @@
 import os, gensim
 import numpy as np
 import codecs
+from annotators import *
 from aligners import *
 from models import *
 from gui import *
@@ -50,6 +51,13 @@ class MASSAligner:
 			return sentence_aligner.alignSentencesFromParagraphs(paragraph1, paragraph2)
 		else:
 			return [], []
+		
+	def getSentenceAnnotations(self, sentence1=[], sentence2=[], sentence_annotator=None, **kwargs):
+		#Employ the sentence annotator provided to annotate a pair of aligned sentences:
+		if len(sentence1)>0 and len(sentence2)>0:
+			return sentence_annotator.annotate_sentence(sentence1, sentence2, **kwargs)
+		else:
+			return {}
 			
 	def visualizeParagraphAlignments(self, paragraph_set1=[], paragraph_set2=[], alignments=[]):
 		gui = BasicGUI()
@@ -66,3 +74,7 @@ class MASSAligner:
 	def visualizeListOfSentenceAlignments(self, list_of_paragraphs1=[], list_of_paragraphs2=[], alignments=[]):
 		gui = BasicGUI()
 		gui.displayListOfSentenceAlignments(list_of_paragraphs1, list_of_paragraphs2, alignments)
+		
+	def visualizeSentenceAnnotations(self, sentence1=[], sentence2=[], word_alignments=[], annotations=[]):
+		gui = BasicGUI()
+		gui.displaySentenceAnnotations(sentence1, sentence2, word_alignments, annotations)
