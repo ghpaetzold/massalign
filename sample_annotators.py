@@ -39,5 +39,3 @@ with open(sents_path) as sents_file, open(aligns_path) as aligns_file, open(pars
     outfile_name = sents_path.split('/')[-1] + '.simops.conll'
     with open(outfile_name + '.src', 'w') as file_annots_src, open(outfile_name + '.ref', 'w') as file_annots_ref:
         file_annotator.create_conll_files(file_annots_src, file_annots_ref, file_annots, True)
-
-    print 'Files created.'
