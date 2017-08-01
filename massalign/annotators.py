@@ -84,7 +84,7 @@ class SentenceAnnotator:
         for sents_pair, aligns_pairs in zip(sents_file, aligns_file):
             sent_id += 1
             if verbose:
-                print("Annotating sentence", sent_id, '.')
+                print "Annotating sentence", sent_id, '.'
 
             # get the aligned sentences and format them
             src_sent, ref_sent = sents_pair.split('|||')
@@ -111,7 +111,7 @@ class SentenceAnnotator:
     # Output Functions
     # =============================================================================
 
-    def create_conll_files(self, annot_file_src, annot_file_ref, annotations, include_clauseop, labels_to_print=SIMOP_LABELS):
+    def create_conll_files(self, annot_file_src, annot_file_ref, annotations, include_clauseop=True, labels_to_print=SIMOP_LABELS):
         conll_src = ""
         conll_ref = ""
         for sent in annotations:
@@ -129,10 +129,8 @@ class SentenceAnnotator:
                 if not include_clauseop:
                     if label in ['B-AC', 'I-AC', 'B-DC', 'I-DC', 'B-MC', 'I-MC']:
                         label = label[0:3]
-                if label in ['B-R', 'B-RW']:
+                if label in ['B-R', 'B-RW', 'B-RM', 'B-RWM']:
                     label += '\t' + ' '.join(token['replace'])
-                if label in ['B-M', 'B-MC', 'B-RM', 'B-RWM']:
-                    label += '\t' + str(token['move'])
             else:
                 label = 'O'
 
