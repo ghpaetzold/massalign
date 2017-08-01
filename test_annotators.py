@@ -12,14 +12,16 @@ ref_parse = "(ROOT (S (NP (NNP Hershey)) (VP (VP (VBD died) (PP (IN in) (NP (CD 
 
 singlesent_annotator = SentenceAnnotator()
 sent_annots = singlesent_annotator.annotate_sentence(src, ref, word_aligns, src_parse, ref_parse)
+print sent_annots['src']
+print sent_annots['ref']
 
 src_conll = singlesent_annotator.dict2conll(sent_annots['src'])
 ref_conll = singlesent_annotator.dict2conll(sent_annots['ref'])
 
-print "Annotations on the source sentence:"
-print src_conll
-print "Annotations on the reference sentence:"
-print ref_conll
+# print "Annotations on the source sentence:"
+# print src_conll
+# print "Annotations on the reference sentence:"
+# print ref_conll
 
 
 # =============================================================================
