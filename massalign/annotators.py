@@ -1,5 +1,5 @@
 """
-This module contains functions for annotating simplification operations at the sentencelevel.
+This module contains functions for annotating transformation operations at the sentence level.
 """
 
 
