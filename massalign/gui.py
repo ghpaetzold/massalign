@@ -208,6 +208,26 @@ class DisplayFrame(Frame):
 	#Restructures underlying canvas upon update of main frame:
 	def onFrameConfigure(self, event):
 		self.canvas.configure(scrollregion=self.canvas.bbox("all"))
+		
+	#Split lines for display:
+	def getLineSplits(self, sentence):
+		tokens = sentence.split(' ')
+		lines = []
+		i = 0
+		line = ''
+		while i<len(tokens):
+			while i<len(tokens) and len(line+' '+tokens[i])<self.max_chars_per_line:
+				line += ' '+tokens[i]
+				i += 1
+			lines.append(line)
+			line = ''
+		if len(lines[-1].strip())==1 and len(lines)>1:
+			last = lines[-1]
+			lines.remove(last)
+			second_last = lines[-1]
+			lines.remove(second_last)
+			lines.append(second_last.strip()+' '+last)
+		return lines
 	
 	#Gets offsets and sizes of all subsequent paragraphs:
 	def getAccumulatedOffsetsAndSizes(self, paragraphs):
@@ -248,17 +268,17 @@ class DisplayFrame(Frame):
 			#For each paragraph do:
 			for j, s in enumerate(p):
 				#Determine how many lines it will take to represent the sentence:
-				lines = len(s)/self.max_chars_per_line
-				lines += 1
+				lines = self.getLineSplits(s)
+				n_lines = len(lines)
 				#For each line, print it and update the offset:
-				for k in range(0, lines):
-					text = s[self.max_chars_per_line*k:self.max_chars_per_line*(k+1)]
+				for k in range(0, n_lines):
+					text = lines[k]
 					text_widget = self.drawc.create_text(self.global_x_offset, curroffset_y, text=text, font=self.font, justify='r', anchor='ne')
 					curroffset_y += self.font_size+self.separation_between_lines
 				#Print a rectangle around the sentence:
 				recx0 = 10
 				recx1 = self.global_x_offset+4
-				recy0 = curroffset_y-lines*self.font_size-lines*self.separation_between_lines-self.separation_between_lines/2+4
+				recy0 = curroffset_y-n_lines*self.font_size-n_lines*self.separation_between_lines-self.separation_between_lines/2+4
 				recy1 = curroffset_y-self.separation_between_lines/2+4
 				self.drawc.create_rectangle(recx0, recy0, recx1, recy1, outline='black', width=1)
 			#Print a rectangle around the paragraph:
@@ -277,17 +297,17 @@ class DisplayFrame(Frame):
 			#For each paragraph do:
 			for j, s in enumerate(p):
 				#Determine how many lines it will take to represent the sentence:
-				lines = len(s)/self.max_chars_per_line
-				lines += 1
+				lines = self.getLineSplits(s)
+				n_lines = len(lines)
 				#For each line, print it and update the offset:
-				for k in range(0, lines):
-					text = s[self.max_chars_per_line*k:self.max_chars_per_line*(k+1)]
+				for k in range(0, n_lines):
+					text = lines[k]
 					self.drawc.create_text(self.permanent_width-self.global_x_offset, curroffset_y, text=text, font=self.font, justify='l', anchor='nw')
 					curroffset_y += self.font_size+self.separation_between_lines
 				#Print a rectangle around the sentence:
 				recx0 = self.permanent_width-self.global_x_offset-4
 				recx1 = self.permanent_width-10
-				recy0 = curroffset_y-lines*self.font_size-lines*self.separation_between_lines-self.separation_between_lines/2+4
+				recy0 = curroffset_y-n_lines*self.font_size-n_lines*self.separation_between_lines-self.separation_between_lines/2+4
 				recy1 = curroffset_y-self.separation_between_lines/2+4
 				self.drawc.create_rectangle(recx0, recy0, recx1, recy1, outline='black', width=1)
 			#Print a rectangle around the paragraph:
@@ -338,17 +358,17 @@ class DisplayFrame(Frame):
 			#For each paragraph do:
 			for j, s in enumerate(p):
 				#Determine how many lines it will take to represent the sentence:
-				lines = len(s)/self.max_chars_per_line
-				lines += 1
+				lines = self.getLineSplits(s)
+				n_lines = len(lines)
 				#For each line, print it and update the offset:
-				for k in range(0, lines):
-					text = s[self.max_chars_per_line*k:self.max_chars_per_line*(k+1)]
+				for k in range(0, n_lines):
+					text = lines[k]
 					text_widget = self.drawc.create_text(self.global_x_offset, curroffset_y, text=text, font=self.font, justify='r', anchor='ne')
 					curroffset_y += self.font_size+self.separation_between_lines
 				#Print a rectangle around the sentence:
 				recx0 = self.global_x_offset-self.word_rectangle_size
 				recx1 = self.global_x_offset+4
-				recy0 = curroffset_y-lines*self.font_size-lines*self.separation_between_lines-self.separation_between_lines/2+4
+				recy0 = curroffset_y-n_lines*self.font_size-n_lines*self.separation_between_lines-self.separation_between_lines/2+4
 				recy1 = curroffset_y-self.separation_between_lines/2+4
 				self.drawc.create_rectangle(recx0, recy0, recx1, recy1, outline='black', width=1)
 		
@@ -361,17 +381,17 @@ class DisplayFrame(Frame):
 			#For each paragraph do:
 			for j, s in enumerate(p):
 				#Determine how many lines it will take to represent the sentence:
-				lines = len(s)/self.max_chars_per_line
-				lines += 1
+				lines = self.getLineSplits(s)
+				n_lines = len(lines)
 				#For each line, print it and update the offset:
-				for k in range(0, lines):
-					text = s[self.max_chars_per_line*k:self.max_chars_per_line*(k+1)]
+				for k in range(0, n_lines):
+					text = lines[k]
 					self.drawc.create_text(self.permanent_width-self.global_x_offset, curroffset_y, text=text, font=self.font, justify='l', anchor='nw')
 					curroffset_y += self.font_size+self.separation_between_lines
 				#Print a rectangle around the sentence:
 				recx0 = self.permanent_width-self.global_x_offset-4
 				recx1 = self.permanent_width-self.global_x_offset-4+self.word_rectangle_size
-				recy0 = curroffset_y-lines*self.font_size-lines*self.separation_between_lines-self.separation_between_lines/2+4
+				recy0 = curroffset_y-n_lines*self.font_size-n_lines*self.separation_between_lines-self.separation_between_lines/2+4
 				recy1 = curroffset_y-self.separation_between_lines/2+4
 				self.drawc.create_rectangle(recx0, recy0, recx1, recy1, outline='black', width=1)
 		

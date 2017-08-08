@@ -38,17 +38,17 @@ class MASSAligner:
 		#Return found paragraphs:
 		return paragraphs
 		
-	def getParagraphAlignments(self, paragraphs1=[], paragraphs2=[], paragraph_aligner=None):
+	def getParagraphAlignments(self, paragraphs1=[], paragraphs2=[], paragraph_aligner=None, **kwargs):
 		#Employ the paragraph aligner provided to align paragraphs from documents:
 		if len(paragraphs1)>0 and len(paragraphs2)>0:
-			return paragraph_aligner.alignParagraphsFromDocuments(paragraphs1, paragraphs2)
+			return paragraph_aligner.alignParagraphsFromDocuments(paragraphs1, paragraphs2, **kwargs)
 		else:
 			return [], []
 		
-	def getSentenceAlignments(self, paragraph1=[], paragraph2=[], sentence_aligner=None):
+	def getSentenceAlignments(self, paragraph1=[], paragraph2=[], sentence_aligner=None, **kwargs):
 		#Employ the sentence aligner provided to align sentences from paragraphs:
 		if len(paragraph1)>0 and len(paragraph2)>0:
-			return sentence_aligner.alignSentencesFromParagraphs(paragraph1, paragraph2)
+			return sentence_aligner.alignSentencesFromParagraphs(paragraph1, paragraph2, **kwargs)
 		else:
 			return [], []
 		
@@ -59,22 +59,22 @@ class MASSAligner:
 		else:
 			return {}
 			
-	def visualizeParagraphAlignments(self, paragraph_set1=[], paragraph_set2=[], alignments=[]):
-		gui = BasicGUI()
-		gui.displayParagraphAlignments(paragraph_set1, paragraph_set2, alignments)
+	def visualizeParagraphAlignments(self, paragraph_set1=[], paragraph_set2=[], alignments=[], **kwargs):
+		gui = BasicGUI(**kwargs)
+		gui.displayParagraphAlignments(paragraph_set1, paragraph_set2, alignments, **kwargs)
 		
-	def visualizeListOfParagraphAlignments(self, list_of_paragraph_sets1=[], list_of_paragraph_sets2=[], list_of_alignments=[]):
-		gui = BasicGUI()
-		gui.displayListOfParagraphAlignments(list_of_paragraph_sets1, list_of_paragraph_sets2, list_of_alignments)
+	def visualizeListOfParagraphAlignments(self, list_of_paragraph_sets1=[], list_of_paragraph_sets2=[], list_of_alignments=[], **kwargs):
+		gui = BasicGUI(**kwargs)
+		gui.displayListOfParagraphAlignments(list_of_paragraph_sets1, list_of_paragraph_sets2, list_of_alignments, **kwargs)
 			
-	def visualizeSentenceAlignments(self, paragraph1=[], paragraph2=[], alignments=[]):
-		gui = BasicGUI()
-		gui.displaySentenceAlignments(paragraph1, paragraph2, alignments)
+	def visualizeSentenceAlignments(self, paragraph1=[], paragraph2=[], alignments=[], **kwargs):
+		gui = BasicGUI(**kwargs)
+		gui.displaySentenceAlignments(paragraph1, paragraph2, alignments, **kwargs)
 			
-	def visualizeListOfSentenceAlignments(self, list_of_paragraphs1=[], list_of_paragraphs2=[], alignments=[]):
-		gui = BasicGUI()
-		gui.displayListOfSentenceAlignments(list_of_paragraphs1, list_of_paragraphs2, alignments)
+	def visualizeListOfSentenceAlignments(self, list_of_paragraphs1=[], list_of_paragraphs2=[], alignments=[], **kwargs):
+		gui = BasicGUI(**kwargs)
+		gui.displayListOfSentenceAlignments(list_of_paragraphs1, list_of_paragraphs2, alignments, **kwargs)
 		
-	def visualizeSentenceAnnotations(self, sentence1=[], sentence2=[], word_alignments=[], annotations=[]):
-		gui = BasicGUI()
-		gui.displaySentenceAnnotations(sentence1, sentence2, word_alignments, annotations)
+	def visualizeSentenceAnnotations(self, sentence1=[], sentence2=[], word_alignments=[], annotations=[], **kwargs):
+		gui = BasicGUI(**kwargs)
+		gui.displaySentenceAnnotations(sentence1, sentence2, word_alignments, annotations, **kwargs)
