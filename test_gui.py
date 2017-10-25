@@ -1,8 +1,8 @@
 from massalign.core import *
 
 #Get files to align:
-file1 = './sample_data/test_document_complex.txt'
-file2 = './sample_data/test_document_simple.txt'
+file1 = './sample_data/test_document_complex_2.txt'
+file2 = './sample_data/test_document_simple_2.txt'
 
 #Train model over them:
 model = TFIDFModel([file1, file2], './sample_data/stop_words.txt')
