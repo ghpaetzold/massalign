@@ -1,1 +1,1 @@
-Search.setIndex({docnames:["index"],envversion:50,filenames:["index.rst"],objects:{},objnames:{},objtypes:{},terms:{index:0,modul:0,page:0,search:0},titles:["Welcome to MASSAlign&#8217;s documentation!"],titleterms:{document:0,indic:0,massalign:0,tabl:0,welcom:0}})
+Search.setIndex({docnames:["index"],envversion:50,filenames:["index.rst"],objects:{},objnames:{},objtypes:{},terms:{index:0,modul:0,page:0,search:0},titles:["Tamo na area!"],titleterms:{area:0,document:[],indic:0,massalign:[],tabl:0,tamo:0,welcom:[]}})
