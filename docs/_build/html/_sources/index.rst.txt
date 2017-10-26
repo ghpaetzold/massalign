@@ -10,7 +10,10 @@ Tamo na area!
    :maxdepth: 2
    :caption: Contents:
 
-
+.. automodule:: aligners
+ 
+.. autoclass:: VicinityDrivenParagraphAligner
+    :members:
 
 Indices and tables
 ==================

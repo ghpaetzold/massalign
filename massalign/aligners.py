@@ -18,6 +18,15 @@ class SentenceAligner:
         pass
 		
 class VicinityDrivenParagraphAligner(ParagraphAligner):
+	"""
+	Implements the vicinity-driven paragraph alignment algorithm proposed in:
+	
+		Gustavo H. Paetzold and Lucia Specia. **Vicinity-Driven Paragraph and Sentence Alignment for Comparable Corpora**. *arXiv preprint arXiv:1612.04113* (2016).
+		
+	* *Parameters*:
+		* **similarity_model**: An instance of a class deriving from SimilarityModel.
+		* **acceptable_similarity**: The minimum similarity score between two paragraphs necessary for an alignment to be considered.
+	"""
 
 	def __init__(self, similarity_model=None, acceptable_similarity=0.3):
 		self.total_vicinity = set([(1,1),(1,0),(0,1),(2,1),(1,2)])
@@ -27,8 +36,19 @@ class VicinityDrivenParagraphAligner(ParagraphAligner):
 		self.similarity_model = similarity_model
 		
 	def alignParagraphsFromDocuments(self, p1s=[], p2s=[]):
+		"""
+		Finds alignments between a list of source and target paragraphs that compose a pair of comparable documents.
+		To do so, it produces a similarity matrix between the paragraphs in the source and target list, then finds an alignment path within it using a vicinity-driven approach.
+		
+		* *Parameters*:
+			* **p1s**: A list of source paragraphs. Each paragraph is a list of sentences.
+			* **p2s**: A list of target paragraphs. Each paragraph is a list of sentences.
+		* *Output*:
+			* **alignment_path**: A list of coordinates in the similarity matrix that describes which paragraphs are aligned.
+			* **aligned_paragraphs**: A list containing all pairs of aligned paragraphs.
+		"""
 		#Get similarity model:
-		paragraph_similarities, sentence_indexes = self.similarity_model.getSimilarityMapBetweenParagraphsOfDocuments(p1s, p2s)
+		paragraph_similarities = self.similarity_model.getSimilarityMapBetweenParagraphsOfDocuments(p1s, p2s)
 		
 		#Calculate alignment path:
 		alignment_path = self.getParagraphAlignmentPath(p1s, p2s, paragraph_similarities)
@@ -40,6 +60,16 @@ class VicinityDrivenParagraphAligner(ParagraphAligner):
 		return alignment_path, aligned_paragraphs
 		
 	def getParagraphAlignmentPath(self, p1s, p2s, paragraph_similarities):
+		"""
+		Searches for the alignment path in a matrix containing similarity scores for all paragraph pairs.
+		
+		* *Parameters*:
+			* **p1s**: A list of source paragraphs. Each paragraph is a list of sentences.
+			* **p2s**: A list of target paragraphs. Each paragraph is a list of sentences.
+			* **paragraph_similarities**: A matrix of dimensions [length(p1s),length(p2s)] containing a similarity score for each paragraph pair.
+		* *Output*:
+			* **compact_path**: A list of coordinates in the similarity matrix that describes which paragraphs are aligned.
+		"""
 		#Get paragraph set sizes:
 		sizep1 = len(p1s)
 		sizep2 = len(p2s)
@@ -87,6 +117,15 @@ class VicinityDrivenParagraphAligner(ParagraphAligner):
 		return compact_path
 		
 	def getNextAlignment(self, currXY, paragraph_similarities):
+		"""
+		Searches for the next alignment during the search for the alignment path.
+		
+		* *Parameters*:
+			* **currXY**: Current coordinate in the similarity matrix from which to continue the search.
+			* **paragraph_similarities**: A matrix containing a similarity score for each paragraph pair.
+		* *Output*:
+			* **x, y**: The coordinate for the next alignment.
+		"""
 		#Get the similarities from all reachable candidates:
 		cands = {}
 		for pos in self.total_vicinity:
@@ -119,6 +158,15 @@ class VicinityDrivenParagraphAligner(ParagraphAligner):
 				return winners[0], cands[winners[0]]
 
 	def getNextSynchronizer(self, currXY, paragraph_similarities):
+		"""
+		If it was impossible to find any suitable alignments within the vicinities specified, then search for the acceptable alignment outside the vicinities that is closest to the current search coordinate.
+		
+		* *Parameters*:
+			* **currXY**: Current coordinate in the similarity matrix from which to continue the search.
+			* **paragraph_similarities**: A matrix containing a similarity score for each paragraph pair.
+		* *Output*:
+			* **x, y**: The coordinate for the next acceptable alignment outside the valid vicinities.
+		"""
 		#Start search for next synchronizer:
 		cands = {}
 		orig = currXY
@@ -139,6 +187,17 @@ class VicinityDrivenParagraphAligner(ParagraphAligner):
 			return (last[0]-1, last[1]-1)
 			
 	def getActualAlignedParagraphs(self, p1s, p2s, alignment_path):
+		"""
+		Produces a convenient list containing the pairs of aligned paragraphs found between two lists of paragraphs.
+		It concatenates all paragraphs in the "N" side of 1-N and N-1 alignments.
+		
+		* *Parameters*:
+			* **p1s**: A list of source paragraphs. Each paragraph is a list of sentences.
+			* **p2s**: A list of target paragraphs. Each paragraph is a list of sentences.
+			* **alignment_path**: A list of coordinates in the similarity matrix that describes which paragraphs are aligned.
+		* *Output*:
+			* **aligned_paragraphs**: A list containing all pairs of aligned paragraphs.
+		"""
 		#Create structure to store aligned paragraphs:
 		aligned_paragraphs = []
 		
@@ -152,6 +211,15 @@ class VicinityDrivenParagraphAligner(ParagraphAligner):
 		return aligned_paragraphs
 				
 	def getOriginalParagraph(self, aligned_nodes, paragraphs):
+		"""
+		Concatenates all paragraphs in a 1-N or N-1 alignment.
+		
+		* *Parameters*:
+			* **aligned_nodes**: A list of paragraph indexes from a node in the alignment path.
+			* **paragraphs**: A list of paragraphs. Each paragraph is a list of sentences.
+		* *Output*:
+			* **text**: A list of all the paragraphs in the aligned nodes.
+		"""
 		#Concatenate all sentences from all paragraphs in an aligned node:
 		text = []
 		for index in aligned_nodes:
@@ -162,6 +230,16 @@ class VicinityDrivenParagraphAligner(ParagraphAligner):
 ####################################################################################################################################################
 			
 class VicinityDrivenSentenceAligner(SentenceAligner):
+	"""
+	Implements the vicinity-driven sentence alignment algorithm proposed in:
+	
+		Gustavo H. Paetzold and Lucia Specia. **Vicinity-Driven Paragraph and Sentence Alignment for Comparable Corpora**. *arXiv preprint arXiv:1612.04113* (2016).
+		
+	* *Parameters*:
+		* **similarity_model**: An instance of a class deriving from SimilarityModel.
+		* **acceptable_similarity**: The minimum similarity score between two paragraphs necessary for an alignment to be considered.
+		* **similarity_slack**: The maximum amount of similarity that can be lost after each step of incrementing N when finding for a 1-N or N-1 alignment.
+	"""
 
 	def __init__(self, similarity_model=None, acceptable_similarity=0.2, similarity_slack=0.05):
 		self.total_vicinity = set([(1,1),(1,0),(0,1),(2,1),(1,2)])
@@ -172,6 +250,17 @@ class VicinityDrivenSentenceAligner(SentenceAligner):
 		self.similarity_model = similarity_model
 		
 	def alignSentencesFromParagraphs(self, p1=[], p2=[]):
+		"""
+		Finds alignments between a list of source and target sentences that compose a pair of aligned paragraphs.
+		To do so, it produces a similarity matrix between the sentences in the source and target sentences, then finds an alignment path within it using a vicinity-driven approach.
+		
+		* *Parameters*:
+			* **p1**: A source paragraph. A paragraph is a list of sentences.
+			* **p2**: A target paragraph. A paragraph is a list of sentences.
+		* *Output*:
+			* **alignment_path**: A list of coordinates in the similarity matrix that describes which sentences are aligned.
+			* **aligned_sentences**: A list containing all pairs of aligned sentences.
+		"""
 		#Get similarity model:
 		sentence_similarities, sentence_indexes = self.similarity_model.getSimilarityMapBetweenSentencesOfParagraphs(p1, p2)
 		
@@ -183,33 +272,19 @@ class VicinityDrivenSentenceAligner(SentenceAligner):
 		
 		#Return alignment path:
 		return alignment_path, aligned_sentences
-		
-	def getActualAlignedSentences(self, p1, p2, alignment_path):
-		#Create structure to store aligned sentences:
-		aligned_sentences = []
-		
-		#For each alignment in the path, produce final aligned text of both sides:
-		for node in alignment_path:
-			if len(node)>1:
-				s1 = self.getOriginalSentence(node[0], p1)
-				s2 = self.getOriginalSentence(node[1], p2)
-				aligned_sentences.append([s1, s2])
-		
-		#Return aligned sentences:
-		return aligned_sentences
-	
-	def getOriginalSentence(self, indexes, p):
-		#Allocate sentence:
-		sentence = ''
-		
-		#Add aligned sentences to resulting sentence:
-		for index in indexes:
-			sentence += p[index] + ' '
-			
-		#Return resulting sentence:
-		return sentence.strip()
 	
 	def getSentenceAlignmentPath(self, p1, p2, sentence_similarities, sentence_indexes):
+		"""
+		Produces a similarity matrix and searches for the alignment path within it.
+		
+		* *Parameters*:
+			* **p1**: A source paragraph. A paragraph is a list of sentences.
+			* **p2**: A target paragraph. A paragraph is a list of sentences.
+			* **sentence_similarities**: A matrix containing a similarity score between all possible pairs of sentences in the union of p1 and p2. The matrix's height and width are equal and equivalent to the number of distinct sentences present in the union of p1 and p2.
+			* **sentence_indexes**: A map connecting each sentence to its numerical index in the sentence_similarities matrix.
+		* *Output*:
+			* **path**: A list of coordinates in the similarity matrix that describes which sentences are aligned.
+		"""
 		#Get paragraph sizes:
 		sizep1 = len(p1)
 		sizep2 = len(p2)
@@ -354,6 +429,17 @@ class VicinityDrivenSentenceAligner(SentenceAligner):
 		return path
 		
 	def findStartingPoint(self, matrix, p1, p2, startpos):
+		"""
+		Searches for a coordinate in the similarity matrix from which to start (or recover) the alignment path search.
+		
+		* *Parameters*:
+			* **matrix**:  A matrix of dimensions [length(p1),length(p2)] containing a similarity score for each sentence pair.
+			* **p1**: A source paragraph. A paragraph is a list of sentences.
+			* **p2**: A target paragraph. A paragraph is a list of sentences.
+			* **startpos**: The coordinate from which to start the search for the first alignment in the matrix (usually [-1,-1]).
+		* *Output*:
+			* **x, y**: The coordinate of the next alignment in the similarity matrix.
+		"""
 		#Start search for starting point:
 		sizec = len(p1)
 		sizes = len(p2)
@@ -392,6 +478,19 @@ class VicinityDrivenSentenceAligner(SentenceAligner):
 			return currpos
 			
 	def getBestNextHypothesis(self, matrix, p1, p2, cbuffer, sbuffer, currXY):
+		"""
+		Searches for the next alignment in the alignment matrix.
+		
+		* *Parameters*:
+			* **matrix**:  A matrix of dimensions [length(p1),length(p2)] containing a similarity score for each sentence pair.
+			* **p1**: A source paragraph. A paragraph is a list of sentences.
+			* **p2**: A target paragraph. A paragraph is a list of sentences.
+			* **cbuffer**: The concatenation of all aligned sentences in the source side, in case the current alignment is of N-1 kind.
+			* **sbuffer**: The concatenation of all aligned sentences in the target side, in case the current alignment is of 1-N kind.
+			* **currXY**: Current coordinate in the similarity matrix from which to continue the search.
+		* *Output*:
+			* **x, y**: A coordinate in the similarity matrix that represents the next alignment in the alignment path.
+		"""
 		#Test diagonal:
 		diag = (currXY[0]+1, currXY[1]+1)
 		diagsim = matrix[currXY[0]+1][currXY[1]+1]
@@ -429,6 +528,17 @@ class VicinityDrivenSentenceAligner(SentenceAligner):
 			return newc, newp
 	
 	def getProbabilityMatrix(self, p1, p2, sentence_similarities, sentence_indexes):
+		"""
+		Produces a similarity matrix between the sentences in the aligned paragraphs
+		
+		* *Parameters*:
+			* **p1**: A source paragraph. A paragraph is a list of sentences.
+			* **p2**: A target paragraph. A paragraph is a list of sentences.
+			* **sentence_similarities**: A matrix containing a similarity score between all possible pairs of sentences in the union of p1 and p2. The matrix's height and width are equal and equivalent to the number of distinct sentences present in the union of p1 and p2.
+			* **sentence_indexes**: A map connecting each sentence to its numerical index in the sentence_similarities matrix.
+		* *Output*:
+			* **matrix**: A similarity matrix with dimensions [length(p1),length(p2)]
+		"""
 		#Start the creation of the regularized search matrix:
 		sizec = len(p1)
 		sizes = len(p2)
@@ -449,53 +559,47 @@ class VicinityDrivenSentenceAligner(SentenceAligner):
 		#Return regularized search matrix:
 		return final_matrix
 		
-	def getNextAlignment(self, currXY, paragraph_similarities):
-		#Get the similarities from all reachable candidates:
-		cands = {}
-		for pos in self.total_vicinity:
-			candXY = (currXY[0]+pos[0], currXY[1]+pos[1])
-			sim = -99999
-			try:
-				sim = paragraph_similarities[candXY[0]][candXY[1]]
-			except Exception:
-				pass
-			cands[candXY] = sim
+	def getActualAlignedSentences(self, p1, p2, alignment_path):
+		"""
+		Produces a convenient list containing the pairs of aligned sentences found between two paragraphs.
+		It concatenates all sentences in the "N" side of 1-N and N-1 alignments.
 		
-		#Rank them according to their similarities:
-		winners = sorted(cands.keys(), key=cands.__getitem__, reverse=True)
-
-		#Check whether the first ficinity has a similar enough candidate:
-		nearest = [cands[(currXY[0]+pos[0], currXY[1]+pos[1])] for pos in self.first_vicinity]
-		if np.max(nearest)>=self.acceptable_similarity:
-			auxes = [(currXY[0]+pos[0], currXY[1]+pos[1]) for pos in self.second_vicinity]
-			for aux in auxes:
-					winners.remove(aux)
-			return winners[0], cands[winners[0]]
-		#If not, get a next synchronizer outside the reachable vicinity
-		else:
-			all = [cands[c] for c in cands]
-			if np.max(all)<self.acceptable_similarity:
-				finalNextXY = self.getNextSynchronizer(currXY, paragraph_similarities)
-				return finalNextXY, paragraph_similarities[finalNextXY[0]][finalNextXY[1]]
-			else:
-				return winners[0], cands[winners[0]]
-
-	def getNextSynchronizer(self, currXY, paragraph_similarities):
-		#Start search for next synchronizer:
-		cands = {}
-		orig = currXY
-		last = [len(paragraph_similarities), len(paragraph_similarities[0])]
+		* *Parameters*:
+			* **p1**: A source paragraph. A paragraph is a list of sentences.
+			* **p2**: A target paragraph. A paragraph is a list of sentences.
+			* **alignment_path**: A list of coordinates in the similarity matrix that describes which sentences are aligned.
+		* *Output*:
+			* **aligned_sentences**: A list containing all pairs of aligned sentences.
+		"""
+		#Create structure to store aligned sentences:
+		aligned_sentences = []
 		
-		#Find all candidates "in front" of currXY that have good enough similarity:
-		for i in range(orig[0], last[0]):
-			for j in range(orig[1], last[1]):
-				if i!=orig[0] and j!=orig[1] and paragraph_similarities[i][j]>=self.acceptable_similarity:
-					cands[(i, j)] = (i-orig[0])+(j-orig[1])
-					
-		#If there are any, get the best one:
-		if len(cands)>0:
-			closest = sorted(cands.keys(), key=cands.__getitem__)
-			return closest[0]
-		#Otherwise, return the last position in the alignment matrix:
-		else:
-			return (last[0]-1, last[1]-1)
+		#For each alignment in the path, produce final aligned text of both sides:
+		for node in alignment_path:
+			if len(node)>1:
+				s1 = self.getOriginalSentence(node[0], p1)
+				s2 = self.getOriginalSentence(node[1], p2)
+				aligned_sentences.append([s1, s2])
+		
+		#Return aligned sentences:
+		return aligned_sentences
+	
+	def getOriginalSentence(self, indexes, p):
+		"""
+		Concatenates a list of sentences.
+		
+		* *Parameters*:
+			* **indexes**: A list of indexes of sentences in a paragraph
+			* **paragraphs**: A paragraph. A paragraph is a list of sentences.
+		* *Output*:
+			* **sentence**: A concatenation of all sentences.
+		"""
+		#Allocate sentence:
+		sentence = ''
+		
+		#Add aligned sentences to resulting sentence:
+		for index in indexes:
+			sentence += p[index] + ' '
+			
+		#Return resulting sentence:
+		return sentence.strip()

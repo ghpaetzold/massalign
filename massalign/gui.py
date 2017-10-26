@@ -29,6 +29,9 @@ class GUI:
 
 #Implements a basic GUI that displays paragraph and sentence alignments:
 class BasicGUI(GUI):
+	"""
+	A basic GUI to showcase alignments and annotations.
+	"""
 
 	#Initializes object:
 	def __init__(self):
@@ -36,6 +39,16 @@ class BasicGUI(GUI):
 	
 	#Displays alignments between two sets of paragraphs:
 	def displayParagraphAlignments(self, p1s, p2s, alignments):
+		"""
+		Displays alignments between two paragraphs.
+		
+		* *Parameters*:
+			* **p1s**: A list of source paragraphs. A paragraph is a list of sentences.
+			* **p2s**: A list of target paragraphs. A paragraph is a list of sentences.
+			* **alignments**: An alignment path between the input paragraph lists.
+		* *Output*:
+			* Opens an interface showcasing aligned paragraphs.
+		"""
 		self.initializeRoot()
 		self.main_frame = DisplayFrame(self.root, '#FFFFFF')
 		self.main_frame.drawAlignments(p1s, p2s, alignments)
@@ -43,12 +56,33 @@ class BasicGUI(GUI):
 	
 	#Displays alignments between two paragraphs:
 	def displaySentenceAlignments(self, p1, p2, alignments):
+		"""
+		Display sentence alignments between two paragraphs.
+		
+		* *Parameters*:
+			* **p1**: A source paragraph. A paragraph is a list of sentences.
+			* **p2**: A target paragraph. A paragraph is a list of sentences.
+			* **alignments**: An alignment path between the input paragraphs.
+		* *Output*:
+			* Opens an interface showcasing sentence alignments for a paragraph pair.
+		"""
 		p1f = [[s] for s in p1]
 		p2f = [[s] for s in p2]
 		self.displayParagraphAlignments(p1f, p2f, alignments)
 		
 	#Displays alignments between various sets of paragraphs:
 	def displayListOfParagraphAlignments(self, p1s_list, p2s_list, alignments_list):
+		"""
+		Displays alignments between lists of lists of paragraphs.
+		Each list of paragraphs can represent a document, so this function allows you to see the paragraph alignments of an entire collection of documents through a single interface.
+		
+		* *Parameters*:
+			* **p1s_list**: A source list of paragraph lists. A paragraph is a list of sentences.
+			* **p2s_list**: A source list of paragraph lists. A paragraph is a list of sentences.
+			* **alignments_list**: List of alignment paths between each pair of paragraph lists.
+		* *Output*:
+			* Opens an interface showcasing the aligned paragraphs for each pair of paragraph lists.
+		"""
 		self.initializeRoot()
 		self.main_frame = DisplayFrame(self.root, '#FFFFFF')
 		self.control_frame = ControlFrame(self.root, p1s_list, p2s_list, alignments_list, self.main_frame)
@@ -56,6 +90,17 @@ class BasicGUI(GUI):
 	
 	#Displays alignments between various sets of sentences:
 	def displayListOfSentenceAlignments(self, p1_list, p2_list, alignments_list):
+		"""
+		Displays alignments between the sentences of each pair of paragraphs in a pair of paragraph lists.
+		The interface will showcase the sentence-level alignments between each paragraph pair through a single interface.
+		
+		* *Parameters*:
+			* **p1_list**: A source list of paragraphs. A paragraph is a list of sentences.
+			* **p2_list**: A source list of paragraphs. A paragraph is a list of sentences.
+			* **alignments_list**: List of alignment paths between each pair of paragraphs.
+		* *Output*:
+			* Opens an interface showcasing the aligned sentences for each pair of paragraphs.
+		"""
 		p1f_list = [[[s] for s in p1] for p1 in p1_list]
 		p2f_list = [[[s] for s in p2] for p2 in p2_list]
 		self.initializeRoot()
@@ -65,6 +110,17 @@ class BasicGUI(GUI):
 		
 	#Displays annotations for a pair of sentences:
 	def displaySentenceAnnotations(self, s1, s2, alignments, annotations):
+		"""
+		Displays word-level annotations for a pair of aligned sentences.
+		
+		* *Parameters*:
+			* **s1**: A source sentence.
+			* **s2**: A target sentence.
+			* **alignments**: Word alignments in Pharaoh format.
+			* **annotations**: Word-level annotations produced for the sentence pair.
+		* *Output*:
+			* Opens an interface showcasing the word-level annotations for the aligned sentences.
+		"""
 		self.initializeRoot()
 		self.main_frame = DisplayFrame(self.root, '#FFFFFF')
 		self.main_frame.drawAnnotations(s1, s2, alignments, annotations)
@@ -72,6 +128,9 @@ class BasicGUI(GUI):
 	
 	#Initializes root window of display:
 	def initializeRoot(self):
+		"""
+		Initializes the GUI.
+		"""
 		self.root = Tk()
 		self.root.grid_rowconfigure(0, weight=1)
 		self.root.grid_columnconfigure(0, weight=1)
@@ -82,6 +141,9 @@ class BasicGUI(GUI):
 
 #A canvas with dynamic size:
 class ResizingCanvas(Canvas):
+	"""
+	A resizing canvas that allows for a GUI window to have a dynamic size.
+	"""
 
 	#Initializes object:
 	def __init__(self,parent,**kwargs):
@@ -91,7 +153,13 @@ class ResizingCanvas(Canvas):
 		self.width = self.winfo_reqwidth()
 
 	#Updates the size of canvas upon window resizing:
-	def on_resize(self,event):
+	def on_resize(self, event):
+		"""
+		Overrides the default resizing behaviour of Canvas objects.
+		
+		* *Parameters*:
+			* **event**: A resizing event.
+		"""
 		wscale = float(event.width)/self.width
 		hscale = float(event.height)/self.height
 		self.width = event.width
@@ -100,6 +168,16 @@ class ResizingCanvas(Canvas):
 
 #A frame that handles multiple alignments:
 class ControlFrame(Frame):
+	"""
+	A frame that allows for multiple alignments to be showcase at once through left/right navigation buttons.
+	
+	* *Parameters*:
+		* **parentObject**: The parent frame.
+		* **p1s_list**: A list of source paragraph lists. A paragraph is a list of sentences.
+		* **p2s_list**: A list of target paragraph lists. A paragraph is a list of sentences.
+		* **alignments_list**: A list containing the alignments for each pair of paragraph lists.
+		* **main_frame**: The frame in which to draw the alignments.
+	"""
 
 	#Initializes object:
 	def __init__(self, parentObject, p1s_list, p2s_list, alignments_list, main_frame):
@@ -134,6 +212,9 @@ class ControlFrame(Frame):
 	
 	#Decrements index label indicator:
 	def getPreviousAlignment(self):
+		"""
+		Showcases the alignment between the previous pair of paragraph lists.
+		"""
 		#If there are instances available and they all have the same size, do:
 		if min(len(self.p1s_list),len(self.p2s_list),len(self.alignments_list))>0 and len(self.p1s_list)==len(self.p1s_list)==len(self.alignments_list):
 			#If there are any previous alignments, print them:
@@ -145,6 +226,9 @@ class ControlFrame(Frame):
 	
 	#Increments index label indicator:
 	def getNextAlignment(self):
+		"""
+		Showcases the alignment between the next pair of paragraph lists.
+		"""
 		#If there are instances available and they all have the same size, do:
 		if min(len(self.p1s_list),len(self.p2s_list),len(self.alignments_list))>0 and len(self.p1s_list)==len(self.p1s_list)==len(self.alignments_list):
 			#If there are any next alignments, print them:
@@ -156,6 +240,13 @@ class ControlFrame(Frame):
 
 #A frame that displays alignments:
 class DisplayFrame(Frame):
+	"""
+	A frame in which to display alignments and annotations.
+	
+	* *Parameters*:
+		* **parentObject**: The parent frame.
+		* **background**: The background object.
+	"""
 
 	#Initializes object:
 	def __init__(self, parentObject, background):
@@ -203,14 +294,31 @@ class DisplayFrame(Frame):
 		
 	#Clears the drawing canvas:
 	def clearDrawingCanvas(self):
+		"""
+		Clears the drawing canvas.
+		"""
 		self.drawc.delete("all")
 
 	#Restructures underlying canvas upon update of main frame:
 	def onFrameConfigure(self, event):
+		"""
+		Restructures underlying canvas upon update of main frame.
+		
+		* *Parameters*:
+			* **event**: A frame configure event.
+		"""
 		self.canvas.configure(scrollregion=self.canvas.bbox("all"))
 		
 	#Split lines for display:
 	def getLineSplits(self, sentence):
+		"""
+		Split lines for display.
+		
+		* *Parameters*:
+			* **sentence**: A sentence to split.
+		* *Output*:
+			* **lines**: A list of fragments of the input sentence.
+		"""
 		tokens = sentence.split(' ')
 		lines = []
 		i = 0
@@ -231,6 +339,15 @@ class DisplayFrame(Frame):
 	
 	#Gets offsets and sizes of all subsequent paragraphs:
 	def getAccumulatedOffsetsAndSizes(self, paragraphs):
+		"""
+		Gets offsets and sizes for a list of paragraphs.
+		
+		* *Parameters*:
+			* **paragraphs**: A list of paragraphs. A paragraph is a list of sentences.
+		* *Output*:
+			* **offsets**: The total accumulated vertical offset of each paragraph in the input list.
+			* **sizes**: The individual vertical size of each paragraph in the input list.
+		"""
 		#Create resulting structures:
 		offsets = [0]
 		sizes = []
@@ -254,6 +371,15 @@ class DisplayFrame(Frame):
 	
 	#Draws the alignments:
 	def drawAlignments(self, p1s, p2s, alignments):
+		"""
+		Draws a set of alignments between two paragraph lists.
+		
+		* *Parameters*:
+			* **p1s**: A list of source paragraphs. A paragraph is a list of sentences.
+			* **p2s**: A list of target paragraphs. A paragraph is a list of sentences.
+		* *Output*:
+			* Opens an interface showcasing the alignments between the input paragraph lists.
+		"""
 		#Store input parameters:
 		self.p1s = p1s
 		self.p2s = p2s
@@ -339,6 +465,17 @@ class DisplayFrame(Frame):
 		
 	#Draws the annotations:
 	def drawAnnotations(self, s1, s2, word_alignments, annotations):
+		"""
+		Draws a set of word-level annotations between two parallel sentences.
+		
+		* *Parameters*:
+			* **s1**: A source sentence.
+			* **s2**: A target sentence.
+			* **word_alignments**: Word alignments in Pharaoh format.
+			* **annotations**: Word-level annotations produced for the sentence pair.
+		* *Output*:
+			* Opens an interface showcasing the word-level annotations for the aligned sentences.
+		"""
 		#Store input parameters:
 		self.s1 = [[w] for w in s1.strip().split(' ')]
 		self.s2 = [[w] for w in s2.strip().split(' ')]
@@ -446,7 +583,16 @@ class DisplayFrame(Frame):
 
 	#Provides with word alignments in list form:
 	def formatWordAlignments(self, word_alignments):
+		"""
+		Transforms Pharaoh alignments in text format onto a list of alignments.
+		
+		* *Parameters*:
+			* **word_alignments**: A sentence containing the alignments in Pharaoh format.
+		* *Output*:
+			* **alignment_list**: A list of alignments in Pharaoh format.
+		"""
 		if isinstance(word_alignments, basestring):
-			return [[[int(v)-1] for v in w.split('-')] for w in word_alignments.strip().split(' ')]
+			alignment_list = [[[int(v)-1] for v in w.split('-')] for w in word_alignments.strip().split(' ')]
+			return alignment_list
 		else:
 			return word_alignments

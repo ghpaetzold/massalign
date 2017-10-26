@@ -8,7 +8,7 @@
     
     <title>Tamo na area! &#8212; MASSAlign 0.0.1 documentation</title>
     
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
@@ -25,16 +25,21 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-   
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
-
+    <link rel="search" title="Search" href="search.html" /> 
   </head>
   <body role="document">
-  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">MASSAlign 0.0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
 
     <div class="document">
       <div class="documentwrapper">
@@ -45,6 +50,180 @@
 <h1>Tamo na area!<a class="headerlink" href="#tamo-na-area" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
 </div>
+<span class="target" id="module-aligners"></span><dl class="class">
+<dt id="aligners.VicinityDrivenParagraphAligner">
+<em class="property">class </em><code class="descclassname">aligners.</code><code class="descname">VicinityDrivenParagraphAligner</code><span class="sig-paren">(</span><em>similarity_model=None</em>, <em>acceptable_similarity=0.3</em><span class="sig-paren">)</span><a class="headerlink" href="#aligners.VicinityDrivenParagraphAligner" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implements the vicinity-driven paragraph alignment algorithm proposed in:</p>
+<blockquote>
+<div>Gustavo H. Paetzold and Lucia Specia. <strong>Vicinity-Driven Paragraph and Sentence Alignment for Comparable Corpora</strong>. <em>arXiv preprint arXiv:1612.04113</em> (2016).</div></blockquote>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt><em>Parameters</em>:</dt>
+<dd><ul class="first last">
+<li><strong>similarity_model</strong>: An instance of a class deriving from SimilarityModel.</li>
+<li><strong>acceptable_similarity</strong>: The minimum similarity score between two paragraphs necessary for an alignment to be considered.</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<dl class="method">
+<dt id="aligners.VicinityDrivenParagraphAligner.alignParagraphsFromDocuments">
+<code class="descname">alignParagraphsFromDocuments</code><span class="sig-paren">(</span><em>p1s=[]</em>, <em>p2s=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#aligners.VicinityDrivenParagraphAligner.alignParagraphsFromDocuments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds alignments between a list of source and target paragraphs that compose a pair of comparable documents.
+To do so, it produces a similarity matrix between the paragraphs in the source and target list, then finds an alignment path within it using a vicinity-driven approach.</p>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt><em>Parameters</em>:</dt>
+<dd><ul class="first last">
+<li><strong>p1s</strong>: A list of source paragraphs. Each paragraph is a list of sentences.</li>
+<li><strong>p2s</strong>: A list of target paragraphs. Each paragraph is a list of sentences.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em>Output</em>:</dt>
+<dd><ul class="first last">
+<li><strong>alignment_path</strong>: A list of coordinates in the similarity matrix that describes which paragraphs are aligned.</li>
+<li><strong>aligned_paragraphs</strong>: A list containing all pairs of aligned paragraphs.</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd></dl>
+
+<dl class="method">
+<dt id="aligners.VicinityDrivenParagraphAligner.getActualAlignedParagraphs">
+<code class="descname">getActualAlignedParagraphs</code><span class="sig-paren">(</span><em>p1s</em>, <em>p2s</em>, <em>alignment_path</em><span class="sig-paren">)</span><a class="headerlink" href="#aligners.VicinityDrivenParagraphAligner.getActualAlignedParagraphs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Produces a convenient list containing the pairs of aligned paragraphs found between two lists of paragraphs.
+It concatenates all paragraphs in the &#8220;N&#8221; side of 1-N and N-1 alignments.</p>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt><em>Parameters</em>:</dt>
+<dd><ul class="first last">
+<li><strong>p1s</strong>: A list of source paragraphs. Each paragraph is a list of sentences.</li>
+<li><strong>p2s</strong>: A list of target paragraphs. Each paragraph is a list of sentences.</li>
+<li><strong>alignment_path</strong>: A list of coordinates in the similarity matrix that describes which paragraphs are aligned.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em>Output</em>:</dt>
+<dd><ul class="first last">
+<li><strong>aligned_paragraphs</strong>: A list containing all pairs of aligned paragraphs.</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd></dl>
+
+<dl class="method">
+<dt id="aligners.VicinityDrivenParagraphAligner.getNextAlignment">
+<code class="descname">getNextAlignment</code><span class="sig-paren">(</span><em>currXY</em>, <em>paragraph_similarities</em><span class="sig-paren">)</span><a class="headerlink" href="#aligners.VicinityDrivenParagraphAligner.getNextAlignment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Searches for the next alignment during the search for the alignment path.</p>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt><em>Parameters</em>:</dt>
+<dd><ul class="first last">
+<li><strong>currXY</strong>: Current coordinate in the similarity matrix from which to continue the search.</li>
+<li><strong>paragraph_similarities</strong>: A matrix containing a similarity score for each paragraph pair.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em>Output</em>:</dt>
+<dd><ul class="first last">
+<li><strong>x, y</strong>: The coordinate for the next alignment.</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd></dl>
+
+<dl class="method">
+<dt id="aligners.VicinityDrivenParagraphAligner.getNextSynchronizer">
+<code class="descname">getNextSynchronizer</code><span class="sig-paren">(</span><em>currXY</em>, <em>paragraph_similarities</em><span class="sig-paren">)</span><a class="headerlink" href="#aligners.VicinityDrivenParagraphAligner.getNextSynchronizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>If it was impossible to find any suitable alignments within the vicinities specified, then search for the acceptable alignment outside the vicinities that is closest to the current search coordinate.</p>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt><em>Parameters</em>:</dt>
+<dd><ul class="first last">
+<li><strong>currXY</strong>: Current coordinate in the similarity matrix from which to continue the search.</li>
+<li><strong>paragraph_similarities</strong>: A matrix containing a similarity score for each paragraph pair.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em>Output</em>:</dt>
+<dd><ul class="first last">
+<li><strong>x, y</strong>: The coordinate for the next acceptable alignment outside the valid vicinities.</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd></dl>
+
+<dl class="method">
+<dt id="aligners.VicinityDrivenParagraphAligner.getOriginalParagraph">
+<code class="descname">getOriginalParagraph</code><span class="sig-paren">(</span><em>aligned_nodes</em>, <em>paragraphs</em><span class="sig-paren">)</span><a class="headerlink" href="#aligners.VicinityDrivenParagraphAligner.getOriginalParagraph" title="Permalink to this definition">¶</a></dt>
+<dd><p>Concatenates all paragraphs in a 1-N or N-1 alignment.</p>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt><em>Parameters</em>:</dt>
+<dd><ul class="first last">
+<li><strong>aligned_nodes</strong>: A list of paragraph indexes from a node in the alignment path.</li>
+<li><strong>paragraphs</strong>: A list of paragraphs. Each paragraph is a list of sentences.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em>Output</em>:</dt>
+<dd><ul class="first last">
+<li><strong>text</strong>: A list of all the paragraphs in the aligned nodes.</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd></dl>
+
+<dl class="method">
+<dt id="aligners.VicinityDrivenParagraphAligner.getParagraphAlignmentPath">
+<code class="descname">getParagraphAlignmentPath</code><span class="sig-paren">(</span><em>p1s</em>, <em>p2s</em>, <em>paragraph_similarities</em><span class="sig-paren">)</span><a class="headerlink" href="#aligners.VicinityDrivenParagraphAligner.getParagraphAlignmentPath" title="Permalink to this definition">¶</a></dt>
+<dd><p>Searches for the alignment path in a matrix containing similarity scores for all paragraph pairs.</p>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt><em>Parameters</em>:</dt>
+<dd><ul class="first last">
+<li><strong>p1s</strong>: A list of source paragraphs. Each paragraph is a list of sentences.</li>
+<li><strong>p2s</strong>: A list of target paragraphs. Each paragraph is a list of sentences.</li>
+<li><strong>paragraph_similarities</strong>: A matrix of dimensions [length(p1s),length(p2s)] containing a similarity score for each paragraph pair.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em>Output</em>:</dt>
+<dd><ul class="first last">
+<li><strong>compact_path</strong>: A list of coordinates in the similarity matrix that describes which paragraphs are aligned.</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 <div class="section" id="indices-and-tables">
 <h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
@@ -66,13 +245,7 @@
 <li><a class="reference internal" href="#">Tamo na area!</a></li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
 </ul>
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="#">Documentation overview</a><ul>
-  </ul></li>
-</ul>
-</div>
+
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -94,20 +267,21 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="footer">
-      &copy;2017, Gustavo H. Paetzold and Fernando Alva Manchego.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.5</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
-      
-      |
-      <a href="_sources/index.rst.txt"
-          rel="nofollow">Page source</a>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">MASSAlign 0.0.1 documentation</a> &#187;</li> 
+      </ul>
     </div>
-
-    
-
-    
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Gustavo H. Paetzold and Fernando Alva Manchego.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
+    </div>
   </body>
 </html>

@@ -1,1 +1,2 @@
-Define size of rectangles based on maximum size of sentences/words
+Make SentenceAnnotator an abstract class.
+Update names of sentence annotators to same pattern used for aligners and similarity models.
