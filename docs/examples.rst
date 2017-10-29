@@ -6,7 +6,7 @@ Examples
 Here you will find examples that teach you how to use MASSAlign.
 
 Extracting and Visualizing Paragraph Alignments
--------------------------------
+------------------------------------------------
 
 .. code-block:: python
 
@@ -37,7 +37,7 @@ Extracting and Visualizing Paragraph Alignments
 	m.visualizeListOfParagraphAlignments([p1s, p1s], [p2s, p2s], [alignments, alignments])
 
 Extracting and Visualizing Sentence Alignments
-------------------------------
+-----------------------------------------------
 
 .. code-block:: python
 
@@ -78,7 +78,7 @@ Extracting and Visualizing Sentence Alignments
 		m.visualizeListOfSentenceAlignments([p1, p1], [p2, p2], [alignments, alignments])
 
 Extracting and Visualizing Word-Level Annotations for Sentences
-----------------------------------------------
+----------------------------------------------------------------
 
 .. code-block:: python
 

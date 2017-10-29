@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Input &#8212; MASSAlign 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Modules" href="massalign.html" />
+    <link rel="prev" title="MASSAlign Documentation" href="index.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="massalign.html" title="Modules"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="MASSAlign Documentation"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">MASSAlign 0.0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="input">
+<h1>Input<a class="headerlink" href="#input" title="Permalink to this headline">¶</a></h1>
+<p>Here you will learn how to format your input for MASSAlign.</p>
+<div class="section" id="documents">
+<h2>Documents<a class="headerlink" href="#documents" title="Permalink to this headline">¶</a></h2>
+<p>MASSAlign&#8217;s aligners take as input comparable documents separated at paragraph-level by empty lines. The documents must be in plain text format and pre-processed to your preference (tokenized, truecased, etc).</p>
+<div class="topic">
+<p class="topic-title first">Here&#8217;s an example:</p>
+<p>April is the fourth month of the year in the Gregorian Calendar , and one of four months with a length of 30 days .</p>
+<p>April was originally the second month of the Roman calendar , before January and February were added by King Numa Pompilius about 700 BC .
+It became the fourth month of the calendar year -LRB- the year when twelve months are displayed in order -RRB- during the time of the decemvirs about 450 BC , when it also was given 29 days .</p>
+<p>April starts on the same day of the week as July in all years , and January in leap years .
+April ends on the same day of the week as December every year .</p>
+<p>The birthstone of April is the diamond , and the birth flower is typically listed as either the Daisy or the Sweet Pea .
+April is commonly associated with the season of spring in the Northern hemisphere and autumn in the Southern hemisphere , where it is the seasonal equivalent to October in the Northern hemisphere and vice versa .</p>
+</div>
+</div>
+<div class="section" id="word-alignments">
+<h2>Word Alignments<a class="headerlink" href="#word-alignments" title="Permalink to this headline">¶</a></h2>
+<p>One of the pieces of input taken by MASSAlign&#8217;s annotators are word alignments, which have to be in Pharaoh format.</p>
+<div class="topic">
+<p class="topic-title first">Here&#8217;s an example:</p>
+<p>18-13 12-7 13-8 14-9 15-10 16-11 17-12 7-2 8-3 9-4 1-1 11-6</p>
+</div>
+</div>
+<div class="section" id="constituency-parses">
+<h2>Constituency Parses<a class="headerlink" href="#constituency-parses" title="Permalink to this headline">¶</a></h2>
+<p>MASSAlign&#8217;s annotators also take as input constituency parses, which should be in its linear parenthesized form.</p>
+<div class="topic">
+<p class="topic-title first">Here&#8217;s an example:</p>
+<p>(ROOT (S (NP (NNP Hershey)) (VP (VBD left) (NP (DT no) (NNS heirs)) (SBAR (WHADVP (WRB when)) (S (NP (PRP he)) (VP (VBD died) (PP (IN in) (NP (CD 1945))) (, ,) (S (VP (VBG giving) (NP (NP (JJS most)) (PP (IN of) (NP (PRP$ his) (NN fortune)))) (PP (TO to) (NP (NN charity))))))))) (. .)))</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="massalign.html" title="Modules"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="MASSAlign Documentation"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">MASSAlign 0.0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Gustavo H. Paetzold and Fernando Alva Manchego.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
+    </div>
+  </body>
+</html>

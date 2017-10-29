@@ -26,7 +26,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Examples" href="examples.html" />
+    <link rel="next" title="Input" href="input.html" />
     <link rel="prev" title="MASSAlign Documentation" href="index.html" /> 
   </head>
   <body role="document">
@@ -40,7 +40,7 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="examples.html" title="Examples"
+          <a href="input.html" title="Input"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="index.html" title="MASSAlign Documentation"
@@ -1356,6 +1356,58 @@ The interface will showcase the sentence-level alignments between each paragraph
 </dd></dl>
 
 </div>
+<div class="section" id="module-massalign.util">
+<span id="massalign-util"></span><h2>massalign.util<a class="headerlink" href="#module-massalign.util" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="massalign.util.FileReader">
+<em class="property">class </em><code class="descclassname">massalign.util.</code><code class="descname">FileReader</code><span class="sig-paren">(</span><em>path</em>, <em>stop_list=set([])</em><span class="sig-paren">)</span><a class="headerlink" href="#massalign.util.FileReader" title="Permalink to this definition">¶</a></dt>
+<dd><p>A convenience class that allows you to more easily read local and online files.</p>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt><em>Parameters</em>:</dt>
+<dd><ul class="first last">
+<li><strong>path</strong>: A path to a local file or a url to an online file.</li>
+<li><strong>stop_list</strong>: A set of stop words.</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<dl class="method">
+<dt id="massalign.util.FileReader.getRawText">
+<code class="descname">getRawText</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#massalign.util.FileReader.getRawText" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads the input file and outputs the raw text in it.</p>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt><em>Output</em>:</dt>
+<dd><ul class="first last">
+<li><strong>text</strong>: Raw text within the file.</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd></dl>
+
+<dl class="method">
+<dt id="massalign.util.FileReader.getSplitSentences">
+<code class="descname">getSplitSentences</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#massalign.util.FileReader.getSplitSentences" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads the input file and produces a list of split sentences.</p>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt><em>Output</em>:</dt>
+<dd><ul class="first last">
+<li><strong>sentences</strong>: List of sentences. Each sentence is a list of words.</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 </div>
 
 
@@ -1373,7 +1425,7 @@ The interface will showcase the sentence-level alignments between each paragraph
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="examples.html" title="Examples"
+          <a href="input.html" title="Input"
              >next</a> |</li>
         <li class="right" >
           <a href="index.html" title="MASSAlign Documentation"

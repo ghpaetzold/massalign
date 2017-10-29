@@ -44,4 +44,12 @@ massalign\.models
     :members:
     :undoc-members:
     :show-inheritance:
+	
+massalign\.util
+------------------------
+
+.. automodule:: massalign.util
+    :members:
+    :undoc-members:
+    :show-inheritance:
 
