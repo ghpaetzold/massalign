@@ -207,7 +207,7 @@ class ControlFrame(Frame):
 		self.bnext.grid(row=0, column=0, sticky='nse')
 		
 		#If there are instances available and they all have the same size, print the first one:
-		if min(len(self.p1s_list),len(self.p2s_list),len(self.alignments_list))>0 and len(self.p1s_list)==len(self.p1s_list)==len(self.alignments_list):
+		if min(len(self.p1s_list),len(self.p2s_list),len(self.alignments_list))>0 and len(self.p1s_list)==len(self.p2s_list)==len(self.alignments_list):
 			self.main_frame.drawAlignments(self.p1s_list[self.curri-1], self.p2s_list[self.curri-1], self.alignments_list[self.curri-1])
 	
 	#Decrements index label indicator:
@@ -216,7 +216,7 @@ class ControlFrame(Frame):
 		Showcases the alignment between the previous pair of paragraph lists.
 		"""
 		#If there are instances available and they all have the same size, do:
-		if min(len(self.p1s_list),len(self.p2s_list),len(self.alignments_list))>0 and len(self.p1s_list)==len(self.p1s_list)==len(self.alignments_list):
+		if min(len(self.p1s_list),len(self.p2s_list),len(self.alignments_list))>0 and len(self.p1s_list)==len(self.p2s_list)==len(self.alignments_list):
 			#If there are any previous alignments, print them:
 			if self.curri>1:
 				self.main_frame.clearDrawingCanvas()
@@ -230,7 +230,7 @@ class ControlFrame(Frame):
 		Showcases the alignment between the next pair of paragraph lists.
 		"""
 		#If there are instances available and they all have the same size, do:
-		if min(len(self.p1s_list),len(self.p2s_list),len(self.alignments_list))>0 and len(self.p1s_list)==len(self.p1s_list)==len(self.alignments_list):
+		if min(len(self.p1s_list),len(self.p2s_list),len(self.alignments_list))>0 and len(self.p1s_list)==len(self.p2s_list)==len(self.alignments_list):
 			#If there are any next alignments, print them:
 			if self.curri<self.maxi:
 				self.main_frame.clearDrawingCanvas()

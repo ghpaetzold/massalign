@@ -39,7 +39,7 @@ class SentenceAnnotator:
     def annotate_sentence(self, src, ref, aligns, src_parse, ref_parse):
         """Annotate all the simplification operations in the sentence pair src-ref."""
 
-        if isinstance(aligns, str):
+        if isinstance(aligns, str) or isinstance(aligns, unicode):
             aligns = self._format_word_alignments(aligns)
 
         # token-level delete, add and replace

@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Examples &#8212; MASSAlign 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Modules" href="massalign.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="massalign.html" title="Modules"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">MASSAlign 0.0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="examples">
+<h1>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h1>
+<p>Here you will find examples that teach you how to use MASSAlign.</p>
+<div class="section" id="extracting-paragraph-alignments">
+<h2>Extracting Paragraph Alignments<a class="headerlink" href="#extracting-paragraph-alignments" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">massalign.core</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="c1">#Get files to align:</span>
+<span class="n">file1</span> <span class="o">=</span> <span class="s1">&#39;./sample_data/test_document_complex_2.txt&#39;</span>
+<span class="n">file2</span> <span class="o">=</span> <span class="s1">&#39;./sample_data/test_document_simple_2.txt&#39;</span>
+
+<span class="c1">#Train model over them:</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">TFIDFModel</span><span class="p">([</span><span class="n">file1</span><span class="p">,</span> <span class="n">file2</span><span class="p">],</span> <span class="s1">&#39;./sample_data/stop_words.txt&#39;</span><span class="p">)</span>
+
+<span class="c1">#Get paragraph aligner:</span>
+<span class="n">paragraph_aligner</span> <span class="o">=</span> <span class="n">VicinityDrivenParagraphAligner</span><span class="p">(</span><span class="n">similarity_model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">acceptable_similarity</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="c1">#Get sentence aligner:</span>
+<span class="n">sentence_aligner</span> <span class="o">=</span> <span class="n">VicinityDrivenSentenceAligner</span><span class="p">(</span><span class="n">similarity_model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">acceptable_similarity</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">similarity_slack</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+
+<span class="c1">#Get MASSA aligner:</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">MASSAligner</span><span class="p">()</span>
+
+<span class="c1">#Get paragraphs from the document:</span>
+<span class="n">p1s</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">getParagraphsFromDocument</span><span class="p">(</span><span class="n">file1</span><span class="p">)</span>
+<span class="n">p2s</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">getParagraphsFromDocument</span><span class="p">(</span><span class="n">file2</span><span class="p">)</span>
+
+<span class="c1">#Align paragraphs:</span>
+<span class="n">alignments</span><span class="p">,</span> <span class="n">aligned_paragraphs</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">getParagraphAlignments</span><span class="p">(</span><span class="n">p1s</span><span class="p">,</span> <span class="n">p2s</span><span class="p">,</span> <span class="n">paragraph_aligner</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="extracting-sentence-alignments">
+<h2>Extracting Sentence Alignments<a class="headerlink" href="#extracting-sentence-alignments" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="producing-word-level-annotations-for-sentences">
+<h2>Producing Word-Level Annotations for Sentences<a class="headerlink" href="#producing-word-level-annotations-for-sentences" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="massalign.html" title="Modules"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">MASSAlign 0.0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Gustavo H. Paetzold and Fernando Alva Manchego.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
+    </div>
+  </body>
+</html>

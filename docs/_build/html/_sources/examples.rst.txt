@@ -1,0 +1,43 @@
+.. highlightlang:: python
+
+Examples
+==================
+
+Here you will find examples that teach you how to use MASSAlign.
+
+Extracting Paragraph Alignments
+-------------------------------
+
+.. code-block:: python
+
+	from massalign.core import *
+
+	#Get files to align:
+	file1 = './sample_data/test_document_complex_2.txt'
+	file2 = './sample_data/test_document_simple_2.txt'
+
+	#Train model over them:
+	model = TFIDFModel([file1, file2], './sample_data/stop_words.txt')
+
+	#Get paragraph aligner:
+	paragraph_aligner = VicinityDrivenParagraphAligner(similarity_model=model, acceptable_similarity=0.3)
+
+	#Get sentence aligner:
+	sentence_aligner = VicinityDrivenSentenceAligner(similarity_model=model, acceptable_similarity=0.2, similarity_slack=0.05)
+
+	#Get MASSA aligner:
+	m = MASSAligner()
+
+	#Get paragraphs from the document:
+	p1s = m.getParagraphsFromDocument(file1)
+	p2s = m.getParagraphsFromDocument(file2)
+
+	#Align paragraphs:
+	alignments, aligned_paragraphs = m.getParagraphAlignments(p1s, p2s, paragraph_aligner)
+
+Extracting Sentence Alignments
+------------------------------
+
+
+Producing Word-Level Annotations for Sentences
+----------------------------------------------

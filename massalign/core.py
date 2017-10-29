@@ -1,6 +1,5 @@
 import os, gensim
 import numpy as np
-import codecs
 from annotators import *
 from aligners import *
 from models import *
@@ -24,27 +23,33 @@ class MASSAligner:
 			* **paragraphs**: An instance of a class deriving from SimilarityModel.
 		"""
 		#Open file and initialize variables:
-		f = codecs.open(document_path, encoding='utf8')
+		reader = FileReader(document_path)
+		text = reader.getRawText().split('\n')
 		paragraphs = []
 		
 		#Begin search for paragraphs:
 		newparag = []
-		line = f.readline().strip()
-		while len(line)>0:
+		curr_line = 0
+		line = text[curr_line].strip()
+		while curr_line<len(text) and len(line)>0:
 			#Search for full paragraph:
 			newparag.append(line)
-			line = f.readline().strip()
-			while len(line)>0:
+			curr_line += 1
+			line = text[curr_line].strip()
+			while curr_line<len(text) and len(line)>0:
 				newparag.append(line)
-				line = f.readline().strip()
+				curr_line += 1
+				if curr_line<len(text):
+					line = text[curr_line].strip()
 			
 			#Save newly found paragraph:
 			paragraphs.append(newparag)
 
 			#Continue search for next paragraph
 			newparag = []
-			line = f.readline().strip()
-		f.close()
+			curr_line += 1
+			if curr_line<len(text):
+				line = text[curr_line].strip()
 		
 		#Return found paragraphs:
 		return paragraphs
@@ -159,7 +164,7 @@ class MASSAligner:
 			* Opens an interface showcasing the aligned sentences for each pair of paragraphs.
 		"""
 		gui = BasicGUI(**kwargs)
-		gui.displayListOfSentenceAlignments(list_of_paragraphs1, list_of_paragraphs2, alignments, **kwargs)
+		gui.displayListOfSentenceAlignments(list_of_paragraphs1, list_of_paragraphs2, list_of_alignment_paths, **kwargs)
 		
 	def visualizeSentenceAnnotations(self, sentence1='', sentence2='', word_alignments='', annotations=[], **kwargs):
 		"""

@@ -1,19 +1,15 @@
-.. MASSAlign documentation master file, created by
-   sphinx-quickstart on Wed Oct 18 19:11:09 2017.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
-Tamo na area!
+MASSAlign Documentation
 =====================================
 
-.. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+This is MASSAlign's documentation page!
 
-.. automodule:: aligners
- 
-.. autoclass:: VicinityDrivenParagraphAligner
-    :members:
+.. toctree::
+   :maxdepth: 3
+   :caption: Here's the content:
+
+   massalign
+   input
+   examples
 
 Indices and tables
 ==================

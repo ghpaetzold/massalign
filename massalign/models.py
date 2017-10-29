@@ -1,7 +1,7 @@
 from abc import ABCMeta, abstractmethod
 import numpy as np
 import gensim
-import codecs
+from massalign.util import FileReader
 
 class SimilarityModel:
 
@@ -25,7 +25,8 @@ class TFIDFModel(SimilarityModel):
 	"""
 
 	def __init__(self, input_files=[], stop_list_file=None):
-		self.stoplist = set([line.strip() for line in codecs.open(stop_list_file, encoding='utf8')])
+		reader = FileReader(stop_list_file)
+		self.stoplist = set([line.strip() for line in reader.getRawText().split('\n')])
 		self.tfidf, self.dictionary = self.getTFIDFmodel(input_files)
 		
 	def getTFIDFmodel(self, input_files=[]):
@@ -41,11 +42,8 @@ class TFIDFModel(SimilarityModel):
 		#Create text sentence set for training:
 		sentences = []
 		for file in input_files:
-			f = codecs.open(file, encoding='utf8')
-			for line in f:
-				sentence = [word for word in line.strip().split(' ') if word not in self.stoplist]
-				sentences.append(sentence)
-			f.close()
+			reader = FileReader(file, self.stoplist)
+			sentences.extend(reader.getSplitSentences())
 				
 		#Train TFIDF model:
 		dictionary = gensim.corpora.Dictionary(sentences)
