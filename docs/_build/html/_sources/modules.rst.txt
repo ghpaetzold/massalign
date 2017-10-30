@@ -1,7 +1,0 @@
-Neat page young boy
-=====================================
-
-.. toctree::
-   :maxdepth: 2
-
-   classes
