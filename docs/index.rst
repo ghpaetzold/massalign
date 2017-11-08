@@ -7,7 +7,7 @@ This is MASSAlign's documentation page! MASSAlign has two main functionalities:
 * **Annotating** parallel sentences at word level.
 
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 4
    :caption: Here's the documentation content:
 
    input
