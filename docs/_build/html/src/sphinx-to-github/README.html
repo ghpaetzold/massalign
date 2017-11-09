@@ -6,10 +6,10 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Sphinx to GitHub &#8212; MASSAlign 0.0.1 documentation</title>
+    <title>Sphinx to GitHub &mdash; MASSAlign 0.0.1 documentation</title>
     
-    <link rel="stylesheet" href="../../_static/sphinxdoc.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../../static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -17,18 +17,16 @@
         VERSION:     '0.0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
+        HAS_SOURCE:  true
       };
     </script>
-    <script type="text/javascript" src="../../_static/jquery.js"></script>
-    <script type="text/javascript" src="../../_static/underscore.js"></script>
-    <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" /> 
+    <script type="text/javascript" src="../../static/jquery.js"></script>
+    <script type="text/javascript" src="../../static/underscore.js"></script>
+    <script type="text/javascript" src="../../static/doctools.js"></script>
+    <link rel="top" title="MASSAlign 0.0.1 documentation" href="../../index.html" /> 
   </head>
-  <body role="document">
-    <div class="related" role="navigation" aria-label="related navigation">
+  <body>
+    <div class="related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -37,13 +35,13 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">MASSAlign 0.0.1 documentation</a> &#187;</li> 
+        <li><a href="../../index.html">MASSAlign 0.0.1 documentation</a> &raquo;</li> 
       </ul>
     </div>
 
     <div class="document">
       <div class="documentwrapper">
-          <div class="body" role="main">
+          <div class="body">
             
   <div class="section" id="sphinx-to-github">
 <h1>Sphinx to GitHub<a class="headerlink" href="#sphinx-to-github" title="Permalink to this headline">¶</a></h1>
@@ -51,7 +49,7 @@
 <h2>ATTENTION!<a class="headerlink" href="#attention" title="Permalink to this headline">¶</a></h2>
 <p>This project is designed to help you get around the github-pages Jekyll
 behaviour of ignoring top level directories starting with an underscore.</p>
-<p>This is solved in a much neater way by creating a <code class="docutils literal"><span class="pre">.nojekyll</span></code> in the root
+<p>This is solved in a much neater way by creating a <tt class="docutils literal"><span class="pre">.nojekyll</span></tt> in the root
 of you github-pages which will disable Jekyll as described <a class="reference external" href="https://github.com/blog/572-bypassing-jekyll-on-github-pages">here</a> and <a class="reference external" href="http://pages.github.com/">here</a>.</p>
 <p>This makes this project largely useless! Thank you to <a class="reference external" href="https://github.com/acdha">acdha</a> for making me aware of this.</p>
 </div>
@@ -71,29 +69,29 @@ start of folder names for static content.</p>
 </div>
 <div class="section" id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
-<p>The <code class="docutils literal"><span class="pre">sphinxtogithub.py</span></code> script can be run on the command line or used as a
+<p>The <tt class="docutils literal"><span class="pre">sphinxtogithub.py</span></tt> script can be run on the command line or used as a
 Sphinx extension.</p>
 <div class="section" id="extension">
 <h3>Extension<a class="headerlink" href="#extension" title="Permalink to this headline">¶</a></h3>
-<p>Place the script on the <code class="docutils literal"><span class="pre">PYTHONPATH</span></code> and add <code class="docutils literal"><span class="pre">sphinxtogithub</span></code> to the
-extensions list in the <code class="docutils literal"><span class="pre">conf.py</span></code> file in your Sphinx project:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">extensions</span> <span class="o">=</span> <span class="p">[</span> <span class="s2">&quot;sphinxtogithub&quot;</span> <span class="p">]</span>
+<p>Place the script on the <tt class="docutils literal"><span class="pre">PYTHONPATH</span></tt> and add <tt class="docutils literal"><span class="pre">sphinxtogithub</span></tt> to the
+extensions list in the <tt class="docutils literal"><span class="pre">conf.py</span></tt> file in your Sphinx project:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">extensions</span> <span class="o">=</span> <span class="p">[</span> <span class="s">&quot;sphinxtogithub&quot;</span> <span class="p">]</span>
 </pre></div>
 </div>
 <p>Additionally there are three config variables you can use to control the
 extension. The first enables/disables the extension, the second enables verbose
 output and the third determines the encoding which is used to read &amp; write
-files. The first two are <code class="docutils literal"><span class="pre">True</span></code> by default and the third is set to <code class="docutils literal"><span class="pre">utf-8</span></code>:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sphinx_to_github</span> <span class="o">=</span> <span class="kc">True</span>
-<span class="n">sphinx_to_github_verbose</span> <span class="o">=</span> <span class="kc">True</span>
-<span class="n">sphinx_to_github_encoding</span> <span class="o">=</span> <span class="s2">&quot;utf-8&quot;</span>
+files. The first two are <tt class="docutils literal"><span class="pre">True</span></tt> by default and the third is set to <tt class="docutils literal"><span class="pre">utf-8</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sphinx_to_github</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="n">sphinx_to_github_verbose</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="n">sphinx_to_github_encoding</span> <span class="o">=</span> <span class="s">&quot;utf-8&quot;</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="command-line">
 <h3>Command Line<a class="headerlink" href="#command-line" title="Permalink to this headline">¶</a></h3>
-<p>Run the script with the path to the <code class="docutils literal"><span class="pre">html</span></code> output directory as the first
-argument. There is a <code class="docutils literal"><span class="pre">--verbose</span></code> flag for basic output.</p>
+<p>Run the script with the path to the <tt class="docutils literal"><span class="pre">html</span></tt> output directory as the first
+argument. There is a <tt class="docutils literal"><span class="pre">--verbose</span></tt> flag for basic output.</p>
 </div>
 </div>
 <div class="section" id="further-information">
@@ -101,19 +99,19 @@ argument. There is a <code class="docutils literal"><span class="pre">--verbose<
 <div class="section" id="install-from-github">
 <h3>Install from GitHub<a class="headerlink" href="#install-from-github" title="Permalink to this headline">¶</a></h3>
 <p>It should be possible to install this tool directly from github using pip:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">e</span> <span class="n">git</span><span class="o">+</span><span class="n">git</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">michaeljones</span><span class="o">/</span><span class="n">sphinx</span><span class="o">-</span><span class="n">to</span><span class="o">-</span><span class="n">github</span><span class="o">.</span><span class="n">git</span><span class="c1">#egg=sphinx-to-github</span>
+<div class="highlight-python"><div class="highlight"><pre>pip install -e git+git://github.com/michaeljones/sphinx-to-github.git#egg=sphinx-to-github
 </pre></div>
 </div>
 <p>Thanks to <a class="reference external" href="http://github.com/winhamwr">winhamwr</a>&#8216;s work.</p>
 </div>
 <div class="section" id="requirements">
 <h3>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h3>
-<p>The script uses <code class="docutils literal"><span class="pre">/usr/bin/env</span></code> and <code class="docutils literal"><span class="pre">python</span></code>.</p>
+<p>The script uses <tt class="docutils literal"><span class="pre">/usr/bin/env</span></tt> and <tt class="docutils literal"><span class="pre">python</span></tt>.</p>
 </div>
 <div class="section" id="running-tests">
 <h3>Running Tests<a class="headerlink" href="#running-tests" title="Permalink to this headline">¶</a></h3>
-<p>Unit tests can be run using the setuptools <code class="docutils literal"><span class="pre">test</span></code> target. eg:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ python setup.py test
+<p>Unit tests can be run using the setuptools <tt class="docutils literal"><span class="pre">test</span></tt> target. eg:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ python setup.py test
 </pre></div>
 </div>
 </div>
@@ -150,7 +148,7 @@ functionality.</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -159,12 +157,12 @@ functionality.</p>
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">MASSAlign 0.0.1 documentation</a> &#187;</li> 
+        <li><a href="../../index.html">MASSAlign 0.0.1 documentation</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer" role="contentinfo">
-        &#169; Copyright 2017, Gustavo H. Paetzold and Fernando Alva Manchego.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
+    <div class="footer">
+        &copy; Copyright 2017, Gustavo H. Paetzold and Fernando Alva Manchego.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>
 </html>
