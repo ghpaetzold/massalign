@@ -21,7 +21,7 @@ These papers are evidence:
 
 To install MASSAlign, you must:
 
-1. Download and unpack the LEXenstein's [latest release](https://github.com/ghpaetzold/LEXenstein/releases/latest).
+1. Download and unpack MASSAlign's github [repository](https://github.com/ghpaetzold/massalign/archive/master.zip).
 2. Navigate to the root folder.
 3. Run the following command line:
 
@@ -36,3 +36,9 @@ MASSAlign's documentation can be found [here](http://ghpaetzold.github.io/massal
 # Examples:
 
 You can learn how to use MASSAlign [here](http://ghpaetzold.github.io/massalign_docs/examples.html).
+
+# Citing:
+
+If you use MASSAlign, please cite this paper:
+
+> Gustavo H. Paetzold, Fernando Alva-Manchego and Lucia Specia. MASSAlign: Alignment and Annotation for Comparable Documents. Proceedings of the 2017 IJCNLP.
