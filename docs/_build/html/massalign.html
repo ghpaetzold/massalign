@@ -1,32 +1,33 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Modules &mdash; MASSAlign 0.0.1 documentation</title>
-    
+    <title>Modules &#8212; MASSAlign 0.0.1 documentation</title>
     <link rel="stylesheet" href="static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
         VERSION:     '0.0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="static/jquery.js"></script>
     <script type="text/javascript" src="static/underscore.js"></script>
     <script type="text/javascript" src="static/doctools.js"></script>
-    <link rel="top" title="MASSAlign 0.0.1 documentation" href="index.html" /> 
-  </head>
-  <body>
-    <div class="related">
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Examples" href="examples.html" />
+    <link rel="prev" title="Input" href="input.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -35,13 +36,19 @@
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="index.html">MASSAlign 0.0.1 documentation</a> &raquo;</li> 
+        <li class="right" >
+          <a href="examples.html" title="Examples"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="input.html" title="Input"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">MASSAlign 0.0.1 documentation</a> &#187;</li> 
       </ul>
     </div>
 
     <div class="document">
       <div class="documentwrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="modules">
 <h1>Modules<a class="headerlink" href="#modules" title="Permalink to this headline">¶</a></h1>
@@ -50,30 +57,30 @@
 <span id="massalign-aligners"></span><h2>massalign.aligners<a class="headerlink" href="#module-massalign.aligners" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="massalign.aligners.ParagraphAligner">
-<em class="property">class </em><tt class="descclassname">massalign.aligners.</tt><tt class="descname">ParagraphAligner</tt><a class="headerlink" href="#massalign.aligners.ParagraphAligner" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<em class="property">class </em><code class="descclassname">massalign.aligners.</code><code class="descname">ParagraphAligner</code><a class="headerlink" href="#massalign.aligners.ParagraphAligner" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <dl class="method">
 <dt id="massalign.aligners.ParagraphAligner.alignParagraphsFromDocuments">
-<tt class="descname">alignParagraphsFromDocuments</tt><big>(</big><big>)</big><a class="headerlink" href="#massalign.aligners.ParagraphAligner.alignParagraphsFromDocuments" title="Permalink to this definition">¶</a></dt>
+<code class="descname">alignParagraphsFromDocuments</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#massalign.aligners.ParagraphAligner.alignParagraphsFromDocuments" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="massalign.aligners.SentenceAligner">
-<em class="property">class </em><tt class="descclassname">massalign.aligners.</tt><tt class="descname">SentenceAligner</tt><a class="headerlink" href="#massalign.aligners.SentenceAligner" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<em class="property">class </em><code class="descclassname">massalign.aligners.</code><code class="descname">SentenceAligner</code><a class="headerlink" href="#massalign.aligners.SentenceAligner" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <dl class="method">
 <dt id="massalign.aligners.SentenceAligner.alignSentencesFromParagraphs">
-<tt class="descname">alignSentencesFromParagraphs</tt><big>(</big><big>)</big><a class="headerlink" href="#massalign.aligners.SentenceAligner.alignSentencesFromParagraphs" title="Permalink to this definition">¶</a></dt>
+<code class="descname">alignSentencesFromParagraphs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#massalign.aligners.SentenceAligner.alignSentencesFromParagraphs" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="massalign.aligners.VicinityDrivenParagraphAligner">
-<em class="property">class </em><tt class="descclassname">massalign.aligners.</tt><tt class="descname">VicinityDrivenParagraphAligner</tt><big>(</big><em>similarity_model=None</em>, <em>acceptable_similarity=0.3</em><big>)</big><a class="headerlink" href="#massalign.aligners.VicinityDrivenParagraphAligner" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#massalign.aligners.ParagraphAligner" title="massalign.aligners.ParagraphAligner"><tt class="xref py py-class docutils literal"><span class="pre">massalign.aligners.ParagraphAligner</span></tt></a></p>
+<em class="property">class </em><code class="descclassname">massalign.aligners.</code><code class="descname">VicinityDrivenParagraphAligner</code><span class="sig-paren">(</span><em>similarity_model=None</em>, <em>acceptable_similarity=0.3</em><span class="sig-paren">)</span><a class="headerlink" href="#massalign.aligners.VicinityDrivenParagraphAligner" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#massalign.aligners.ParagraphAligner" title="massalign.aligners.ParagraphAligner"><code class="xref py py-class docutils literal"><span class="pre">massalign.aligners.ParagraphAligner</span></code></a></p>
 <p>Implements the vicinity-driven paragraph alignment algorithm proposed in:</p>
 <blockquote>
 <div>Gustavo H. Paetzold and Lucia Specia. <strong>Vicinity-Driven Paragraph and Sentence Alignment for Comparable Corpora</strong>. <em>arXiv preprint arXiv:1612.04113</em> (2016).</div></blockquote>
@@ -90,7 +97,7 @@
 </ul>
 <dl class="method">
 <dt id="massalign.aligners.VicinityDrivenParagraphAligner.alignParagraphsFromDocuments">
-<tt class="descname">alignParagraphsFromDocuments</tt><big>(</big><em>p1s=</em>, <span class="optional">[</span><span class="optional">]</span><em>p2s=</em><span class="optional">[</span><span class="optional">]</span><big>)</big><a class="headerlink" href="#massalign.aligners.VicinityDrivenParagraphAligner.alignParagraphsFromDocuments" title="Permalink to this definition">¶</a></dt>
+<code class="descname">alignParagraphsFromDocuments</code><span class="sig-paren">(</span><em>p1s=[]</em>, <em>p2s=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#massalign.aligners.VicinityDrivenParagraphAligner.alignParagraphsFromDocuments" title="Permalink to this definition">¶</a></dt>
 <dd><p>Finds alignments between a list of source and target paragraphs that compose a pair of comparable documents.
 To do so, it produces a similarity matrix between the paragraphs in the source and target list, then finds an alignment path within it using a vicinity-driven approach.</p>
 <ul>
@@ -117,9 +124,9 @@ To do so, it produces a similarity matrix between the paragraphs in the source a
 
 <dl class="method">
 <dt id="massalign.aligners.VicinityDrivenParagraphAligner.getActualAlignedParagraphs">
-<tt class="descname">getActualAlignedParagraphs</tt><big>(</big><em>p1s</em>, <em>p2s</em>, <em>alignment_path</em><big>)</big><a class="headerlink" href="#massalign.aligners.VicinityDrivenParagraphAligner.getActualAlignedParagraphs" title="Permalink to this definition">¶</a></dt>
+<code class="descname">getActualAlignedParagraphs</code><span class="sig-paren">(</span><em>p1s</em>, <em>p2s</em>, <em>alignment_path</em><span class="sig-paren">)</span><a class="headerlink" href="#massalign.aligners.VicinityDrivenParagraphAligner.getActualAlignedParagraphs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Produces a convenient list containing the pairs of aligned paragraphs found between two lists of paragraphs.
-It concatenates all paragraphs in the &#8220;N&#8221; side of 1-N and N-1 alignments.</p>
+It concatenates all paragraphs in the “N” side of 1-N and N-1 alignments.</p>
 <ul>
 <li><dl class="first docutils">
 <dt><em>Parameters</em>:</dt>
@@ -144,7 +151,7 @@ It concatenates all paragraphs in the &#8220;N&#8221; side of 1-N and N-1 alignm
 
 <dl class="method">
 <dt id="massalign.aligners.VicinityDrivenParagraphAligner.getNextAlignment">
-<tt class="descname">getNextAlignment</tt><big>(</big><em>currXY</em>, <em>paragraph_similarities</em><big>)</big><a class="headerlink" href="#massalign.aligners.VicinityDrivenParagraphAligner.getNextAlignment" title="Permalink to this definition">¶</a></dt>
+<code class="descname">getNextAlignment</code><span class="sig-paren">(</span><em>currXY</em>, <em>paragraph_similarities</em><span class="sig-paren">)</span><a class="headerlink" href="#massalign.aligners.VicinityDrivenParagraphAligner.getNextAlignment" title="Permalink to this definition">¶</a></dt>
 <dd><p>Searches for the next alignment during the search for the alignment path.</p>
 <ul>
 <li><dl class="first docutils">
@@ -169,7 +176,7 @@ It concatenates all paragraphs in the &#8220;N&#8221; side of 1-N and N-1 alignm
 
 <dl class="method">
 <dt id="massalign.aligners.VicinityDrivenParagraphAligner.getNextSynchronizer">
-<tt class="descname">getNextSynchronizer</tt><big>(</big><em>currXY</em>, <em>paragraph_similarities</em><big>)</big><a class="headerlink" href="#massalign.aligners.VicinityDrivenParagraphAligner.getNextSynchronizer" title="Permalink to this definition">¶</a></dt>
+<code class="descname">getNextSynchronizer</code><span class="sig-paren">(</span><em>currXY</em>, <em>paragraph_similarities</em><span class="sig-paren">)</span><a class="headerlink" href="#massalign.aligners.VicinityDrivenParagraphAligner.getNextSynchronizer" title="Permalink to this definition">¶</a></dt>
 <dd><p>If it was impossible to find any suitable alignments within the vicinities specified, then search for the acceptable alignment outside the vicinities that is closest to the current search coordinate.</p>
 <ul>
 <li><dl class="first docutils">
@@ -194,7 +201,7 @@ It concatenates all paragraphs in the &#8220;N&#8221; side of 1-N and N-1 alignm
 
 <dl class="method">
 <dt id="massalign.aligners.VicinityDrivenParagraphAligner.getOriginalParagraph">
-<tt class="descname">getOriginalParagraph</tt><big>(</big><em>aligned_nodes</em>, <em>paragraphs</em><big>)</big><a class="headerlink" href="#massalign.aligners.VicinityDrivenParagraphAligner.getOriginalParagraph" title="Permalink to this definition">¶</a></dt>
+<code class="descname">getOriginalParagraph</code><span class="sig-paren">(</span><em>aligned_nodes</em>, <em>paragraphs</em><span class="sig-paren">)</span><a class="headerlink" href="#massalign.aligners.VicinityDrivenParagraphAligner.getOriginalParagraph" title="Permalink to this definition">¶</a></dt>
 <dd><p>Concatenates all paragraphs in a 1-N or N-1 alignment.</p>
 <ul>
 <li><dl class="first docutils">
@@ -219,7 +226,7 @@ It concatenates all paragraphs in the &#8220;N&#8221; side of 1-N and N-1 alignm
 
 <dl class="method">
 <dt id="massalign.aligners.VicinityDrivenParagraphAligner.getParagraphAlignmentPath">
-<tt class="descname">getParagraphAlignmentPath</tt><big>(</big><em>p1s</em>, <em>p2s</em>, <em>paragraph_similarities</em><big>)</big><a class="headerlink" href="#massalign.aligners.VicinityDrivenParagraphAligner.getParagraphAlignmentPath" title="Permalink to this definition">¶</a></dt>
+<code class="descname">getParagraphAlignmentPath</code><span class="sig-paren">(</span><em>p1s</em>, <em>p2s</em>, <em>paragraph_similarities</em><span class="sig-paren">)</span><a class="headerlink" href="#massalign.aligners.VicinityDrivenParagraphAligner.getParagraphAlignmentPath" title="Permalink to this definition">¶</a></dt>
 <dd><p>Searches for the alignment path in a matrix containing similarity scores for all paragraph pairs.</p>
 <ul>
 <li><dl class="first docutils">
@@ -247,8 +254,8 @@ It concatenates all paragraphs in the &#8220;N&#8221; side of 1-N and N-1 alignm
 
 <dl class="class">
 <dt id="massalign.aligners.VicinityDrivenSentenceAligner">
-<em class="property">class </em><tt class="descclassname">massalign.aligners.</tt><tt class="descname">VicinityDrivenSentenceAligner</tt><big>(</big><em>similarity_model=None</em>, <em>acceptable_similarity=0.2</em>, <em>similarity_slack=0.05</em><big>)</big><a class="headerlink" href="#massalign.aligners.VicinityDrivenSentenceAligner" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#massalign.aligners.SentenceAligner" title="massalign.aligners.SentenceAligner"><tt class="xref py py-class docutils literal"><span class="pre">massalign.aligners.SentenceAligner</span></tt></a></p>
+<em class="property">class </em><code class="descclassname">massalign.aligners.</code><code class="descname">VicinityDrivenSentenceAligner</code><span class="sig-paren">(</span><em>similarity_model=None</em>, <em>acceptable_similarity=0.2</em>, <em>similarity_slack=0.05</em><span class="sig-paren">)</span><a class="headerlink" href="#massalign.aligners.VicinityDrivenSentenceAligner" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#massalign.aligners.SentenceAligner" title="massalign.aligners.SentenceAligner"><code class="xref py py-class docutils literal"><span class="pre">massalign.aligners.SentenceAligner</span></code></a></p>
 <p>Implements the vicinity-driven sentence alignment algorithm proposed in:</p>
 <blockquote>
 <div>Gustavo H. Paetzold and Lucia Specia. <strong>Vicinity-Driven Paragraph and Sentence Alignment for Comparable Corpora</strong>. <em>arXiv preprint arXiv:1612.04113</em> (2016).</div></blockquote>
@@ -266,7 +273,7 @@ It concatenates all paragraphs in the &#8220;N&#8221; side of 1-N and N-1 alignm
 </ul>
 <dl class="method">
 <dt id="massalign.aligners.VicinityDrivenSentenceAligner.alignSentencesFromParagraphs">
-<tt class="descname">alignSentencesFromParagraphs</tt><big>(</big><em>p1=</em>, <span class="optional">[</span><span class="optional">]</span><em>p2=</em><span class="optional">[</span><span class="optional">]</span><big>)</big><a class="headerlink" href="#massalign.aligners.VicinityDrivenSentenceAligner.alignSentencesFromParagraphs" title="Permalink to this definition">¶</a></dt>
+<code class="descname">alignSentencesFromParagraphs</code><span class="sig-paren">(</span><em>p1=[]</em>, <em>p2=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#massalign.aligners.VicinityDrivenSentenceAligner.alignSentencesFromParagraphs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Finds alignments between a list of source and target sentences that compose a pair of aligned paragraphs.
 To do so, it produces a similarity matrix between the sentences in the source and target sentences, then finds an alignment path within it using a vicinity-driven approach.</p>
 <ul>
@@ -293,7 +300,7 @@ To do so, it produces a similarity matrix between the sentences in the source an
 
 <dl class="method">
 <dt id="massalign.aligners.VicinityDrivenSentenceAligner.findStartingPoint">
-<tt class="descname">findStartingPoint</tt><big>(</big><em>matrix</em>, <em>p1</em>, <em>p2</em>, <em>startpos</em><big>)</big><a class="headerlink" href="#massalign.aligners.VicinityDrivenSentenceAligner.findStartingPoint" title="Permalink to this definition">¶</a></dt>
+<code class="descname">findStartingPoint</code><span class="sig-paren">(</span><em>matrix</em>, <em>p1</em>, <em>p2</em>, <em>startpos</em><span class="sig-paren">)</span><a class="headerlink" href="#massalign.aligners.VicinityDrivenSentenceAligner.findStartingPoint" title="Permalink to this definition">¶</a></dt>
 <dd><p>Searches for a coordinate in the similarity matrix from which to start (or recover) the alignment path search.</p>
 <ul>
 <li><dl class="first docutils">
@@ -320,9 +327,9 @@ To do so, it produces a similarity matrix between the sentences in the source an
 
 <dl class="method">
 <dt id="massalign.aligners.VicinityDrivenSentenceAligner.getActualAlignedSentences">
-<tt class="descname">getActualAlignedSentences</tt><big>(</big><em>p1</em>, <em>p2</em>, <em>alignment_path</em><big>)</big><a class="headerlink" href="#massalign.aligners.VicinityDrivenSentenceAligner.getActualAlignedSentences" title="Permalink to this definition">¶</a></dt>
+<code class="descname">getActualAlignedSentences</code><span class="sig-paren">(</span><em>p1</em>, <em>p2</em>, <em>alignment_path</em><span class="sig-paren">)</span><a class="headerlink" href="#massalign.aligners.VicinityDrivenSentenceAligner.getActualAlignedSentences" title="Permalink to this definition">¶</a></dt>
 <dd><p>Produces a convenient list containing the pairs of aligned sentences found between two paragraphs.
-It concatenates all sentences in the &#8220;N&#8221; side of 1-N and N-1 alignments.</p>
+It concatenates all sentences in the “N” side of 1-N and N-1 alignments.</p>
 <ul>
 <li><dl class="first docutils">
 <dt><em>Parameters</em>:</dt>
@@ -347,7 +354,7 @@ It concatenates all sentences in the &#8220;N&#8221; side of 1-N and N-1 alignme
 
 <dl class="method">
 <dt id="massalign.aligners.VicinityDrivenSentenceAligner.getBestNextHypothesis">
-<tt class="descname">getBestNextHypothesis</tt><big>(</big><em>matrix</em>, <em>p1</em>, <em>p2</em>, <em>cbuffer</em>, <em>sbuffer</em>, <em>currXY</em><big>)</big><a class="headerlink" href="#massalign.aligners.VicinityDrivenSentenceAligner.getBestNextHypothesis" title="Permalink to this definition">¶</a></dt>
+<code class="descname">getBestNextHypothesis</code><span class="sig-paren">(</span><em>matrix</em>, <em>p1</em>, <em>p2</em>, <em>cbuffer</em>, <em>sbuffer</em>, <em>currXY</em><span class="sig-paren">)</span><a class="headerlink" href="#massalign.aligners.VicinityDrivenSentenceAligner.getBestNextHypothesis" title="Permalink to this definition">¶</a></dt>
 <dd><p>Searches for the next alignment in the alignment matrix.</p>
 <ul>
 <li><dl class="first docutils">
@@ -376,7 +383,7 @@ It concatenates all sentences in the &#8220;N&#8221; side of 1-N and N-1 alignme
 
 <dl class="method">
 <dt id="massalign.aligners.VicinityDrivenSentenceAligner.getOriginalSentence">
-<tt class="descname">getOriginalSentence</tt><big>(</big><em>indexes</em>, <em>p</em><big>)</big><a class="headerlink" href="#massalign.aligners.VicinityDrivenSentenceAligner.getOriginalSentence" title="Permalink to this definition">¶</a></dt>
+<code class="descname">getOriginalSentence</code><span class="sig-paren">(</span><em>indexes</em>, <em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#massalign.aligners.VicinityDrivenSentenceAligner.getOriginalSentence" title="Permalink to this definition">¶</a></dt>
 <dd><p>Concatenates a list of sentences.</p>
 <ul>
 <li><dl class="first docutils">
@@ -401,7 +408,7 @@ It concatenates all sentences in the &#8220;N&#8221; side of 1-N and N-1 alignme
 
 <dl class="method">
 <dt id="massalign.aligners.VicinityDrivenSentenceAligner.getProbabilityMatrix">
-<tt class="descname">getProbabilityMatrix</tt><big>(</big><em>p1</em>, <em>p2</em>, <em>sentence_similarities</em>, <em>sentence_indexes</em><big>)</big><a class="headerlink" href="#massalign.aligners.VicinityDrivenSentenceAligner.getProbabilityMatrix" title="Permalink to this definition">¶</a></dt>
+<code class="descname">getProbabilityMatrix</code><span class="sig-paren">(</span><em>p1</em>, <em>p2</em>, <em>sentence_similarities</em>, <em>sentence_indexes</em><span class="sig-paren">)</span><a class="headerlink" href="#massalign.aligners.VicinityDrivenSentenceAligner.getProbabilityMatrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Produces a similarity matrix between the sentences in the aligned paragraphs</p>
 <ul>
 <li><dl class="first docutils">
@@ -409,7 +416,7 @@ It concatenates all sentences in the &#8220;N&#8221; side of 1-N and N-1 alignme
 <dd><ul class="first last simple">
 <li><strong>p1</strong>: A source paragraph. A paragraph is a list of sentences.</li>
 <li><strong>p2</strong>: A target paragraph. A paragraph is a list of sentences.</li>
-<li><strong>sentence_similarities</strong>: A matrix containing a similarity score between all possible pairs of sentences in the union of p1 and p2. The matrix&#8217;s height and width are equal and equivalent to the number of distinct sentences present in the union of p1 and p2.</li>
+<li><strong>sentence_similarities</strong>: A matrix containing a similarity score between all possible pairs of sentences in the union of p1 and p2. The matrix’s height and width are equal and equivalent to the number of distinct sentences present in the union of p1 and p2.</li>
 <li><strong>sentence_indexes</strong>: A map connecting each sentence to its numerical index in the sentence_similarities matrix.</li>
 </ul>
 </dd>
@@ -428,7 +435,7 @@ It concatenates all sentences in the &#8220;N&#8221; side of 1-N and N-1 alignme
 
 <dl class="method">
 <dt id="massalign.aligners.VicinityDrivenSentenceAligner.getSentenceAlignmentPath">
-<tt class="descname">getSentenceAlignmentPath</tt><big>(</big><em>p1</em>, <em>p2</em>, <em>sentence_similarities</em>, <em>sentence_indexes</em><big>)</big><a class="headerlink" href="#massalign.aligners.VicinityDrivenSentenceAligner.getSentenceAlignmentPath" title="Permalink to this definition">¶</a></dt>
+<code class="descname">getSentenceAlignmentPath</code><span class="sig-paren">(</span><em>p1</em>, <em>p2</em>, <em>sentence_similarities</em>, <em>sentence_indexes</em><span class="sig-paren">)</span><a class="headerlink" href="#massalign.aligners.VicinityDrivenSentenceAligner.getSentenceAlignmentPath" title="Permalink to this definition">¶</a></dt>
 <dd><p>Produces a similarity matrix and searches for the alignment path within it.</p>
 <ul>
 <li><dl class="first docutils">
@@ -436,7 +443,7 @@ It concatenates all sentences in the &#8220;N&#8221; side of 1-N and N-1 alignme
 <dd><ul class="first last simple">
 <li><strong>p1</strong>: A source paragraph. A paragraph is a list of sentences.</li>
 <li><strong>p2</strong>: A target paragraph. A paragraph is a list of sentences.</li>
-<li><strong>sentence_similarities</strong>: A matrix containing a similarity score between all possible pairs of sentences in the union of p1 and p2. The matrix&#8217;s height and width are equal and equivalent to the number of distinct sentences present in the union of p1 and p2.</li>
+<li><strong>sentence_similarities</strong>: A matrix containing a similarity score between all possible pairs of sentences in the union of p1 and p2. The matrix’s height and width are equal and equivalent to the number of distinct sentences present in the union of p1 and p2.</li>
 <li><strong>sentence_indexes</strong>: A map connecting each sentence to its numerical index in the sentence_similarities matrix.</li>
 </ul>
 </dd>
@@ -461,27 +468,27 @@ It concatenates all sentences in the &#8220;N&#8221; side of 1-N and N-1 alignme
 <p>This module contains functions for annotating transformation operations at the sentence level.</p>
 <dl class="class">
 <dt id="massalign.annotators.SentenceAnnotator">
-<em class="property">class </em><tt class="descclassname">massalign.annotators.</tt><tt class="descname">SentenceAnnotator</tt><a class="headerlink" href="#massalign.annotators.SentenceAnnotator" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">massalign.annotators.</code><code class="descname">SentenceAnnotator</code><a class="headerlink" href="#massalign.annotators.SentenceAnnotator" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="method">
 <dt id="massalign.annotators.SentenceAnnotator.annotate_file">
-<tt class="descname">annotate_file</tt><big>(</big><em>sents_file</em>, <em>aligns_file</em>, <em>parse_file</em>, <em>verbose=True</em><big>)</big><a class="headerlink" href="#massalign.annotators.SentenceAnnotator.annotate_file" title="Permalink to this definition">¶</a></dt>
+<code class="descname">annotate_file</code><span class="sig-paren">(</span><em>sents_file</em>, <em>aligns_file</em>, <em>parse_file</em>, <em>verbose=True</em><span class="sig-paren">)</span><a class="headerlink" href="#massalign.annotators.SentenceAnnotator.annotate_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Annotate all the sentences in sents_file using the word alignments in aligns_file.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="massalign.annotators.SentenceAnnotator.annotate_sentence">
-<tt class="descname">annotate_sentence</tt><big>(</big><em>src</em>, <em>ref</em>, <em>aligns</em>, <em>src_parse</em>, <em>ref_parse</em><big>)</big><a class="headerlink" href="#massalign.annotators.SentenceAnnotator.annotate_sentence" title="Permalink to this definition">¶</a></dt>
+<code class="descname">annotate_sentence</code><span class="sig-paren">(</span><em>src</em>, <em>ref</em>, <em>aligns</em>, <em>src_parse</em>, <em>ref_parse</em><span class="sig-paren">)</span><a class="headerlink" href="#massalign.annotators.SentenceAnnotator.annotate_sentence" title="Permalink to this definition">¶</a></dt>
 <dd><p>Annotate all the simplification operations in the sentence pair src-ref.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="massalign.annotators.SentenceAnnotator.create_conll_files">
-<tt class="descname">create_conll_files</tt><big>(</big><em>annot_file_src, annot_file_ref, annotations, include_clauseop=True, labels_to_print=['B-A', 'B-AC', 'B-D', 'B-DC', 'B-M', 'B-MC', 'B-R', 'B-RM', 'B-RW', 'B-RWM', 'I-A', 'I-AC', 'I-D', 'I-DC', 'I-M', 'I-MC', 'I-R', 'I-RM', 'I-RW', 'I-RWM']</em><big>)</big><a class="headerlink" href="#massalign.annotators.SentenceAnnotator.create_conll_files" title="Permalink to this definition">¶</a></dt>
+<code class="descname">create_conll_files</code><span class="sig-paren">(</span><em>annot_file_src, annot_file_ref, annotations, include_clauseop=True, labels_to_print=['B-A', 'B-AC', 'B-D', 'B-DC', 'B-M', 'B-MC', 'B-R', 'B-RM', 'B-RW', 'B-RWM', 'I-A', 'I-AC', 'I-D', 'I-DC', 'I-M', 'I-MC', 'I-R', 'I-RM', 'I-RW', 'I-RWM']</em><span class="sig-paren">)</span><a class="headerlink" href="#massalign.annotators.SentenceAnnotator.create_conll_files" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="massalign.annotators.SentenceAnnotator.dict2conll">
-<tt class="descname">dict2conll</tt><big>(</big><em>sent_annots, include_clauseop=True, labels_to_print=['B-A', 'B-AC', 'B-D', 'B-DC', 'B-M', 'B-MC', 'B-R', 'B-RM', 'B-RW', 'B-RWM', 'I-A', 'I-AC', 'I-D', 'I-DC', 'I-M', 'I-MC', 'I-R', 'I-RM', 'I-RW', 'I-RWM']</em><big>)</big><a class="headerlink" href="#massalign.annotators.SentenceAnnotator.dict2conll" title="Permalink to this definition">¶</a></dt>
+<code class="descname">dict2conll</code><span class="sig-paren">(</span><em>sent_annots, include_clauseop=True, labels_to_print=['B-A', 'B-AC', 'B-D', 'B-DC', 'B-M', 'B-MC', 'B-R', 'B-RM', 'B-RW', 'B-RWM', 'I-A', 'I-AC', 'I-D', 'I-DC', 'I-M', 'I-MC', 'I-R', 'I-RM', 'I-RW', 'I-RWM']</em><span class="sig-paren">)</span><a class="headerlink" href="#massalign.annotators.SentenceAnnotator.dict2conll" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -491,11 +498,11 @@ It concatenates all sentences in the &#8220;N&#8221; side of 1-N and N-1 alignme
 <span id="massalign-core"></span><h2>massalign.core<a class="headerlink" href="#module-massalign.core" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="massalign.core.MASSAligner">
-<em class="property">class </em><tt class="descclassname">massalign.core.</tt><tt class="descname">MASSAligner</tt><a class="headerlink" href="#massalign.core.MASSAligner" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">massalign.core.</code><code class="descname">MASSAligner</code><a class="headerlink" href="#massalign.core.MASSAligner" title="Permalink to this definition">¶</a></dt>
 <dd><p>A convenience class that allows you to more easily join aligners and annotators.</p>
 <dl class="method">
 <dt id="massalign.core.MASSAligner.getParagraphAlignments">
-<tt class="descname">getParagraphAlignments</tt><big>(</big><em>paragraphs1=</em>, <span class="optional">[</span><span class="optional">]</span><em>paragraphs2=</em>, <span class="optional">[</span><span class="optional">]</span><em>paragraph_aligner=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#massalign.core.MASSAligner.getParagraphAlignments" title="Permalink to this definition">¶</a></dt>
+<code class="descname">getParagraphAlignments</code><span class="sig-paren">(</span><em>paragraphs1=[]</em>, <em>paragraphs2=[]</em>, <em>paragraph_aligner=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#massalign.core.MASSAligner.getParagraphAlignments" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extracts paragraph alignments from two lists of paragraphs from comparable documents.</p>
 <ul>
 <li><dl class="first docutils">
@@ -512,7 +519,7 @@ It concatenates all sentences in the &#8220;N&#8221; side of 1-N and N-1 alignme
 <li><dl class="first docutils">
 <dt><em>Output</em>:</dt>
 <dd><ul class="first last simple">
-<li>The output is the same produced by the paragraph aligner upon calling the &#8220;alignParagraphsFromDocuments&#8221; function.</li>
+<li>The output is the same produced by the paragraph aligner upon calling the “alignParagraphsFromDocuments” function.</li>
 </ul>
 </dd>
 </dl>
@@ -522,7 +529,7 @@ It concatenates all sentences in the &#8220;N&#8221; side of 1-N and N-1 alignme
 
 <dl class="method">
 <dt id="massalign.core.MASSAligner.getParagraphsFromDocument">
-<tt class="descname">getParagraphsFromDocument</tt><big>(</big><em>document_path</em><big>)</big><a class="headerlink" href="#massalign.core.MASSAligner.getParagraphsFromDocument" title="Permalink to this definition">¶</a></dt>
+<code class="descname">getParagraphsFromDocument</code><span class="sig-paren">(</span><em>document_path</em><span class="sig-paren">)</span><a class="headerlink" href="#massalign.core.MASSAligner.getParagraphsFromDocument" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extracts a list of paragraphs from a document.</p>
 <ul>
 <li><dl class="first docutils">
@@ -546,7 +553,7 @@ It concatenates all sentences in the &#8220;N&#8221; side of 1-N and N-1 alignme
 
 <dl class="method">
 <dt id="massalign.core.MASSAligner.getSentenceAlignments">
-<tt class="descname">getSentenceAlignments</tt><big>(</big><em>paragraph1=</em>, <span class="optional">[</span><span class="optional">]</span><em>paragraph2=</em>, <span class="optional">[</span><span class="optional">]</span><em>sentence_aligner=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#massalign.core.MASSAligner.getSentenceAlignments" title="Permalink to this definition">¶</a></dt>
+<code class="descname">getSentenceAlignments</code><span class="sig-paren">(</span><em>paragraph1=[]</em>, <em>paragraph2=[]</em>, <em>sentence_aligner=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#massalign.core.MASSAligner.getSentenceAlignments" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extracts paragraph alignments from two lists of paragraphs from comparable documents.</p>
 <ul>
 <li><dl class="first docutils">
@@ -563,7 +570,7 @@ It concatenates all sentences in the &#8220;N&#8221; side of 1-N and N-1 alignme
 <li><dl class="first docutils">
 <dt><em>Output</em>:</dt>
 <dd><ul class="first last simple">
-<li>The output is the same produced by the sentence aligner upon calling the &#8220;alignSentencesFromParagraphs&#8221; function.</li>
+<li>The output is the same produced by the sentence aligner upon calling the “alignSentencesFromParagraphs” function.</li>
 </ul>
 </dd>
 </dl>
@@ -573,7 +580,7 @@ It concatenates all sentences in the &#8220;N&#8221; side of 1-N and N-1 alignme
 
 <dl class="method">
 <dt id="massalign.core.MASSAligner.getSentenceAnnotations">
-<tt class="descname">getSentenceAnnotations</tt><big>(</big><em>sentence1=''</em>, <em>sentence2=''</em>, <em>sentence_annotator=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#massalign.core.MASSAligner.getSentenceAnnotations" title="Permalink to this definition">¶</a></dt>
+<code class="descname">getSentenceAnnotations</code><span class="sig-paren">(</span><em>sentence1=''</em>, <em>sentence2=''</em>, <em>sentence_annotator=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#massalign.core.MASSAligner.getSentenceAnnotations" title="Permalink to this definition">¶</a></dt>
 <dd><p>Produces word-level annotations from two parallel sentences.</p>
 <ul>
 <li><dl class="first docutils">
@@ -590,7 +597,7 @@ It concatenates all sentences in the &#8220;N&#8221; side of 1-N and N-1 alignme
 <li><dl class="first docutils">
 <dt><em>Output</em>:</dt>
 <dd><ul class="first last simple">
-<li>The output is the same produced by the sentence annotator upon calling the &#8220;annotate_sentence&#8221; function.</li>
+<li>The output is the same produced by the sentence annotator upon calling the “annotate_sentence” function.</li>
 </ul>
 </dd>
 </dl>
@@ -600,7 +607,7 @@ It concatenates all sentences in the &#8220;N&#8221; side of 1-N and N-1 alignme
 
 <dl class="method">
 <dt id="massalign.core.MASSAligner.visualizeListOfParagraphAlignments">
-<tt class="descname">visualizeListOfParagraphAlignments</tt><big>(</big><em>list_of_paragraph_sets1=</em>, <span class="optional">[</span><span class="optional">]</span><em>list_of_paragraph_sets2=</em>, <span class="optional">[</span><span class="optional">]</span><em>list_of_alignment_paths=</em>, <span class="optional">[</span><span class="optional">]</span><em>**kwargs</em><big>)</big><a class="headerlink" href="#massalign.core.MASSAligner.visualizeListOfParagraphAlignments" title="Permalink to this definition">¶</a></dt>
+<code class="descname">visualizeListOfParagraphAlignments</code><span class="sig-paren">(</span><em>list_of_paragraph_sets1=[]</em>, <em>list_of_paragraph_sets2=[]</em>, <em>list_of_alignment_paths=[]</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#massalign.core.MASSAligner.visualizeListOfParagraphAlignments" title="Permalink to this definition">¶</a></dt>
 <dd><p>Displays alignments between lists of lists of paragraphs.
 Each list of paragraphs can represent a document, so this function allows you to see the paragraph alignments of an entire collection of documents through a single interface.</p>
 <ul>
@@ -627,7 +634,7 @@ Each list of paragraphs can represent a document, so this function allows you to
 
 <dl class="method">
 <dt id="massalign.core.MASSAligner.visualizeListOfSentenceAlignments">
-<tt class="descname">visualizeListOfSentenceAlignments</tt><big>(</big><em>list_of_paragraphs1=</em>, <span class="optional">[</span><span class="optional">]</span><em>list_of_paragraphs2=</em>, <span class="optional">[</span><span class="optional">]</span><em>list_of_alignment_paths=</em>, <span class="optional">[</span><span class="optional">]</span><em>**kwargs</em><big>)</big><a class="headerlink" href="#massalign.core.MASSAligner.visualizeListOfSentenceAlignments" title="Permalink to this definition">¶</a></dt>
+<code class="descname">visualizeListOfSentenceAlignments</code><span class="sig-paren">(</span><em>list_of_paragraphs1=[]</em>, <em>list_of_paragraphs2=[]</em>, <em>list_of_alignment_paths=[]</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#massalign.core.MASSAligner.visualizeListOfSentenceAlignments" title="Permalink to this definition">¶</a></dt>
 <dd><p>Displays alignments between the sentences of each pair of paragraphs in a pair of paragraph lists.
 The interface will showcase the sentence-level alignments between each paragraph pair through a single interface.</p>
 <ul>
@@ -654,7 +661,7 @@ The interface will showcase the sentence-level alignments between each paragraph
 
 <dl class="method">
 <dt id="massalign.core.MASSAligner.visualizeParagraphAlignments">
-<tt class="descname">visualizeParagraphAlignments</tt><big>(</big><em>paragraphs1=</em>, <span class="optional">[</span><span class="optional">]</span><em>paragraphs2=</em>, <span class="optional">[</span><span class="optional">]</span><em>alignments=</em><span class="optional">[</span><span class="optional">]</span><big>)</big><a class="headerlink" href="#massalign.core.MASSAligner.visualizeParagraphAlignments" title="Permalink to this definition">¶</a></dt>
+<code class="descname">visualizeParagraphAlignments</code><span class="sig-paren">(</span><em>paragraphs1=[]</em>, <em>paragraphs2=[]</em>, <em>alignments=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#massalign.core.MASSAligner.visualizeParagraphAlignments" title="Permalink to this definition">¶</a></dt>
 <dd><p>Displays alignments between lists of paragraphs.</p>
 <ul>
 <li><dl class="first docutils">
@@ -680,7 +687,7 @@ The interface will showcase the sentence-level alignments between each paragraph
 
 <dl class="method">
 <dt id="massalign.core.MASSAligner.visualizeSentenceAlignments">
-<tt class="descname">visualizeSentenceAlignments</tt><big>(</big><em>paragraph1=</em>, <span class="optional">[</span><span class="optional">]</span><em>paragraph2=</em>, <span class="optional">[</span><span class="optional">]</span><em>alignments=</em>, <span class="optional">[</span><span class="optional">]</span><em>**kwargs</em><big>)</big><a class="headerlink" href="#massalign.core.MASSAligner.visualizeSentenceAlignments" title="Permalink to this definition">¶</a></dt>
+<code class="descname">visualizeSentenceAlignments</code><span class="sig-paren">(</span><em>paragraph1=[]</em>, <em>paragraph2=[]</em>, <em>alignments=[]</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#massalign.core.MASSAligner.visualizeSentenceAlignments" title="Permalink to this definition">¶</a></dt>
 <dd><p>Displays sentence alignments between two paragraphs.</p>
 <ul>
 <li><dl class="first docutils">
@@ -706,7 +713,7 @@ The interface will showcase the sentence-level alignments between each paragraph
 
 <dl class="method">
 <dt id="massalign.core.MASSAligner.visualizeSentenceAnnotations">
-<tt class="descname">visualizeSentenceAnnotations</tt><big>(</big><em>sentence1=''</em>, <em>sentence2=''</em>, <em>word_alignments=''</em>, <em>annotations=</em>, <span class="optional">[</span><span class="optional">]</span><em>**kwargs</em><big>)</big><a class="headerlink" href="#massalign.core.MASSAligner.visualizeSentenceAnnotations" title="Permalink to this definition">¶</a></dt>
+<code class="descname">visualizeSentenceAnnotations</code><span class="sig-paren">(</span><em>sentence1=''</em>, <em>sentence2=''</em>, <em>word_alignments=''</em>, <em>annotations=[]</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#massalign.core.MASSAligner.visualizeSentenceAnnotations" title="Permalink to this definition">¶</a></dt>
 <dd><p>Displays word-level annotations for a pair of aligned sentences.</p>
 <ul>
 <li><dl class="first docutils">
@@ -738,12 +745,12 @@ The interface will showcase the sentence-level alignments between each paragraph
 <span id="massalign-gui"></span><h2>massalign.gui<a class="headerlink" href="#module-massalign.gui" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="massalign.gui.BasicGUI">
-<em class="property">class </em><tt class="descclassname">massalign.gui.</tt><tt class="descname">BasicGUI</tt><a class="headerlink" href="#massalign.gui.BasicGUI" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#massalign.gui.GUI" title="massalign.gui.GUI"><tt class="xref py py-class docutils literal"><span class="pre">massalign.gui.GUI</span></tt></a></p>
+<em class="property">class </em><code class="descclassname">massalign.gui.</code><code class="descname">BasicGUI</code><a class="headerlink" href="#massalign.gui.BasicGUI" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#massalign.gui.GUI" title="massalign.gui.GUI"><code class="xref py py-class docutils literal"><span class="pre">massalign.gui.GUI</span></code></a></p>
 <p>A basic GUI to showcase alignments and annotations.</p>
 <dl class="method">
 <dt id="massalign.gui.BasicGUI.displayListOfParagraphAlignments">
-<tt class="descname">displayListOfParagraphAlignments</tt><big>(</big><em>p1s_list</em>, <em>p2s_list</em>, <em>alignments_list</em><big>)</big><a class="headerlink" href="#massalign.gui.BasicGUI.displayListOfParagraphAlignments" title="Permalink to this definition">¶</a></dt>
+<code class="descname">displayListOfParagraphAlignments</code><span class="sig-paren">(</span><em>p1s_list</em>, <em>p2s_list</em>, <em>alignments_list</em><span class="sig-paren">)</span><a class="headerlink" href="#massalign.gui.BasicGUI.displayListOfParagraphAlignments" title="Permalink to this definition">¶</a></dt>
 <dd><p>Displays alignments between lists of lists of paragraphs.
 Each list of paragraphs can represent a document, so this function allows you to see the paragraph alignments of an entire collection of documents through a single interface.</p>
 <ul>
@@ -770,7 +777,7 @@ Each list of paragraphs can represent a document, so this function allows you to
 
 <dl class="method">
 <dt id="massalign.gui.BasicGUI.displayListOfSentenceAlignments">
-<tt class="descname">displayListOfSentenceAlignments</tt><big>(</big><em>p1_list</em>, <em>p2_list</em>, <em>alignments_list</em><big>)</big><a class="headerlink" href="#massalign.gui.BasicGUI.displayListOfSentenceAlignments" title="Permalink to this definition">¶</a></dt>
+<code class="descname">displayListOfSentenceAlignments</code><span class="sig-paren">(</span><em>p1_list</em>, <em>p2_list</em>, <em>alignments_list</em><span class="sig-paren">)</span><a class="headerlink" href="#massalign.gui.BasicGUI.displayListOfSentenceAlignments" title="Permalink to this definition">¶</a></dt>
 <dd><p>Displays alignments between the sentences of each pair of paragraphs in a pair of paragraph lists.
 The interface will showcase the sentence-level alignments between each paragraph pair through a single interface.</p>
 <ul>
@@ -797,7 +804,7 @@ The interface will showcase the sentence-level alignments between each paragraph
 
 <dl class="method">
 <dt id="massalign.gui.BasicGUI.displayParagraphAlignments">
-<tt class="descname">displayParagraphAlignments</tt><big>(</big><em>p1s</em>, <em>p2s</em>, <em>alignments</em><big>)</big><a class="headerlink" href="#massalign.gui.BasicGUI.displayParagraphAlignments" title="Permalink to this definition">¶</a></dt>
+<code class="descname">displayParagraphAlignments</code><span class="sig-paren">(</span><em>p1s</em>, <em>p2s</em>, <em>alignments</em><span class="sig-paren">)</span><a class="headerlink" href="#massalign.gui.BasicGUI.displayParagraphAlignments" title="Permalink to this definition">¶</a></dt>
 <dd><p>Displays alignments between two paragraphs.</p>
 <ul>
 <li><dl class="first docutils">
@@ -823,7 +830,7 @@ The interface will showcase the sentence-level alignments between each paragraph
 
 <dl class="method">
 <dt id="massalign.gui.BasicGUI.displaySentenceAlignments">
-<tt class="descname">displaySentenceAlignments</tt><big>(</big><em>p1</em>, <em>p2</em>, <em>alignments</em><big>)</big><a class="headerlink" href="#massalign.gui.BasicGUI.displaySentenceAlignments" title="Permalink to this definition">¶</a></dt>
+<code class="descname">displaySentenceAlignments</code><span class="sig-paren">(</span><em>p1</em>, <em>p2</em>, <em>alignments</em><span class="sig-paren">)</span><a class="headerlink" href="#massalign.gui.BasicGUI.displaySentenceAlignments" title="Permalink to this definition">¶</a></dt>
 <dd><p>Display sentence alignments between two paragraphs.</p>
 <ul>
 <li><dl class="first docutils">
@@ -849,7 +856,7 @@ The interface will showcase the sentence-level alignments between each paragraph
 
 <dl class="method">
 <dt id="massalign.gui.BasicGUI.displaySentenceAnnotations">
-<tt class="descname">displaySentenceAnnotations</tt><big>(</big><em>s1</em>, <em>s2</em>, <em>alignments</em>, <em>annotations</em><big>)</big><a class="headerlink" href="#massalign.gui.BasicGUI.displaySentenceAnnotations" title="Permalink to this definition">¶</a></dt>
+<code class="descname">displaySentenceAnnotations</code><span class="sig-paren">(</span><em>s1</em>, <em>s2</em>, <em>alignments</em>, <em>annotations</em><span class="sig-paren">)</span><a class="headerlink" href="#massalign.gui.BasicGUI.displaySentenceAnnotations" title="Permalink to this definition">¶</a></dt>
 <dd><p>Displays word-level annotations for a pair of aligned sentences.</p>
 <ul>
 <li><dl class="first docutils">
@@ -876,7 +883,7 @@ The interface will showcase the sentence-level alignments between each paragraph
 
 <dl class="method">
 <dt id="massalign.gui.BasicGUI.initializeRoot">
-<tt class="descname">initializeRoot</tt><big>(</big><big>)</big><a class="headerlink" href="#massalign.gui.BasicGUI.initializeRoot" title="Permalink to this definition">¶</a></dt>
+<code class="descname">initializeRoot</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#massalign.gui.BasicGUI.initializeRoot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initializes the GUI.</p>
 </dd></dl>
 
@@ -884,8 +891,8 @@ The interface will showcase the sentence-level alignments between each paragraph
 
 <dl class="class">
 <dt id="massalign.gui.ControlFrame">
-<em class="property">class </em><tt class="descclassname">massalign.gui.</tt><tt class="descname">ControlFrame</tt><big>(</big><em>parentObject</em>, <em>p1s_list</em>, <em>p2s_list</em>, <em>alignments_list</em>, <em>main_frame</em><big>)</big><a class="headerlink" href="#massalign.gui.ControlFrame" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">Tkinter.Frame</span></tt></p>
+<em class="property">class </em><code class="descclassname">massalign.gui.</code><code class="descname">ControlFrame</code><span class="sig-paren">(</span><em>parentObject</em>, <em>p1s_list</em>, <em>p2s_list</em>, <em>alignments_list</em>, <em>main_frame</em><span class="sig-paren">)</span><a class="headerlink" href="#massalign.gui.ControlFrame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Tkinter.Frame</span></code></p>
 <p>A frame that allows for multiple alignments to be showcase at once through left/right navigation buttons.</p>
 <ul>
 <li><dl class="first docutils">
@@ -903,13 +910,13 @@ The interface will showcase the sentence-level alignments between each paragraph
 </ul>
 <dl class="method">
 <dt id="massalign.gui.ControlFrame.getNextAlignment">
-<tt class="descname">getNextAlignment</tt><big>(</big><big>)</big><a class="headerlink" href="#massalign.gui.ControlFrame.getNextAlignment" title="Permalink to this definition">¶</a></dt>
+<code class="descname">getNextAlignment</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#massalign.gui.ControlFrame.getNextAlignment" title="Permalink to this definition">¶</a></dt>
 <dd><p>Showcases the alignment between the next pair of paragraph lists.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="massalign.gui.ControlFrame.getPreviousAlignment">
-<tt class="descname">getPreviousAlignment</tt><big>(</big><big>)</big><a class="headerlink" href="#massalign.gui.ControlFrame.getPreviousAlignment" title="Permalink to this definition">¶</a></dt>
+<code class="descname">getPreviousAlignment</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#massalign.gui.ControlFrame.getPreviousAlignment" title="Permalink to this definition">¶</a></dt>
 <dd><p>Showcases the alignment between the previous pair of paragraph lists.</p>
 </dd></dl>
 
@@ -917,8 +924,8 @@ The interface will showcase the sentence-level alignments between each paragraph
 
 <dl class="class">
 <dt id="massalign.gui.DisplayFrame">
-<em class="property">class </em><tt class="descclassname">massalign.gui.</tt><tt class="descname">DisplayFrame</tt><big>(</big><em>parentObject</em>, <em>background</em><big>)</big><a class="headerlink" href="#massalign.gui.DisplayFrame" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">Tkinter.Frame</span></tt></p>
+<em class="property">class </em><code class="descclassname">massalign.gui.</code><code class="descname">DisplayFrame</code><span class="sig-paren">(</span><em>parentObject</em>, <em>background</em><span class="sig-paren">)</span><a class="headerlink" href="#massalign.gui.DisplayFrame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Tkinter.Frame</span></code></p>
 <p>A frame in which to display alignments and annotations.</p>
 <ul>
 <li><dl class="first docutils">
@@ -933,13 +940,13 @@ The interface will showcase the sentence-level alignments between each paragraph
 </ul>
 <dl class="method">
 <dt id="massalign.gui.DisplayFrame.clearDrawingCanvas">
-<tt class="descname">clearDrawingCanvas</tt><big>(</big><big>)</big><a class="headerlink" href="#massalign.gui.DisplayFrame.clearDrawingCanvas" title="Permalink to this definition">¶</a></dt>
+<code class="descname">clearDrawingCanvas</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#massalign.gui.DisplayFrame.clearDrawingCanvas" title="Permalink to this definition">¶</a></dt>
 <dd><p>Clears the drawing canvas.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="massalign.gui.DisplayFrame.drawAlignments">
-<tt class="descname">drawAlignments</tt><big>(</big><em>p1s</em>, <em>p2s</em>, <em>alignments</em><big>)</big><a class="headerlink" href="#massalign.gui.DisplayFrame.drawAlignments" title="Permalink to this definition">¶</a></dt>
+<code class="descname">drawAlignments</code><span class="sig-paren">(</span><em>p1s</em>, <em>p2s</em>, <em>alignments</em><span class="sig-paren">)</span><a class="headerlink" href="#massalign.gui.DisplayFrame.drawAlignments" title="Permalink to this definition">¶</a></dt>
 <dd><p>Draws a set of alignments between two paragraph lists.</p>
 <ul>
 <li><dl class="first docutils">
@@ -964,7 +971,7 @@ The interface will showcase the sentence-level alignments between each paragraph
 
 <dl class="method">
 <dt id="massalign.gui.DisplayFrame.drawAnnotations">
-<tt class="descname">drawAnnotations</tt><big>(</big><em>s1</em>, <em>s2</em>, <em>word_alignments</em>, <em>annotations</em><big>)</big><a class="headerlink" href="#massalign.gui.DisplayFrame.drawAnnotations" title="Permalink to this definition">¶</a></dt>
+<code class="descname">drawAnnotations</code><span class="sig-paren">(</span><em>s1</em>, <em>s2</em>, <em>word_alignments</em>, <em>annotations</em><span class="sig-paren">)</span><a class="headerlink" href="#massalign.gui.DisplayFrame.drawAnnotations" title="Permalink to this definition">¶</a></dt>
 <dd><p>Draws a set of word-level annotations between two parallel sentences.</p>
 <ul>
 <li><dl class="first docutils">
@@ -991,7 +998,7 @@ The interface will showcase the sentence-level alignments between each paragraph
 
 <dl class="method">
 <dt id="massalign.gui.DisplayFrame.formatWordAlignments">
-<tt class="descname">formatWordAlignments</tt><big>(</big><em>word_alignments</em><big>)</big><a class="headerlink" href="#massalign.gui.DisplayFrame.formatWordAlignments" title="Permalink to this definition">¶</a></dt>
+<code class="descname">formatWordAlignments</code><span class="sig-paren">(</span><em>word_alignments</em><span class="sig-paren">)</span><a class="headerlink" href="#massalign.gui.DisplayFrame.formatWordAlignments" title="Permalink to this definition">¶</a></dt>
 <dd><p>Transforms Pharaoh alignments in text format onto a list of alignments.</p>
 <ul>
 <li><dl class="first docutils">
@@ -1015,7 +1022,7 @@ The interface will showcase the sentence-level alignments between each paragraph
 
 <dl class="method">
 <dt id="massalign.gui.DisplayFrame.getAccumulatedOffsetsAndSizes">
-<tt class="descname">getAccumulatedOffsetsAndSizes</tt><big>(</big><em>paragraphs</em><big>)</big><a class="headerlink" href="#massalign.gui.DisplayFrame.getAccumulatedOffsetsAndSizes" title="Permalink to this definition">¶</a></dt>
+<code class="descname">getAccumulatedOffsetsAndSizes</code><span class="sig-paren">(</span><em>paragraphs</em><span class="sig-paren">)</span><a class="headerlink" href="#massalign.gui.DisplayFrame.getAccumulatedOffsetsAndSizes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets offsets and sizes for a list of paragraphs.</p>
 <ul>
 <li><dl class="first docutils">
@@ -1040,7 +1047,7 @@ The interface will showcase the sentence-level alignments between each paragraph
 
 <dl class="method">
 <dt id="massalign.gui.DisplayFrame.getLineSplits">
-<tt class="descname">getLineSplits</tt><big>(</big><em>sentence</em><big>)</big><a class="headerlink" href="#massalign.gui.DisplayFrame.getLineSplits" title="Permalink to this definition">¶</a></dt>
+<code class="descname">getLineSplits</code><span class="sig-paren">(</span><em>sentence</em><span class="sig-paren">)</span><a class="headerlink" href="#massalign.gui.DisplayFrame.getLineSplits" title="Permalink to this definition">¶</a></dt>
 <dd><p>Split lines for display.</p>
 <ul>
 <li><dl class="first docutils">
@@ -1064,7 +1071,7 @@ The interface will showcase the sentence-level alignments between each paragraph
 
 <dl class="method">
 <dt id="massalign.gui.DisplayFrame.onFrameConfigure">
-<tt class="descname">onFrameConfigure</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#massalign.gui.DisplayFrame.onFrameConfigure" title="Permalink to this definition">¶</a></dt>
+<code class="descname">onFrameConfigure</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="headerlink" href="#massalign.gui.DisplayFrame.onFrameConfigure" title="Permalink to this definition">¶</a></dt>
 <dd><p>Restructures underlying canvas upon update of main frame.</p>
 <ul>
 <li><dl class="first docutils">
@@ -1082,43 +1089,43 @@ The interface will showcase the sentence-level alignments between each paragraph
 
 <dl class="class">
 <dt id="massalign.gui.GUI">
-<em class="property">class </em><tt class="descclassname">massalign.gui.</tt><tt class="descname">GUI</tt><a class="headerlink" href="#massalign.gui.GUI" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<em class="property">class </em><code class="descclassname">massalign.gui.</code><code class="descname">GUI</code><a class="headerlink" href="#massalign.gui.GUI" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <dl class="method">
 <dt id="massalign.gui.GUI.displayListOfParagraphAlignments">
-<tt class="descname">displayListOfParagraphAlignments</tt><big>(</big><big>)</big><a class="headerlink" href="#massalign.gui.GUI.displayListOfParagraphAlignments" title="Permalink to this definition">¶</a></dt>
+<code class="descname">displayListOfParagraphAlignments</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#massalign.gui.GUI.displayListOfParagraphAlignments" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="massalign.gui.GUI.displayListOfSentenceAlignments">
-<tt class="descname">displayListOfSentenceAlignments</tt><big>(</big><big>)</big><a class="headerlink" href="#massalign.gui.GUI.displayListOfSentenceAlignments" title="Permalink to this definition">¶</a></dt>
+<code class="descname">displayListOfSentenceAlignments</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#massalign.gui.GUI.displayListOfSentenceAlignments" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="massalign.gui.GUI.displayParagraphAlignments">
-<tt class="descname">displayParagraphAlignments</tt><big>(</big><big>)</big><a class="headerlink" href="#massalign.gui.GUI.displayParagraphAlignments" title="Permalink to this definition">¶</a></dt>
+<code class="descname">displayParagraphAlignments</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#massalign.gui.GUI.displayParagraphAlignments" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="massalign.gui.GUI.displaySentenceAlignments">
-<tt class="descname">displaySentenceAlignments</tt><big>(</big><big>)</big><a class="headerlink" href="#massalign.gui.GUI.displaySentenceAlignments" title="Permalink to this definition">¶</a></dt>
+<code class="descname">displaySentenceAlignments</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#massalign.gui.GUI.displaySentenceAlignments" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="massalign.gui.GUI.displaySentenceAnnotations">
-<tt class="descname">displaySentenceAnnotations</tt><big>(</big><big>)</big><a class="headerlink" href="#massalign.gui.GUI.displaySentenceAnnotations" title="Permalink to this definition">¶</a></dt>
+<code class="descname">displaySentenceAnnotations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#massalign.gui.GUI.displaySentenceAnnotations" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="massalign.gui.ResizingCanvas">
-<em class="property">class </em><tt class="descclassname">massalign.gui.</tt><tt class="descname">ResizingCanvas</tt><big>(</big><em>parent</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#massalign.gui.ResizingCanvas" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">Tkinter.Canvas</span></tt></p>
+<em class="property">class </em><code class="descclassname">massalign.gui.</code><code class="descname">ResizingCanvas</code><span class="sig-paren">(</span><em>parent</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#massalign.gui.ResizingCanvas" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Tkinter.Canvas</span></code></p>
 <p>A resizing canvas that allows for a GUI window to have a dynamic size.</p>
 <dl class="method">
 <dt id="massalign.gui.ResizingCanvas.on_resize">
-<tt class="descname">on_resize</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#massalign.gui.ResizingCanvas.on_resize" title="Permalink to this definition">¶</a></dt>
+<code class="descname">on_resize</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="headerlink" href="#massalign.gui.ResizingCanvas.on_resize" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overrides the default resizing behaviour of Canvas objects.</p>
 <ul>
 <li><dl class="first docutils">
@@ -1139,24 +1146,24 @@ The interface will showcase the sentence-level alignments between each paragraph
 <span id="massalign-models"></span><h2>massalign.models<a class="headerlink" href="#module-massalign.models" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="massalign.models.SimilarityModel">
-<em class="property">class </em><tt class="descclassname">massalign.models.</tt><tt class="descname">SimilarityModel</tt><a class="headerlink" href="#massalign.models.SimilarityModel" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<em class="property">class </em><code class="descclassname">massalign.models.</code><code class="descname">SimilarityModel</code><a class="headerlink" href="#massalign.models.SimilarityModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <dl class="method">
 <dt id="massalign.models.SimilarityModel.getSimilarityMapBetweenParagraphsOfDocuments">
-<tt class="descname">getSimilarityMapBetweenParagraphsOfDocuments</tt><big>(</big><em>ps1</em>, <em>ps2</em><big>)</big><a class="headerlink" href="#massalign.models.SimilarityModel.getSimilarityMapBetweenParagraphsOfDocuments" title="Permalink to this definition">¶</a></dt>
+<code class="descname">getSimilarityMapBetweenParagraphsOfDocuments</code><span class="sig-paren">(</span><em>ps1</em>, <em>ps2</em><span class="sig-paren">)</span><a class="headerlink" href="#massalign.models.SimilarityModel.getSimilarityMapBetweenParagraphsOfDocuments" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="massalign.models.SimilarityModel.getSimilarityMapBetweenSentencesOfParagraphs">
-<tt class="descname">getSimilarityMapBetweenSentencesOfParagraphs</tt><big>(</big><em>p1</em>, <em>p2</em><big>)</big><a class="headerlink" href="#massalign.models.SimilarityModel.getSimilarityMapBetweenSentencesOfParagraphs" title="Permalink to this definition">¶</a></dt>
+<code class="descname">getSimilarityMapBetweenSentencesOfParagraphs</code><span class="sig-paren">(</span><em>p1</em>, <em>p2</em><span class="sig-paren">)</span><a class="headerlink" href="#massalign.models.SimilarityModel.getSimilarityMapBetweenSentencesOfParagraphs" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="massalign.models.TFIDFModel">
-<em class="property">class </em><tt class="descclassname">massalign.models.</tt><tt class="descname">TFIDFModel</tt><big>(</big><em>input_files=</em>, <span class="optional">[</span><span class="optional">]</span><em>stop_list_file=None</em><big>)</big><a class="headerlink" href="#massalign.models.TFIDFModel" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#massalign.models.SimilarityModel" title="massalign.models.SimilarityModel"><tt class="xref py py-class docutils literal"><span class="pre">massalign.models.SimilarityModel</span></tt></a></p>
+<em class="property">class </em><code class="descclassname">massalign.models.</code><code class="descname">TFIDFModel</code><span class="sig-paren">(</span><em>input_files=[]</em>, <em>stop_list_file=None</em><span class="sig-paren">)</span><a class="headerlink" href="#massalign.models.TFIDFModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#massalign.models.SimilarityModel" title="massalign.models.SimilarityModel"><code class="xref py py-class docutils literal"><span class="pre">massalign.models.SimilarityModel</span></code></a></p>
 <p>Implements a typical gensim TFIDF model for MASSAlign.</p>
 <ul>
 <li><dl class="first docutils">
@@ -1171,7 +1178,7 @@ The interface will showcase the sentence-level alignments between each paragraph
 </ul>
 <dl class="method">
 <dt id="massalign.models.TFIDFModel.getSentencesFromParagraph">
-<tt class="descname">getSentencesFromParagraph</tt><big>(</big><em>p</em><big>)</big><a class="headerlink" href="#massalign.models.TFIDFModel.getSentencesFromParagraph" title="Permalink to this definition">¶</a></dt>
+<code class="descname">getSentencesFromParagraph</code><span class="sig-paren">(</span><em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#massalign.models.TFIDFModel.getSentencesFromParagraph" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extracts a set containing all unique sentences in a paragraph.</p>
 <ul>
 <li><dl class="first docutils">
@@ -1195,7 +1202,7 @@ The interface will showcase the sentence-level alignments between each paragraph
 
 <dl class="method">
 <dt id="massalign.models.TFIDFModel.getSentencesFromParagraphs">
-<tt class="descname">getSentencesFromParagraphs</tt><big>(</big><em>ps</em><big>)</big><a class="headerlink" href="#massalign.models.TFIDFModel.getSentencesFromParagraphs" title="Permalink to this definition">¶</a></dt>
+<code class="descname">getSentencesFromParagraphs</code><span class="sig-paren">(</span><em>ps</em><span class="sig-paren">)</span><a class="headerlink" href="#massalign.models.TFIDFModel.getSentencesFromParagraphs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extracts a set containing all unique sentences in a list of paragraphs.</p>
 <ul>
 <li><dl class="first docutils">
@@ -1219,7 +1226,7 @@ The interface will showcase the sentence-level alignments between each paragraph
 
 <dl class="method">
 <dt id="massalign.models.TFIDFModel.getSimilarityMapBetweenParagraphsOfDocuments">
-<tt class="descname">getSimilarityMapBetweenParagraphsOfDocuments</tt><big>(</big><em>p1s=</em>, <span class="optional">[</span><span class="optional">]</span><em>p2s=</em><span class="optional">[</span><span class="optional">]</span><big>)</big><a class="headerlink" href="#massalign.models.TFIDFModel.getSimilarityMapBetweenParagraphsOfDocuments" title="Permalink to this definition">¶</a></dt>
+<code class="descname">getSimilarityMapBetweenParagraphsOfDocuments</code><span class="sig-paren">(</span><em>p1s=[]</em>, <em>p2s=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#massalign.models.TFIDFModel.getSimilarityMapBetweenParagraphsOfDocuments" title="Permalink to this definition">¶</a></dt>
 <dd><p>Produces a matrix containing similarity scores between all paragraphs in a pair of paragraph lists.</p>
 <ul>
 <li><dl class="first docutils">
@@ -1234,7 +1241,7 @@ The interface will showcase the sentence-level alignments between each paragraph
 <li><dl class="first docutils">
 <dt><em>Output</em>:</dt>
 <dd><ul class="first last simple">
-<li><strong>paragraph_similarities</strong>: A matrix containing a similarity score between all possible pairs of paragraphs in the union of p1 and p2. The matrix&#8217;s height and width are equal and equivalent to the number of distinct paragraphs present in the union of p1s and p2s.</li>
+<li><strong>paragraph_similarities</strong>: A matrix containing a similarity score between all possible pairs of paragraphs in the union of p1 and p2. The matrix’s height and width are equal and equivalent to the number of distinct paragraphs present in the union of p1s and p2s.</li>
 </ul>
 </dd>
 </dl>
@@ -1244,7 +1251,7 @@ The interface will showcase the sentence-level alignments between each paragraph
 
 <dl class="method">
 <dt id="massalign.models.TFIDFModel.getSimilarityMapBetweenSentencesOfParagraphs">
-<tt class="descname">getSimilarityMapBetweenSentencesOfParagraphs</tt><big>(</big><em>p1</em>, <em>p2</em><big>)</big><a class="headerlink" href="#massalign.models.TFIDFModel.getSimilarityMapBetweenSentencesOfParagraphs" title="Permalink to this definition">¶</a></dt>
+<code class="descname">getSimilarityMapBetweenSentencesOfParagraphs</code><span class="sig-paren">(</span><em>p1</em>, <em>p2</em><span class="sig-paren">)</span><a class="headerlink" href="#massalign.models.TFIDFModel.getSimilarityMapBetweenSentencesOfParagraphs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Produces a matrix containing similarity scores between all sentences in a pair of paragraphs.</p>
 <ul>
 <li><dl class="first docutils">
@@ -1259,7 +1266,7 @@ The interface will showcase the sentence-level alignments between each paragraph
 <li><dl class="first docutils">
 <dt><em>Output</em>:</dt>
 <dd><ul class="first last simple">
-<li><strong>sentence_similarities</strong>: A matrix containing a similarity score between all possible pairs of sentences in the union of p1 and p2. The matrix&#8217;s height and width are equal and equivalent to the number of distinct sentences present in the union of p1 and p2.</li>
+<li><strong>sentence_similarities</strong>: A matrix containing a similarity score between all possible pairs of sentences in the union of p1 and p2. The matrix’s height and width are equal and equivalent to the number of distinct sentences present in the union of p1 and p2.</li>
 <li><strong>sentence_indexes</strong>: A map connecting each sentence to its numerical index in the sentence_similarities matrix.</li>
 </ul>
 </dd>
@@ -1270,7 +1277,7 @@ The interface will showcase the sentence-level alignments between each paragraph
 
 <dl class="method">
 <dt id="massalign.models.TFIDFModel.getTFIDFControllers">
-<tt class="descname">getTFIDFControllers</tt><big>(</big><em>sentences</em><big>)</big><a class="headerlink" href="#massalign.models.TFIDFModel.getTFIDFControllers" title="Permalink to this definition">¶</a></dt>
+<code class="descname">getTFIDFControllers</code><span class="sig-paren">(</span><em>sentences</em><span class="sig-paren">)</span><a class="headerlink" href="#massalign.models.TFIDFModel.getTFIDFControllers" title="Permalink to this definition">¶</a></dt>
 <dd><p>Produces TFIDF similarity scores between all possible pairs of sentences in a list.</p>
 <ul>
 <li><dl class="first docutils">
@@ -1284,7 +1291,7 @@ The interface will showcase the sentence-level alignments between each paragraph
 <li><dl class="first docutils">
 <dt><em>Output</em>:</dt>
 <dd><ul class="first last simple">
-<li><strong>sentence_similarities</strong>: A matrix containing a similarity score between all possible sentence pairs in the input sentence list. The matrix&#8217;s height and width are equal and equivalent to the number of distinct sentences in the input sentence list.</li>
+<li><strong>sentence_similarities</strong>: A matrix containing a similarity score between all possible sentence pairs in the input sentence list. The matrix’s height and width are equal and equivalent to the number of distinct sentences in the input sentence list.</li>
 <li><strong>sentence_indexes</strong>: A map connecting each sentence to its numerical index in the sentence_similarities matrix.</li>
 </ul>
 </dd>
@@ -1295,7 +1302,7 @@ The interface will showcase the sentence-level alignments between each paragraph
 
 <dl class="method">
 <dt id="massalign.models.TFIDFModel.getTFIDFmodel">
-<tt class="descname">getTFIDFmodel</tt><big>(</big><em>input_files=</em><span class="optional">[</span><span class="optional">]</span><big>)</big><a class="headerlink" href="#massalign.models.TFIDFModel.getTFIDFmodel" title="Permalink to this definition">¶</a></dt>
+<code class="descname">getTFIDFmodel</code><span class="sig-paren">(</span><em>input_files=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#massalign.models.TFIDFModel.getTFIDFmodel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Trains a gensim TFIDF model.</p>
 <ul>
 <li><dl class="first docutils">
@@ -1320,7 +1327,7 @@ The interface will showcase the sentence-level alignments between each paragraph
 
 <dl class="method">
 <dt id="massalign.models.TFIDFModel.getTextSimilarity">
-<tt class="descname">getTextSimilarity</tt><big>(</big><em>buffer1</em>, <em>buffer2</em><big>)</big><a class="headerlink" href="#massalign.models.TFIDFModel.getTextSimilarity" title="Permalink to this definition">¶</a></dt>
+<code class="descname">getTextSimilarity</code><span class="sig-paren">(</span><em>buffer1</em>, <em>buffer2</em><span class="sig-paren">)</span><a class="headerlink" href="#massalign.models.TFIDFModel.getTextSimilarity" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the TFIDF similarity between two buffers containing text.</p>
 <ul>
 <li><dl class="first docutils">
@@ -1350,7 +1357,7 @@ The interface will showcase the sentence-level alignments between each paragraph
 <span id="massalign-util"></span><h2>massalign.util<a class="headerlink" href="#module-massalign.util" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="massalign.util.FileReader">
-<em class="property">class </em><tt class="descclassname">massalign.util.</tt><tt class="descname">FileReader</tt><big>(</big><em>path</em>, <em>stop_list=set([])</em><big>)</big><a class="headerlink" href="#massalign.util.FileReader" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">massalign.util.</code><code class="descname">FileReader</code><span class="sig-paren">(</span><em>path</em>, <em>stop_list=set([])</em><span class="sig-paren">)</span><a class="headerlink" href="#massalign.util.FileReader" title="Permalink to this definition">¶</a></dt>
 <dd><p>A convenience class that allows you to more easily read local and online files.</p>
 <ul>
 <li><dl class="first docutils">
@@ -1365,7 +1372,7 @@ The interface will showcase the sentence-level alignments between each paragraph
 </ul>
 <dl class="method">
 <dt id="massalign.util.FileReader.getRawText">
-<tt class="descname">getRawText</tt><big>(</big><big>)</big><a class="headerlink" href="#massalign.util.FileReader.getRawText" title="Permalink to this definition">¶</a></dt>
+<code class="descname">getRawText</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#massalign.util.FileReader.getRawText" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reads the input file and outputs the raw text in it.</p>
 <ul>
 <li><dl class="first docutils">
@@ -1381,7 +1388,7 @@ The interface will showcase the sentence-level alignments between each paragraph
 
 <dl class="method">
 <dt id="massalign.util.FileReader.getSplitSentences">
-<tt class="descname">getSplitSentences</tt><big>(</big><big>)</big><a class="headerlink" href="#massalign.util.FileReader.getSplitSentences" title="Permalink to this definition">¶</a></dt>
+<code class="descname">getSplitSentences</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#massalign.util.FileReader.getSplitSentences" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reads the input file and produces a list of split sentences.</p>
 <ul>
 <li><dl class="first docutils">
@@ -1405,7 +1412,7 @@ The interface will showcase the sentence-level alignments between each paragraph
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -1414,12 +1421,18 @@ The interface will showcase the sentence-level alignments between each paragraph
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="index.html">MASSAlign 0.0.1 documentation</a> &raquo;</li> 
+        <li class="right" >
+          <a href="examples.html" title="Examples"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="input.html" title="Input"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">MASSAlign 0.0.1 documentation</a> &#187;</li> 
       </ul>
     </div>
-    <div class="footer">
-        &copy; Copyright 2017, Gustavo H. Paetzold and Fernando Alva Manchego.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Gustavo H. Paetzold and Fernando Alva Manchego.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7+.
     </div>
   </body>
 </html>
