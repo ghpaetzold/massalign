@@ -84,7 +84,7 @@ todo_include_todos = False
 #
 html_theme = 'sphinxdoc'
 html_theme_options = {
-	'nosidebar': 'true'
+	'nosidebar': 'true',
 }
 
 # Theme options are theme-specific and customize the look and feel of a theme
