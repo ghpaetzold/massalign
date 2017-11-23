@@ -104,7 +104,7 @@ class MASSAligner:
 		"""
 		#Employ the sentence annotator provided to annotate a pair of aligned sentences:
 		if len(sentence1)>0 and len(sentence2)>0:
-			return sentence_annotator.annotate_sentence(sentence1, sentence2, **kwargs)
+			return sentence_annotator.getSentenceAnnotations(sentence1, sentence2, **kwargs)
 		else:
 			return {}
 			

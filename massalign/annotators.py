@@ -1,8 +1,3 @@
-"""
-This module contains functions for annotating transformation operations at the sentence level.
-"""
-
-
 from operator import itemgetter
 from nltk.tree import ParentedTree
 
@@ -28,6 +23,9 @@ SIMOP_LABELS = ['B-A', 'B-AC', 'B-D', 'B-DC', 'B-M', 'B-MC', 'B-R', 'B-RM', 'B-R
 
 
 class SentenceAnnotator:
+    """
+    Implements algorithms for annotating transformation operations between parallel sentences.
+    """
 
     def __init__(self):
         self.name = "Sentence Annotator"
@@ -36,8 +34,19 @@ class SentenceAnnotator:
     # Main Annotation Functions
     # =============================================================================
 
-    def annotate_sentence(self, src, ref, aligns, src_parse, ref_parse):
-        """Annotate all the simplification operations in the sentence pair src-ref."""
+    def getSentenceAnnotations(self, src, ref, aligns, src_parse, ref_parse):
+        """
+        Annotates the transformation operations between a pair of aligned sentences (source and reference).
+
+        * *Parameters*:
+            * **src**: A list of words corresponding to the tokenized source sentence.
+            * **ref**: A list of words corresponding to the tokenized reference sentence.
+            * **aligns**: A string containing the word alignments between source and reference, in Pharaoh format.
+            * **src_parse**: A string containing the constituent parse tree of the source sentence.
+            * **ref_parse**: A string containing the constituent parse tree of the reference sentence.
+        * *Output*:
+            * **sent_annots**: A dictionary containing the token-level annotations for both source and reference sentences.
+        """
 
         if isinstance(aligns, str) or isinstance(aligns, unicode):
             aligns = self._format_word_alignments(aligns)
@@ -74,10 +83,21 @@ class SentenceAnnotator:
 
         sent_annots = dict(src=src_annots, ref=ref_annots)
 
+        # return the transformations annotations for the parallel sentences
         return sent_annots
 
-    def annotate_file(self, sents_file, aligns_file, parse_file, verbose=True):
-        """Annotate all the sentences in sents_file using the word alignments in aligns_file."""
+    def getSentenceAnnotationsForFile(self, sents_file, aligns_file, parse_file, verbose=True):
+        """
+        Annotates all the parallel sentences in a given file. Each sentence pair appears in a separate line.
+
+        * *Parameters*:
+            * **sents_file**: File containing the parallel sentences. Each line in the file contains a source-reference pair, separated by the character |||.
+            * **aligns_file**: File containing the word alignments between each sentence pair. Each line contains the alignments in Pharaoh format.
+            * **parse_file**: File containing the parse trees of the parallel sentences. Every two lines in the file corresponds to a sentence pair (the first is the source parse and the second the reference parse).
+            * **verbose**: Indicates whether to print a message indicating the sentence being annotated or not.
+        * *Output*:
+            * **file_annots**: A list of dictionaries, each of them containing the sentence pair id and the annotations for the corresponding source and reference sentences.
+        """
 
         file_annots = []
         sent_id = 0
@@ -99,43 +119,70 @@ class SentenceAnnotator:
             ref_parse = parse_file.readline()
 
             # annotate the simplification operations
-            sent_annots = self.annotate_sentence(src, ref, aligns_list, src_parse, ref_parse)
+            sent_annots = self.getSentenceAnnotations(src, ref, aligns_list, src_parse, ref_parse)
 
             sent_annots['id'] = sent_id
 
             file_annots.append(sent_annots)
 
+        # return the transformations annotations for all the parallel sentences in the file
         return file_annots
 
     # =============================================================================
     # Output Functions
     # =============================================================================
 
-    def create_conll_files(self, annot_file_src, annot_file_ref, annotations, include_clauseop=True, labels_to_print=SIMOP_LABELS):
+    def createConllFiles(self, annot_file_src, annot_file_ref, annotations, include_clauseop=True, labels_to_print=SIMOP_LABELS):
+        """
+        Creates files in conll format for the transformation annotations of given parallel sentences.
+
+        * *Parameters*:
+            * **annot_file_src**: The file where to write the annotations for the source sentence.
+            * **annot_file_ref**: The file where to write the annotations for the reference sentence.
+            * **annotations**: A list of dictionaries containing the annotations for the corresponding source and reference sentences.
+            * **include_clauseop**: Indicates whether to print labels corresponding to clause-level operations.
+            * **labels_to_print**: Which transformation operation labels to print. By default, all are printed.
+        """
+
         conll_src = ""
         conll_ref = ""
         for sent in annotations:
-            conll_src += self.dict2conll(sent['src'], include_clauseop, labels_to_print) + '\n'
-            conll_ref += self.dict2conll(sent['ref'], include_clauseop, labels_to_print) + '\n'
+            # create the information for one sentence of the file considering the filters given as parameters
+            conll_src += self._dict2conll(sent['src'], include_clauseop, labels_to_print, 'C') + '\n'
+            conll_ref += self._dict2conll(sent['ref'], include_clauseop, labels_to_print, 'O') + '\n'
 
+        # write the annotations in the source and reference files
         annot_file_src.write(conll_src)
         annot_file_ref.write(conll_ref)
 
-    def dict2conll(self, sent_annots, include_clauseop=True, labels_to_print=SIMOP_LABELS):
+    def _dict2conll(self, sent_annots, include_clauseop=True, labels_to_print=SIMOP_LABELS, default_label='C'):
+        """
+        Formats the transformation annotations of a sentence into conll format.
+
+        * *Parameters*:
+            * **sent_annots**: A dictionary containing the transformation operations in a sentence.
+            * **include_clauseop**: Indicates whether to print labels corresponding to clause-level operations.
+            * **labels_to_print**: Which transformation operation labels to print. By default all are printed.
+            * **default_label**: Label to use for tokens that do not have a particular transformation operation.
+        """
+
         conll = ""
         for token in sent_annots:
             label = token['label']
             if label in labels_to_print:
                 if not include_clauseop:
                     if label in ['B-AC', 'I-AC', 'B-DC', 'I-DC', 'B-MC', 'I-MC']:
-                        label = label[0:3]
-                if label in ['B-R', 'B-RW', 'B-RM', 'B-RWM']:
-                    label += '\t' + ' '.join(token['replace'])
+                        label = label[0:3]  # remove the 'C' indicating the clause-level correspondance
+                if label in ['B-R', 'B-RW']:
+                    label += '\t' + ' '.join(token['replace'])  # add the gold replacement token
+                if label in ['B-M', 'B-MC', 'B-RM', 'B-RWM']:
+                    label += '\t' + str(token['move'])  # add the gold position to be moved
             else:
-                label = 'O'
-
+                label = default_label
+            # form the line of information corresponding to the current token
             conll += str(token['index']) + '\t' + token['word'] + '\t' + label + '\n'
 
+        # return the annotations in conll format for the whole sentence
         return conll
 
     # =============================================================================
