@@ -49,7 +49,7 @@ class SentenceAnnotator:
         """
 
         if isinstance(aligns, str) or isinstance(aligns, unicode):
-            aligns = self._format_word_alignments(aligns)
+            aligns = self._formatWordAlignments(aligns)
 
         # token-level delete, add and replace
         src_annots = self._label_delete_replace(src, ref, aligns)
@@ -112,7 +112,7 @@ class SentenceAnnotator:
             ref = ref_sent.strip().split(' ')
 
             # get the word alignments pairs
-            aligns_list = self._format_word_alignments(aligns_pairs)
+            aligns_list = self._formatWordAlignments(aligns_pairs)
 
             # get the parsed sentences
             src_parse = parse_file.readline()
@@ -164,6 +164,8 @@ class SentenceAnnotator:
             * **include_clauseop**: Indicates whether to print labels corresponding to clause-level operations.
             * **labels_to_print**: Which transformation operation labels to print. By default all are printed.
             * **default_label**: Label to use for tokens that do not have a particular transformation operation.
+        * *Output*:
+            * **conll**: A string containing the sentence transformations annotations in conll format
         """
 
         conll = ""
@@ -189,13 +191,23 @@ class SentenceAnnotator:
     # Internal Annotation Functions
     # =============================================================================
 
-    def _format_word_alignments(self, aligns):
+    def _formatWordAlignments(self, aligns):
+        """
+        Transforms the word alignments given as a string into a list of 2-element lists.
+
+        * *Parameters*:
+            * **aligns**: A string containing the word alignments between source and reference, in Pharaoh format.
+        * *Output*:
+            * **aligns_list**: A list of list containing the word alignments
+        """
+
         aligns_list = []
         if aligns.strip() != '':
             aligns = aligns.strip().split(' ')
             # transform them into a list of lists: ['1-1', '2-2', '3-4'] -> [[1, 1], [2, 2], [3, 4]]
             aligns_list = [list(map(int, p.split('-'))) for p in aligns]
 
+        # return the alignments as a list of 2-element lists
         return aligns_list
 
     def _label_delete_replace(self, src, ref, aligns):
