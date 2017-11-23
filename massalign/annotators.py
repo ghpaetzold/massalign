@@ -52,31 +52,31 @@ class SentenceAnnotator:
             aligns = self._formatWordAlignments(aligns)
 
         # token-level delete, add and replace
-        src_annots = self._label_delete_replace(src, ref, aligns)
-        ref_annots = self._label_add_replace(ref, aligns, src_annots)
+        src_annots = self._labelDeleteReplace(src, ref, aligns)
+        ref_annots = self._labelAddReplace(ref, aligns, src_annots)
 
         # simple heuristic to improve token-level replacements
-        self._improve_replace(src_annots, ref_annots, src_parse, ref_parse)
+        self._improveReplace(src_annots, ref_annots, src_parse, ref_parse)
 
         # token-level rewrite
-        self._label_rewrite(src_annots, ref_annots)
+        self._labelRewrite(src_annots, ref_annots)
 
         # token-level move
-        self._label_move(src_annots, ref_annots, aligns)
+        self._labelMove(src_annots, ref_annots, aligns)
 
         # clause-level delete and add
-        self._label_group_simop(src_annots, src_parse, CLAUSE_SYNT_TAGS, ['B-D', 'I-D'], 'DC')
-        self._label_group_simop(ref_annots, ref_parse, CLAUSE_SYNT_TAGS, ['B-A', 'I-A'], 'AC')
+        self._labelGroupSimop(src_annots, src_parse, CLAUSE_SYNT_TAGS, ['B-D', 'I-D'], 'DC')
+        self._labelGroupSimop(ref_annots, ref_parse, CLAUSE_SYNT_TAGS, ['B-A', 'I-A'], 'AC')
 
         # chunk-level delete and add
-        self._label_group_simop(src_annots, src_parse, CHUNK_SYNT_TAGS, ['B-D', 'I-D'], 'D', majority_percent=1)
-        self._label_group_simop(ref_annots, ref_parse, CHUNK_SYNT_TAGS, ['B-A', 'I-A'], 'A', majority_percent=1)
+        self._labelGroupSimop(src_annots, src_parse, CHUNK_SYNT_TAGS, ['B-D', 'I-D'], 'D', majority_percent=1)
+        self._labelGroupSimop(ref_annots, ref_parse, CHUNK_SYNT_TAGS, ['B-A', 'I-A'], 'A', majority_percent=1)
 
         # clause-level move
-        self._label_group_simop(src_annots, src_parse, CLAUSE_SYNT_TAGS, ['B-M', 'I-M'], 'MC')
+        self._labelGroupSimop(src_annots, src_parse, CLAUSE_SYNT_TAGS, ['B-M', 'I-M'], 'MC')
 
         # chunk-level move
-        self._label_group_simop(src_annots, src_parse, CHUNK_SYNT_TAGS, ['B-M', 'I-M'], 'M', majority_percent=1)
+        self._labelGroupSimop(src_annots, src_parse, CHUNK_SYNT_TAGS, ['B-M', 'I-M'], 'M', majority_percent=1)
 
         # adding 'destination' for some B- 'move'tokens in clause and chunk levels
         self._correct_move(src_annots)
@@ -210,8 +210,18 @@ class SentenceAnnotator:
         # return the alignments as a list of 2-element lists
         return aligns_list
 
-    def _label_delete_replace(self, src, ref, aligns):
-        """Annotate deletions and replacements in the source sentence."""
+    def _labelDeleteReplace(self, src, ref, aligns):
+        """
+        Annotates deletions and replacements in the source sentence.
+
+        * *Parameters*:
+            * **src**: A list of words corresponding to the tokenized source sentence.
+            * **ref**: A list of words corresponding to the tokenized reference sentence.
+            * **aligns**: A list of 2-element lists containing the word alignments between source and reference.
+        * *Output*:
+            * **src_annots**: A dictionary containing token-level annotations for deletions and replacements in the source sentence.
+        """
+
         src_annots = []
         for token_index, token_word in enumerate(src, start=1):
             src_token = {'index': token_index, 'word': token_word, 'label': ''}
@@ -220,7 +230,7 @@ class SentenceAnnotator:
             # check if the token is aligned
             if aligns_list:
                 # check if it has been aligned to only one token and if they are exactly the same
-                if len(aligns_list) == 1 and token_word == ref[aligns_list[0] - 1]:
+                if len(aligns_list) == 1 and token_word.lower() == ref[aligns_list[0] - 1].lower():
                     # it is a 'keep'
                     src_token['label'] = 'O'
                 else:
@@ -241,8 +251,18 @@ class SentenceAnnotator:
 
         return src_annots
 
-    def _label_add_replace(self, ref, aligns, src_annots):
-        """Annotate additions in the reference sentence. Improve replacements annots_file in the source sentence."""
+    def _labelAddReplace(self, ref, aligns, src_annots):
+        """
+        Annotates additions in the reference sentence. Also, adds multi-word replacements in the source sentence.
+
+        * *Parameters*:
+            * **ref**: A list of words corresponding to the tokenized reference sentence.
+            * **aligns**: A list of 2-element lists containing the word alignments between source and reference.
+            * **src_annots**: A dictionary containing token-level annotations in the source sentence.
+        * *Output*:
+            * **ref_annots**: A dictionary containing token-level annotations for additions in the reference sentence.
+        """
+
         ref_annots = []
         for token_index, token_word in enumerate(ref, start=1):
             ref_token = {'index': token_index, 'word': token_word, 'label': ''}
@@ -270,11 +290,18 @@ class SentenceAnnotator:
 
         return ref_annots
 
-    def _improve_replace(self, src_annots, ref_annots, src_parse, ref_parse):
+    def _improveReplace(self, src_annots, ref_annots, src_parse, ref_parse):
         """
-        Apply a simple heuristic based on simplification operations labels, sentence positions and part-of-speech tags
+        Applies a simple heuristic based on transformation operations labels, sentence positions and part-of-speech tags
         to improve the annotation of replacements.
+
+        * *Parameters*:
+            * **src_annots**: A dictionary containing token-level annotations in the source sentence.
+            * **ref_annots**: A dictionary containing token-level annotations in the reference sentence.
+            * **src_parse**: A string containing the constituent parse tree of the source sentence.
+            * **ref_parse**: A string containing the constituent parse tree of the reference sentence.
         """
+
         for ref_token in ref_annots:
             # check that the token has been labeled as 'add'
             if ref_token['label'] == 'B-A':
@@ -290,17 +317,23 @@ class SentenceAnnotator:
                         ref_token['label'] = 'O'  # the token in the reference now has no label
                         src_token['replace'] = [ref_token['word']]  # include the information of the replacement
 
-    def _label_rewrite(self, src_annots, ref_annots):
-        """Annotate rewrites as particular cases of 'replace' (in source) and 'add' (in reference)."""
+    def _labelRewrite(self, src_annots, ref_annots):
+        """
+        Annotate rewrites as particular cases of 'replace' (in source) and 'add' (in reference).
+
+        * *Parameters*:
+            * **src_annots**: A dictionary containing token-level annotations in the source sentence.
+            * **ref_annots**: A dictionary containing token-level annotations in the reference sentence.
+        """
 
         # find replacements which belong to the rewrite list
         for src_token in src_annots:
-            if src_token['label'] == 'B-R' and src_token['word'] in REWRITE_LIST:
+            if src_token['label'] == 'B-R' and src_token['word'].lower() in REWRITE_LIST:
                 src_token['label'] = 'B-RW'
 
         # find isolated adds which belong to the rewrite list
         for ref_token in ref_annots:
-            if ref_token['label'] == 'B-A' and ref_token['word'] in REWRITE_LIST:
+            if ref_token['label'] == 'B-A' and ref_token['word'].lower() in REWRITE_LIST:
                 # check if the token before is an 'add'
                 if ref_token['index'] > 1:
                     # the tokens in the sentence are 1-indexed, but their position in the array is 0-indexed
@@ -320,11 +353,17 @@ class SentenceAnnotator:
                     ref_token['label'] = 'B-RW'
                     ref_token['replace'] = [ref_token['word']]
 
-    def _label_move(self, src_annots, ref_annots, aligns):
+    def _labelMove(self, src_annots, ref_annots, aligns):
         """
         Annotate 'move' checking if the relative index of a token in source changes in reference, considering
         preceding deletions, additions and multi-token replacements.
+
+        * *Parameters*:
+            * **src_annots**: A dictionary containing token-level annotations in the source sentence.
+            * **ref_annots**: A dictionary containing token-level annotations in the reference sentence.
+            * **aligns**: A list of 2-element lists containing the word alignments between source and reference.
         """
+
         shift_left = 0
         for src_token in src_annots:
             # check if the token has been labeled to be deleted or as part of a replace or rewrite
@@ -360,10 +399,18 @@ class SentenceAnnotator:
                     src_token['label'] = new_label
                     src_token['move'] = ref_index
 
-    def _label_group_simop(self, annots, parse, group_synt_tags, old_token_labels, new_group_label, majority_percent=0.75):
+    def _labelGroupSimop(self, annots, parse, group_synt_tags, old_token_labels, new_group_label, majority_percent=0.75):
         """
-        Annotate a sequence of tokens with the same operation label and which belong to the same syntactic group,
+        Annotates a sequence of tokens with the same operation label and that belong to the same syntactic group,
         with a given group operation label.
+
+        * *Parameters*:
+            * **annots**: A dictionary containing token-level annotations for the sentence.
+            * **parse**: A string containing the constituent parse tree of the sentence.
+            * **group_synt_tags**: A list of the syntactic labels that identify a group.
+            * **old_token_labels**: A list of transformation operation labels to the replaced by new ones.
+            * **new_group_label**: A list of transformation operation labels that will be the replacements of the old ones.
+            * **majority_percent**: The minimum percentage of tokens in the syntactic group that must have the same old_token_labels for the whole syntactic group to change to the new labels.
         """
         parse_tree = ParentedTree.fromstring(parse)
         num_tokens = len(annots)
@@ -416,7 +463,13 @@ class SentenceAnnotator:
                         ptr_token = begin
 
     def _correct_move(self, src_annots):
-        """Add missing destination information for some automatically annotated 'move' tokens."""
+        """
+        Add missing destination information for some automatically annotated 'move' tokens.
+
+        * *Parameters*:
+            * **annots**: A dictionary containing token-level annotations for the source sentence.
+        """
+
         looking = False
         for token_ptr, token in enumerate(src_annots):
                 # determine if the token is at the beginning or inside a 'move' sequence
@@ -428,16 +481,31 @@ class SentenceAnnotator:
                     src_annots[begin_ptr]['move'] = token['move'] - (token_ptr - begin_ptr)
 
     def _have_same_postag(self, src_index, ref_index, src_parse, ref_parse):
-        """Check if two tokens in two parse trees have the same part-of-speech tag, given their indexes."""
+        """
+        Check if two tokens in two parse trees have the same part-of-speech tag, given their indexes.
+
+        * *Parameters*:
+            * **src_index**: The index of the token to compare in the source sentence.
+            * **ref_index**: The index of the token to compare in the reference sentence.
+            * **src_parse**: A string containing the constituent parse tree of the source sentence.
+            * **ref_parse**: A string containing the constituent parse tree of the reference sentence.
+        * *Output*:
+            * **same_postag**: Indicates whether the two tokens have the same part-of-speech tag or not.
+        """
+
+        # get the parse trees from the string format
         src_tree = ParentedTree.fromstring(src_parse)
         ref_tree = ParentedTree.fromstring(ref_parse)
 
+        # get the part-of-speech tag of the token in the source sentence
         src_treepos = src_tree.leaf_treeposition(src_index - 1)
         src_subtree = src_tree[src_treepos[:-1]]
         src_postag = src_subtree.label()
 
+        # get the part-of-speech tag of the token in the reference sentence
         ref_treepos = ref_tree.leaf_treeposition(ref_index - 1)
         ref_subtree = ref_tree[ref_treepos[:-1]]
         ref_postag = ref_subtree.label()
 
+        # return whether the two tokens have the same part-of-speech tag or not
         return src_postag == ref_postag
