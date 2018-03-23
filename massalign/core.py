@@ -35,12 +35,13 @@ class MASSAligner:
 			#Search for full paragraph:
 			newparag.append(line)
 			curr_line += 1
-			line = text[curr_line].strip()
-			while curr_line<len(text) and len(line)>0:
-				newparag.append(line)
-				curr_line += 1
-				if curr_line<len(text):
-					line = text[curr_line].strip()
+			if curr_line<len(text):
+				line = text[curr_line].strip()
+				while curr_line<len(text) and len(line)>0:
+					newparag.append(line)
+					curr_line += 1
+					if curr_line<len(text):
+						line = text[curr_line].strip()
 			
 			#Save newly found paragraph:
 			paragraphs.append(newparag)
