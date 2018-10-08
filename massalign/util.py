@@ -1,10 +1,12 @@
 import codecs
+
 try:
     # for Python2
     from urllib2 import urlopen
 except ImportError:
     # for Python3
     from urllib.request import urlopen
+
 
 class FileReader:
 	"""
