@@ -1,0 +1,5 @@
+*.pyc
+*conll*
+local
+*HOW TO*
+sample_data/*
