@@ -1,6 +1,6 @@
 # Introduction:
 
-**MASSAlign** is a *Python 2* library for the alignment and annotation of comparable documents.
+**MASSAlign** is a library for the alignment and annotation of comparable documents.
 It offers **3** main functionalities:
 
 * Paragraph-level alignment between comparable documents
